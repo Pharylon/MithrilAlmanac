@@ -4,7 +4,7 @@ import CalendarView from "./CalendarView";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <div className="App" id="app">
       <div className="content"><CalendarView></CalendarView></div>
     </div>
   );

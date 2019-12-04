@@ -1,23 +1,36 @@
 import React from "react";
 import MonthView from "./MonthView";
-import {observer} from "mobx-react";
+import { observer } from "mobx-react";
 import CalendarState from "./State/CalendarState";
-import Modal from "./Modal";
+import Modal from "react-modal";
+import DayDetailView from "./DayDetailView";
+
 
 const CalendarView = observer(() => {
+  const myApp = document.getElementById("calendar");
+  if (myApp) {
+    Modal.setAppElement(myApp);
+  }
   return (
-    <div className="calendar">
+    <div className="calendar" id="calendar">
       <div>{CalendarState.currentYear}</div>
       <div className="calendar-months">
         {
-          CalendarState.calendar.months.map(x => 
-            <MonthView key={x.position} monthNumber={x.position}/>,
-            )
+          CalendarState.calendar.months.map(x =>
+            <MonthView key={x.position} monthNumber={x.position} />,
+          )
         }
       </div>
-      <Modal title="Foo" visible={!!CalendarState.selectedDay} onTryClose={() => CalendarState.selectedDay = undefined}>
-        <div>Test</div>
-      </Modal>
+      {
+        CalendarState.selectedDay && (
+          <Modal
+            isOpen={!!CalendarState.selectedDay}
+            onRequestClose={() => CalendarState.selectedDay = undefined}>
+            <DayDetailView date={CalendarState.selectedDay} />
+          </Modal>
+        )
+      }
+
     </div>
   );
 });
