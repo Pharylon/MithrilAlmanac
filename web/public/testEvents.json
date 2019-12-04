@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "The Redspooks",
+    "fantasyDate": {
+      "year": 567,
+      "month": 16,
+      "dayOfMonth": 18
+    },
+    "description": "Everyone but Illithyia goes to Nito's private island of evil and uses his sword to break the time barrier. Isen Sr dies"
+  },
+  {
+    "id": "2",
+    "name": "Greenshanks",
+    "fantasyDate": {
+      "year": 567,
+      "month": 16,
+      "dayOfMonth": 19
+    },
+    "description": "We meet Greenshanks, Illithyia goes off with her to meet her mother. "
+  },
+  {
+    "id": "3",
+    "name": "Circle Time",
+    "fantasyDate": {
+      "year": 567,
+      "month": 16,
+      "dayOfMonth": 19
+    },
+    "description": "Denaliah meets the full Circle of Eight"
+  },
+  {
+    "id": "4",
+    "name": "Zealeah Dies",
+    "fantasyDate": {
+      "year": 567,
+      "month": 16,
+      "dayOfMonth": 22
+    },
+    "description": "Zealeah Dies and Denaliah follows Codvara to learn about when the ticking clock goes off"
+  }
+]

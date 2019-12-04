@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import Calendar from "./Calendar";
+import CalendarView from "./CalendarView";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Calendar></Calendar>
+      <div className="content"><CalendarView></CalendarView></div>
     </div>
   );
 };
