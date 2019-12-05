@@ -1,2 +1,0 @@
-import {DocumentClient} from "documentdb";
-
