@@ -8,6 +8,7 @@
 
 .content{
   backdrop-filter: blur(4px);
+  background-color: rgba(61, 61, 61, 0.8);
 }
 
 
@@ -37,7 +38,7 @@
   margin-bottom: 20px;
   border: 1px solid rgb(0, 0, 0);
   border-collapse: collapse;
-  background-color: white;
+  background-color: rgb(240, 240, 240);
 }
 
 .week{
@@ -72,4 +73,17 @@
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.year-header{
+  background-color: rgb(255, 241, 203);
+  font-size: 2em;
+  position: sticky;
+  top: 0px;
+}
+
+
+.year-number{
+  margin-left: 20px;
+  margin-right: 20px;
 }

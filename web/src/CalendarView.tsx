@@ -4,6 +4,8 @@ import { observer } from "mobx-react";
 import CalendarState from "./State/CalendarState";
 import Modal from "react-modal";
 import DayDetailView from "./DayDetailView";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 
 const CalendarView = observer(() => {
@@ -13,7 +15,11 @@ const CalendarView = observer(() => {
   }
   return (
     <div className="calendar" id="calendar">
-      <div>{CalendarState.currentYear}</div>
+      <div className="year-header">
+        <FontAwesomeIcon icon={faAngleLeft} onClick={() => CalendarState.decrementYear()} />
+        <span className="year-number">{CalendarState.currentYear}</span>
+        <FontAwesomeIcon icon={faAngleRight} onClick={() => CalendarState.incrementYear()}/>
+      </div>
       <div className="calendar-months">
         {
           CalendarState.calendar.months.map(x =>
@@ -34,17 +40,5 @@ const CalendarView = observer(() => {
     </div>
   );
 });
-
-// export default function Calendar() {
-//   return (
-//     <div className="calendar">
-//       {
-//         GreyhawkCalendar.months.map(x => 
-//           <MonthView weekLength={appState.weekLength} key={x.position} month={x}/>,
-//           )
-//       }
-//     </div>
-//   );
-// }
 
 export default CalendarView;

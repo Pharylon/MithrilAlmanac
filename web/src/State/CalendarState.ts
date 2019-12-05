@@ -9,6 +9,8 @@ interface ICalendarState {
   events: CalendarEvent[];
   currentYear: number;
   selectedDay: FantasyDate | undefined;
+  incrementYear: () => void;
+  decrementYear: () => void;
 }
 
 const CalendarState = observable<ICalendarState>({
@@ -16,6 +18,8 @@ const CalendarState = observable<ICalendarState>({
   events: [],
   currentYear: 567,
   selectedDay: undefined,
+  incrementYear: () => CalendarState.currentYear++,
+  decrementYear: () => CalendarState.currentYear--,
 });
 
 async function GetTestEvents(): Promise<CalendarEvent[]> {

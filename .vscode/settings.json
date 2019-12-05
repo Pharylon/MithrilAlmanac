@@ -5,6 +5,7 @@
   "debug.internalConsoleOptions": "neverOpen",
   "azureFunctions.preDeployTask": "npm prune",
   "cSpell.words": [
-    "Coldeven"
+    "Coldeven",
+    "fortawesome"
   ]
 }
