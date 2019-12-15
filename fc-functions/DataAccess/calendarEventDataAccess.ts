@@ -33,3 +33,11 @@ export async function GetAllCalendarEvents(): Promise<CalendarEvent[]>{
   const {resources} = await container.items.query(query).fetchAll();
   return resources;
 }
+
+export async function AddEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {
+  const response = await container.items.create(calendarEvent);
+  if (response.resource){
+    return response.resource;
+  }
+  throw new Error("Something went wrong");
+}

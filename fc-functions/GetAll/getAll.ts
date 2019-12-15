@@ -5,7 +5,9 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
     context.log("GET ALL Triggered");
     const results = await GetAllCalendarEvents();
     context.res = {
-        // status: 200, /* Defaults to 200 */
+        headers: {
+            "content-type": "application/json; charset=utf-16le",
+        },
         body: JSON.stringify(results),
     };
 };

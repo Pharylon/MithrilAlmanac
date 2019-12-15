@@ -3,6 +3,7 @@ import GreyhawkCalendar from "../Models/GreyhawkCalendar";
 import CalendarEvent from "../Models/CalendarEvent";
 import YearSettings from "../Models/Year";
 import FantasyDate from "../Models/FantasyDate";
+import { GetAllCalendarEvents } from "../DataClients/CalendarEventDataClient";
 
 interface ICalendarState {
   calendar: YearSettings;
@@ -22,11 +23,9 @@ const CalendarState = observable<ICalendarState>({
   decrementYear: () => CalendarState.currentYear--,
 });
 
-async function GetTestEvents(): Promise<CalendarEvent[]> {
-  const response = await fetch("./testEvents.json");
-  const payload = await response.json();
-  CalendarState.events = payload;
-  return payload;
+async function GetTestEvents() {
+  const allEvents = await GetAllCalendarEvents();
+  CalendarState.events = allEvents;
 }
 
 GetTestEvents();

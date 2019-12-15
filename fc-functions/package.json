@@ -1,5 +1,5 @@
 {
-  "name": "FantasyCalendarTs",
+  "name": "fc-functions",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -13,7 +13,9 @@
   },
   "dependencies": {
     "@azure/cosmos": "^3.5.2",
-    "@types/node": "^12.12.14"
+    "@types/node": "^12.12.14",
+    "@types/uuid": "^3.4.6",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@azure/functions": "^1.0.3",
