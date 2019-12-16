@@ -1,6 +1,6 @@
 import {get, post} from "./fetchHelper";
 import CalendarEvent from "../Models/CalendarEvent";
-import CalendarModel from "../Models/CalendarModel";
+import {CalendarModel} from "../Models/CalendarModel";
 import CalendarState from "../State/CalendarState";
 
 
@@ -16,19 +16,31 @@ export async function GetCalendar(): Promise<CalendarModel | undefined>{
   return undefined;
 }
 
+export async function GetCalendarEvents(id: string): Promise<CalendarEvent[]>{
+  const response = await get("GetCalendarEvents", {id});
+  if (response.success){
+    const asEvents = response.value as CalendarEvent[];
+    if (!asEvents){
+      return [];
+    }
+    return asEvents;
+  }
+  return [];
+}
+
 export async function UpsertEvent(event: CalendarEvent): Promise<void>{
   const response = await post("UpdateEvent", event);
   console.log("NEW EVENT", response);
   if (response.success){
     const newEvent = response.value as CalendarEvent;
     if (newEvent){
-      const oldEvent = CalendarState.calendar.events.find(x => x.id === newEvent.id);
+      const oldEvent = CalendarState.events.find(x => x.id === newEvent.id);
       if (!oldEvent){
-        CalendarState.calendar.events.push(newEvent);
+        CalendarState.events.push(newEvent);
       }
       else{
-        const stillGoodEvents = CalendarState.calendar.events.filter(x => x.id !== newEvent.id);
-        CalendarState.calendar.events = [newEvent, ...stillGoodEvents];
+        const stillGoodEvents = CalendarState.events.filter(x => x.id !== newEvent.id);
+        CalendarState.events = [newEvent, ...stillGoodEvents];
       }
     }
   }

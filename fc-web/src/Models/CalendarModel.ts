@@ -1,9 +1,11 @@
 import Month from "./Month";
-import CalendarTemplate from "./CalendarTemplate";
-import CalendarEvent from "./CalendarEvent";
 
-export default interface CalendarModel extends CalendarTemplate {
+export interface CalendarTemplate {
+  months: Month[];
+  weekLength: number;
+}
+
+export interface CalendarModel extends CalendarTemplate {
   id: string;
   currentYear: number;
-  events: CalendarEvent[];
 }

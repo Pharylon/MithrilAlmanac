@@ -1,4 +1,4 @@
-import CalendarTemplate from "./CalendarTemplate";
+import {CalendarTemplate} from "./CalendarModel";
 
 const GreyhawkCalendar: CalendarTemplate = {
   weekLength: 7,

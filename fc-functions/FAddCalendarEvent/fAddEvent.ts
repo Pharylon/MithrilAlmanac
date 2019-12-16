@@ -7,6 +7,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
     const body = JSON.parse(req.body);
     const newEvent: CalendarEvent = {
         id: body.id ? body.id : uuid(),
+        calendarId: body.calendarId,
         name: body.name,
         description: body.description,
         realDate: body.realDate,

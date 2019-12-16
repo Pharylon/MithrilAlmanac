@@ -5,7 +5,7 @@ import CalendarState from "./State/CalendarState";
 import LongPress from "./LongPress";
 
 const CalendarDay = observer((props: { date: FantasyDate }) => {
-  const events = CalendarState.calendar.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
+  const events = CalendarState.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
   const [showPopUp, setShowPopup] = useState(false);
   let timeout: number = -1;
   function onHover() {

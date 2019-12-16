@@ -6,12 +6,13 @@ import * as uuid from "uuid/v1";
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     const newEvent: CalendarEvent = {
         id: req.body.id,
+        calendarId: req.body.calendarId,
         name: req.body.name,
         description: req.body.description,
         realDate: req.body.realDate,
         fantasyDate: req.body.fantasyDate,
     };
-    if (!newEvent.name || !newEvent.fantasyDate || !newEvent.id){
+    if (!newEvent.name || !newEvent.fantasyDate || !newEvent.id || !newEvent.calendarId){
         context.res = {
             status: 400,
             body: "Missing some of the expected parameters for a calendar events",

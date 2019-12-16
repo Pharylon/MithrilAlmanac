@@ -1,6 +1,6 @@
 import {CosmosClient, SqlQuerySpec} from "@azure/cosmos";
 import CalendarEvent from "../Models/CalendarEvent";
-import CalendarModel from "../Models/CalendarModel";
+import {CalendarModel} from "../Models/CalendarModel";
 
 const endpoint = process.env.endpoint;
 const key = process.env.key;
@@ -26,18 +26,27 @@ export async function GetCalendarEvent(id: string): Promise<CalendarEvent | unde
   return undefined;
 }
 
-// export async function GetAllCalendarEvents(): Promise<CalendarEvent[]>{
-//   const query: SqlQuerySpec = {
-//     //query: "SELECT * FROM root r",
-//     query: "SELECT r.id, r.name, r.description, r.fantasyDate, r.realDate FROM root r",
-//   };
-//   const {resources} = await container.items.query(query).fetchAll();
-//   return resources;
-// }
+export async function GetAllCalendarEvents(id: string): Promise<CalendarEvent[]>{
+  const query: SqlQuerySpec = {
+    query: "SELECT * FROM root r WHERE r.calendarId = @id and r.type = @type",
+    parameters: [
+      {
+        name: "@id",
+        value: id,
+      },
+      {
+        name: "@type",
+        value: "calendarEvent",
+      },
+    ],
+  };
+  const {resources} = await container.items.query(query).fetchAll();
+  return resources;
+}
 
 export async function AddEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {
   const dataObject = calendarEvent as any;
-  dataObject.type = "event";
+  dataObject.type = "calendarEvent";
   const response = await container.items.create(dataObject);
   if (response.resource){
     return response.resource;
@@ -47,9 +56,9 @@ export async function AddEvent(calendarEvent: CalendarEvent): Promise<CalendarEv
 
 export async function UpdateEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {
   const dataObject = calendarEvent as any;
-  dataObject.type = "event";
+  dataObject.type = "calendarEvent";
   const response = await container.items.upsert(dataObject);
-  if (response.resource && response.resource.type === "event" && response.resource.id === calendarEvent.id){
+  if (response.resource && response.resource.type === "calendarEvent" && response.resource.id === calendarEvent.id){
     const myEvent = response.resource as any;
     if (myEvent){
       return myEvent;
