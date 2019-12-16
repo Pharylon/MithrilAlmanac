@@ -1,9 +1,10 @@
 {
   "bindings": [
     {
-      "authLevel": "function",
+      "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
+      "route": "CreatCalendar",
       "name": "req",
       "methods": [
         "get",
@@ -16,5 +17,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/GetAll/getAll.js"
+  "scriptFile": "../dist/FCreateCalendar/FCreateCalendar.js"
 }

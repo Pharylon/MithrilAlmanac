@@ -3,7 +3,7 @@ import MonthView from "./MonthView";
 import { observer } from "mobx-react";
 import CalendarState from "./State/CalendarState";
 import Modal from "react-modal";
-import DayDetailView from "./DayDetailView";
+import DayDetailView from "./DayDetail/DayDetailView";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -30,6 +30,7 @@ const CalendarView = observer(() => {
       {
         CalendarState.selectedDay && (
           <Modal
+            className="event-modal"
             isOpen={!!CalendarState.selectedDay}
             onRequestClose={() => CalendarState.selectedDay = undefined}>
             <DayDetailView date={CalendarState.selectedDay} />

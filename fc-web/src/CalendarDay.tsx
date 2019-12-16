@@ -5,7 +5,7 @@ import CalendarState from "./State/CalendarState";
 import LongPress from "./LongPress";
 
 const CalendarDay = observer((props: { date: FantasyDate }) => {
-  const events = CalendarState.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
+  const events = CalendarState.calendar.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
   const [showPopUp, setShowPopup] = useState(false);
   let timeout: number = -1;
   function onHover() {
@@ -20,17 +20,17 @@ const CalendarDay = observer((props: { date: FantasyDate }) => {
     clearTimeout(timeout);
     setShowPopup(false);
   }
+  const style = events.length === 0 ? "day" : "day has-events";
   return (
     <LongPress 
         time={500} 
         onPress={() => setShowPopup(false)} 
         onLongPress={() => setShowPopup(true)}>
-      <div className="day"
+      <div className={style}
         onMouseEnter={onHover}
         onClick={() => CalendarState.selectedDay = props.date}
         onMouseLeave={onLeave}>
         <div>{props.date.dayOfMonth}</div>
-        <div>{events.length > 0 ? "•" : ""}</div>
         <div className={showPopUp && events.length ? "day-events" : "hide"}>
           {
             events.map(x => <div key={x.id}>{x.name}</div>)

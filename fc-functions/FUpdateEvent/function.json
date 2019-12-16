@@ -5,7 +5,9 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
+      "route": "UpdateEvent",
       "methods": [
+        "get",
         "post"
       ]
     },
@@ -15,5 +17,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/AddCalendarEvent/addCalendarEvent.js"
+  "scriptFile": "../dist/FUpdateEvent/fUpdateEvent.js"
 }

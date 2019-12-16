@@ -1,18 +1,17 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions"
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import CalendarEvent from "../Models/CalendarEvent";
-import {AddEvent} from "../DataAccess/calendarEventDataAccess";
+import {AddEvent, UpdateEvent} from "../DataAccess/calendarDb";
 import * as uuid from "uuid/v1";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
-    const body = JSON.parse(req.body);
     const newEvent: CalendarEvent = {
-        id: uuid(),
-        name: body.name,
-        description: body.description,
-        realDate: body.realDate,
-        fantasyDate: body.fantasyDate,
+        id: req.body.id,
+        name: req.body.name,
+        description: req.body.description,
+        realDate: req.body.realDate,
+        fantasyDate: req.body.fantasyDate,
     };
-    if (!newEvent.name || !newEvent.fantasyDate){
+    if (!newEvent.name || !newEvent.fantasyDate || !newEvent.id){
         context.res = {
             status: 400,
             body: "Missing some of the expected parameters for a calendar events",
@@ -20,7 +19,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
         return;
     }
     try {
-        const addedEvent = await AddEvent(newEvent);
+        const addedEvent = await UpdateEvent(newEvent);
         context.res = {
             body: addedEvent,
         };

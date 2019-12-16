@@ -32,24 +32,3 @@ const MonthView = observer((props: { monthNumber: number }) => {
 });
 
 export default MonthView;
-
-// export default function MonthView(props: { monthNumber: number }) {
-//   const days = Array.from({ length: props.month.days }, (v, i) => i + 1);
-//   const weeks = chunks(days, props.yearSettings.weekLength);
-//   return (
-//     <div>
-//       <div>{props.month.name}</div>
-//       <div className="month">
-//         {
-//           weeks.map(week => (
-//             <div className="week">
-//               {week.map(x => {
-//                 const fantasyDate: FantasyDate = {dayOfMonth: x, }
-//               })}
-//             </div>
-//           ))
-//         }
-//       </div>
-//     </div>
-//   );
-// }

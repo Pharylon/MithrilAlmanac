@@ -1,33 +1,45 @@
 import {observable} from "mobx";
 import GreyhawkCalendar from "../Models/GreyhawkCalendar";
 import CalendarEvent from "../Models/CalendarEvent";
-import YearSettings from "../Models/Year";
+import YearSettings from "../Models/CalendarTemplate";
 import FantasyDate from "../Models/FantasyDate";
-import { GetAllCalendarEvents } from "../DataClients/CalendarEventDataClient";
+import { GetCalendar } from "../DataClients/CalendarEventDataClient";
+import CalendarModel from "../Models/CalendarModel";
 
 interface ICalendarState {
-  calendar: YearSettings;
-  events: CalendarEvent[];
+  calendar: CalendarModel;
   currentYear: number;
   selectedDay: FantasyDate | undefined;
   incrementYear: () => void;
   decrementYear: () => void;
 }
 
-const CalendarState = observable<ICalendarState>({
-  calendar: GreyhawkCalendar,
+const blankModel: CalendarModel = {
+  id: "__BLANK__",
+  currentYear: -1,
   events: [],
-  currentYear: 567,
+  months: [],
+  weekLength: 7,
+};
+
+const CalendarState = observable<ICalendarState>({
+  calendar: blankModel,
+  currentYear: -1,
   selectedDay: undefined,
   incrementYear: () => CalendarState.currentYear++,
   decrementYear: () => CalendarState.currentYear--,
 });
 
-async function GetTestEvents() {
-  const allEvents = await GetAllCalendarEvents();
-  CalendarState.events = allEvents;
+async function GetTextCalendar() {
+  const calendar = await GetCalendar();
+  if (calendar){
+    CalendarState.calendar = calendar;
+    if (CalendarState.currentYear === -1){
+      CalendarState.currentYear = calendar.currentYear;
+    }
+  }  
 }
 
-GetTestEvents();
+GetTextCalendar();
 
 export default CalendarState;

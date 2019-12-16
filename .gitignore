@@ -92,3 +92,6 @@ bin
 obj
 appsettings.json
 local.settings.json
+
+#Linked Model folder
+fc-functions/Models

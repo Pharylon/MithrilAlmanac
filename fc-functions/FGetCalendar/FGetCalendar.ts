@@ -1,14 +1,15 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import {GetAllCalendarEvents} from "../DataAccess/calendarEventDataAccess";
+import { GetCalendar } from "../DataAccess/calendarDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
-    context.log("GET ALL Triggered");
-    const results = await GetAllCalendarEvents();
+    const calendarId = req.query.id;
+    const calendar = await GetCalendar(calendarId);
+
     context.res = {
         headers: {
             "content-type": "application/json; charset=utf-16le",
         },
-        body: JSON.stringify(results),
+        body: JSON.stringify(calendar),
     };
 };
 

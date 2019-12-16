@@ -1,4 +1,5 @@
-const baseUriAddress = process.env.REACT_APP_API_ADDRESS;
+const baseUriAddress = getBaseAddress();
+
 
 interface ErrorObject {
   status: number;
@@ -15,6 +16,19 @@ export async function get(uri: string, parameters?: any): Promise<Result>{
   const fullUri = getUri(baseUriAddress + uri, parameters);
   const requestInit: RequestInit = {
     method: "GET",
+  };
+  const response = await request(fullUri, requestInit);
+  return response;
+}
+
+export async function post(uri: string, body: any): Promise<Result>{
+  const fullUri = getUri(baseUriAddress + uri);
+  const requestInit: RequestInit = {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
   const response = await request(fullUri, requestInit);
   return response;
@@ -61,7 +75,7 @@ async function request(uri: string, requestInit: RequestInit): Promise<Result> {
 }
 
 
-function getUri(url: string, params: any) {
+function getUri(url: string, params?: any) {
   let myUri = url;
   if (params) {
     const queryParams = Object.keys(params)
@@ -120,4 +134,15 @@ function getUnknownErrorMsg(status: number) {
   else {
     return "There was an unknown error with your request. Status code: " + status;
   }
+}
+
+function getBaseAddress(){
+  let baseAddress = process.env.REACT_APP_API_ADDRESS;
+  if (!baseAddress){
+    console.log("YOU MUST ADD THE FUNCTION BASE ADDRESS TO THE ENV FILE!");
+  }
+  else if (!baseAddress.endsWith("/")){
+    baseAddress += "/";
+  }
+  return baseAddress;
 }

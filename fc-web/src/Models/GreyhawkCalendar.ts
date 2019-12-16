@@ -1,6 +1,6 @@
-import YearSettings from "./Year";
+import CalendarTemplate from "./CalendarTemplate";
 
-const GreyhawkCalendar: YearSettings = {
+const GreyhawkCalendar: CalendarTemplate = {
   weekLength: 7,
   months: [
     {name: "Needfest", days: 7, position: 1},
