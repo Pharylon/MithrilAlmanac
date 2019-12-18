@@ -18,7 +18,7 @@ const MonthView = observer((props: { monthNumber: number }) => {
             <div key={weekIndex} className="week">
               {week.map((x, i) => {
                 const fantasyDate: FantasyDate = { 
-                  year: CalendarState.currentYear, 
+                  year: CalendarState.yearView, 
                   dayOfMonth: x, 
                   month: props.monthNumber} ;
                 return <CalendarDay key={i} date={fantasyDate} />;

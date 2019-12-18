@@ -6,12 +6,13 @@ import {CalendarModel} from "../Models/CalendarModel";
 
 interface ICalendarState {
   calendar: CalendarModel;
-  currentYear: number;
+  yearView: number;
   selectedDay: FantasyDate | undefined;
   events: CalendarEvent[];
   incrementYear: () => void;
   decrementYear: () => void;
   calendarEventEditId: string;
+  setCalendar: (id: string) => void;
 }
 
 const blankModel: CalendarModel = {
@@ -23,28 +24,34 @@ const blankModel: CalendarModel = {
 
 const CalendarState = observable<ICalendarState>({
   calendar: blankModel,
-  currentYear: -1,
+  yearView: -1,
   selectedDay: undefined,
   events: [],
-  incrementYear: () => CalendarState.currentYear++,
-  decrementYear: () => CalendarState.currentYear--,
+  incrementYear: () => CalendarState.yearView++,
+  decrementYear: () => CalendarState.yearView--,
   calendarEventEditId: "",
-
+  setCalendar: (id: string) => {
+    if (id !== CalendarState.calendar.id){
+      LoadCalendar(id);
+    }    
+  },
 });
 
-async function GetTextCalendar() {
-  const calendar = await GetCalendar();
-  if (calendar){
-    CalendarState.calendar = calendar;
-    if (CalendarState.currentYear === -1){
-      CalendarState.currentYear = calendar.currentYear;
-    }
-    const events = await GetCalendarEvents(calendar.id);
-    console.log("MY EVENTS", events);
-    CalendarState.events = events;
-  }  
+async function LoadCalendar(id: string) {
+  console.log("Getting Calendar", id);
+  const calendar = await GetCalendar(id);
+  if (!calendar){
+    CalendarState.calendar = blankModel;
+    CalendarState.events = [];
+    return;
+  }
+  CalendarState.calendar = calendar;
+  if (CalendarState.yearView === -1){
+    CalendarState.yearView = calendar.currentYear;
+  }
+  const events = await GetCalendarEvents(calendar.id);
+  CalendarState.events = events;
 }
 
-GetTextCalendar();
 
 export default CalendarState;
