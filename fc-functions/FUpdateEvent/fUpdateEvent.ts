@@ -5,7 +5,7 @@ import * as uuid from "uuid/v1";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     const newEvent: CalendarEvent = {
-        id: req.body.id,
+        id: req.body.id ? req.body.id : uuid(),
         calendarId: req.body.calendarId,
         name: req.body.name,
         description: req.body.description,

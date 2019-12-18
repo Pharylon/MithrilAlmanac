@@ -41,3 +41,12 @@
 .edit-event-area div input{
   width: 100%;
 }
+
+.add-event-button{
+  background-color: rgb(3, 114, 27);
+  border: 1px solid rgb(34, 34, 34);
+  color: white;  
+  font-size: 18px;
+  margin-top: 20px;
+  width: 100%;
+}

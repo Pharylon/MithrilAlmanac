@@ -11,6 +11,7 @@ interface ICalendarState {
   events: CalendarEvent[];
   incrementYear: () => void;
   decrementYear: () => void;
+  calendarEventEditId: string;
 }
 
 const blankModel: CalendarModel = {
@@ -27,6 +28,8 @@ const CalendarState = observable<ICalendarState>({
   events: [],
   incrementYear: () => CalendarState.currentYear++,
   decrementYear: () => CalendarState.currentYear--,
+  calendarEventEditId: "",
+
 });
 
 async function GetTextCalendar() {

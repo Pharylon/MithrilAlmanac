@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import CalendarEvent from "../Models/CalendarEvent";
 import {UpsertEvent} from "../DataClients/CalendarEventDataClient";
+import CalendarState from "../State/CalendarState";
 
-const DayDetailView = observer((props: {event: CalendarEvent}) => {
-  const [editMode, setEditMode] = useState(false);
+const DayDetailView = observer((props: {event: CalendarEvent, defaultEdit: boolean}) => {
   const [name, setName] = useState(props.event.name);
   const [description, setDescription] = useState(props.event.description);
   async function textAreaKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>){
@@ -16,7 +16,7 @@ const DayDetailView = observer((props: {event: CalendarEvent}) => {
     }
   }
   async function saveEvent(){
-    setEditMode(false);
+    CalendarState.calendarEventEditId = "";
     const updateEvent: CalendarEvent = {
       ...props.event,
       name,
@@ -24,12 +24,15 @@ const DayDetailView = observer((props: {event: CalendarEvent}) => {
     };
     await UpsertEvent(updateEvent);
   }
-  if (!editMode){
+  function startEdit(){
+    CalendarState.calendarEventEditId = props.event.id;
+  }
+  if (CalendarState.calendarEventEditId !== props.event.id){
     return (
       <div>
         <h3>
           {name}&nbsp;
-          <FontAwesomeIcon icon={faEdit} onClick={() => setEditMode(true)} />
+          <FontAwesomeIcon icon={faEdit} onClick={() => startEdit()} />
         </h3>
         <div className="event-description">
           {

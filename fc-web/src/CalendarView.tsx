@@ -13,6 +13,10 @@ const CalendarView = observer(() => {
   if (myApp) {
     Modal.setAppElement(myApp);
   }
+  function onModalClose(){
+    CalendarState.selectedDay = undefined;
+    CalendarState.calendarEventEditId = "";
+  }
   return (
     <div className="calendar" id="calendar">
       <div className="year-header">
@@ -32,7 +36,7 @@ const CalendarView = observer(() => {
           <Modal
             className="event-modal"
             isOpen={!!CalendarState.selectedDay}
-            onRequestClose={() => CalendarState.selectedDay = undefined}>
+            onRequestClose={() => onModalClose()}>
             <DayDetailView date={CalendarState.selectedDay} />
           </Modal>
         )
