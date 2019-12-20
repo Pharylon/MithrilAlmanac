@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 import { observer } from "mobx-react";
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline, GoogleLogout } from "react-google-login";
+import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
 import { AuthenticateUser } from "./DataClients/CalendarEventDataClient";
 import UserState from "./State/UserState";
 import GoogleLogo from "./Images/GoogleG.png";
 
 const GoogleButton: React.FC = observer(() => {
   
-  function onLogOut(){
-    console.log("Logged Out");
-  }
   const responseGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
     console.log("Google Response", response);
     const loginResponse = response as GoogleLoginResponse;
@@ -25,18 +22,11 @@ const GoogleButton: React.FC = observer(() => {
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID as string;
   return (
     <div>
-      {/* <GoogleLogout
-      clientId={clientId}
-      buttonText="Logout"
-      onLogoutSuccess={() => console.log("Success")}
-      onFailure={() => console.log("fail")}
-    >
-    </GoogleLogout> */}
       <GoogleLogin
           clientId={clientId}
           render={(props) => (
             <button className="google-login-button" onClick={props.onClick}>
-              <div className="g-wrap"><img src={GoogleLogo}/></div>
+              <div className="g-wrap"><img src={GoogleLogo} alt="Google Logo"/></div>
               <div>Sign In With Google</div>
             </button>
           )}

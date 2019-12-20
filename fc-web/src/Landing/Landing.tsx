@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Landing.css";
 import logo from "../Images/MithrilAlmanacLogo.jpg";
 import { observer } from "mobx-react";

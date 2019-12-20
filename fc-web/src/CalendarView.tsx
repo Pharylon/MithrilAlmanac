@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MonthView from "./MonthView";
 import { observer } from "mobx-react";
 import CalendarState from "./State/CalendarState";

@@ -19,7 +19,7 @@ const blankModel: CalendarModel = {
   id: "__BLANK__",
   currentYear: -1,
   months: [],
-  weekLength: 7,
+  daysOfWeek: [],
 };
 
 const CalendarState = observable<ICalendarState>({

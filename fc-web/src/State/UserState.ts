@@ -2,12 +2,19 @@ import {observable} from "mobx";
 
 interface IUserState {
   loginModalOpen: boolean;
-  accessToken: string;
+  getAccessToken: () => string | null;
+  setAccessToken: (token: string) => void;
+  userName: string;
 }
+
+
 const UserState = observable<IUserState>({
   loginModalOpen: false,
-  accessToken: "",
+  getAccessToken: () => localStorage.getItem("accessToken"),
+  setAccessToken: (token: string) => localStorage.setItem("accessToken", token),
+  userName: "",
 });
+
 
 
 export default UserState;

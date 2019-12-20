@@ -2,12 +2,14 @@ import {get, post} from "./fetchHelper";
 import CalendarEvent from "../Models/CalendarEvent";
 import {CalendarModel} from "../Models/CalendarModel";
 import CalendarState from "../State/CalendarState";
+import { UserModel } from "../Models/UserModel";
+import UserState from "../State/UserState";
 
 
 export async function GetCalendar(id: string): Promise<CalendarModel | undefined>{
-  if (!id){
-    id = "9a865260-1f8f-11ea-97ed-9555018c1b02";
-  }
+  // if (!id){
+  //   id = "9a865260-1f8f-11ea-97ed-9555018c1b02";
+  // }
   const response = await get("GetCalendar", {id});
   if (response.success){
     const asCalendar = response.value as CalendarModel;
@@ -51,5 +53,12 @@ export async function UpsertEvent(event: CalendarEvent): Promise<void>{
 
 export async function AuthenticateUser(token: string): Promise<void> {
   const response = await post("AuthenticateUser", {token});
+  if (response.success){
+    const userModel = response.value as UserModel;
+    UserState.setAccessToken(token);
+    UserState.userName = userModel.userName;
+  }
   console.log(response);
 }
+
+

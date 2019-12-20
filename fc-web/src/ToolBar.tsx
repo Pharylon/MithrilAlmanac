@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { observer } from "mobx-react";
 import ColoredSquares from "./Images/ColoredSquares.png";
@@ -14,7 +14,11 @@ const ToolBar: React.FC = observer(() => {
       <div className="top-bar">
         <img src={ColoredSquares} alt="small logo" />
         {/* <div className="title">The Mithril Almanac</div> */}
-        <div className="fake-link" onClick={() => UserState.loginModalOpen = true}>Log In</div>
+        {
+          UserState.userName ? 
+          (<div>{UserState.userName}</div>) : 
+          (<div className="fake-link" onClick={() => UserState.loginModalOpen = true}>Log In</div>)
+        }
       </div>
       <Modal
         className="event-modal"

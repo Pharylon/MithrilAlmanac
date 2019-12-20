@@ -119,6 +119,9 @@
 }
 
 .month{
+  margin-left: 5px;
+  margin-right: 5px;
+  flex: 1;
   display: inline-flex;
   flex-direction: column;
   align-content: center;

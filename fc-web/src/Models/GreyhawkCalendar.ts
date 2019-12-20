@@ -1,7 +1,15 @@
 import {CalendarTemplate} from "./CalendarModel";
 
 const GreyhawkCalendar: CalendarTemplate = {
-  weekLength: 7,
+  daysOfWeek: [
+    "Starday",
+    "Sunday",
+    "Moonday",
+    "Godsday",
+    "Waterday",
+    "Earthday",
+    "Freeday",
+  ],
   months: [
     {name: "Needfest", days: 7, position: 1},
     {name: "Fireseek", days: 28, position: 2},

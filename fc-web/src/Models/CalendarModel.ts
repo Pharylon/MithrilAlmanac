@@ -2,7 +2,7 @@ import Month from "./Month";
 
 export interface CalendarTemplate {
   months: Month[];
-  weekLength: number;
+  daysOfWeek: string[];
 }
 
 export interface CalendarModel extends CalendarTemplate {
