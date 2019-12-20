@@ -4,26 +4,13 @@
   /* background-image: url("./background.jpg"); */
 }
 
-.top-bar{
-  background-color: rgba(255, 255, 255, 0.925);
+
+.right-toolbar{
   display: flex;
-  justify-content: space-between;
+}
+
+.right-toolbar div{
   margin-right: 20px;
-  position: sticky;
-  top: 0;
-}
-
-.top-bar img{
-  width: 80px;
-  padding: 5px;
-}
-
-.top-bar .title{
-  font-weight: bold;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .content{
@@ -95,7 +82,7 @@
   background-color: rgb(255, 241, 203);
   font-size: 2em;
   position: sticky;
-  top: 0px;
+  top: 34px;
 }
 
 

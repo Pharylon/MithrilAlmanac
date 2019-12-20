@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Landing from "./Landing/Landing";
 import CalendarView from "./CalendarView";
-import ToolBar from "./ToolBar";
+import ToolBar from "./ToolBar/ToolBar";
 import UserState from "./State/UserState";
 import { AuthenticateUser } from "./DataClients/CalendarEventDataClient";
 
@@ -17,8 +17,8 @@ const App: React.FC = observer(() => {
   }, []);
   return (
     <div className="App" id="app">
-      <ToolBar/>
       <Router>
+        <ToolBar/>
         <Switch>
         <Route path="/calendar/:calendarId">
             <CalendarView />

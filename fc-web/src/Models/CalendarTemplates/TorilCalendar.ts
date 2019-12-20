@@ -1,6 +1,7 @@
-import {CalendarTemplate} from "./CalendarModel";
+import {CalendarTemplate} from "../CalendarModel";
 
 const TorilCalendar: CalendarTemplate = {
+  currentYear: 1491,
   daysOfWeek: [
     "FirstDay",
     "SecondDay",
@@ -27,6 +28,11 @@ const TorilCalendar: CalendarTemplate = {
     {name: "The Rotting ", days: 31, position: 15},
     {name: "The Drawing Down", days: 30, position: 17},
   ],
+  leapYearRules: {
+    month: 9,
+    interval: 4,
+    unlessDivisions: [],
+  },
 };
 
 export default TorilCalendar;

@@ -1,6 +1,7 @@
-import {CalendarTemplate} from "./CalendarModel";
+import {CalendarTemplate} from "../CalendarModel";
 
 const GreyhawkCalendar: CalendarTemplate = {
+  currentYear: 567,
   daysOfWeek: [
     "Starday",
     "Sunday",
@@ -28,6 +29,11 @@ const GreyhawkCalendar: CalendarTemplate = {
     {name: "Ready'reat", days: 28, position: 15},
     {name: "Sunsebb", days: 28, position: 16},
   ],
+  leapYearRules: {
+    month: 0,
+    interval: 0,
+    unlessDivisions: [],
+  },
 };
 
 export default GreyhawkCalendar;

@@ -2,7 +2,7 @@ import {observable} from "mobx";
 import CalendarEvent from "../Models/CalendarEvent";
 import FantasyDate from "../Models/FantasyDate";
 import { GetCalendar, GetCalendarEvents } from "../DataClients/CalendarEventDataClient";
-import {CalendarModel} from "../Models/CalendarModel";
+import {CalendarModel, CheckIfLeapYear} from "../Models/CalendarModel";
 
 interface ICalendarState {
   calendar: CalendarModel;
@@ -13,6 +13,7 @@ interface ICalendarState {
   decrementYear: () => void;
   calendarEventEditId: string;
   setCalendar: (id: string) => void;
+  isLeapYear: () => boolean;
 }
 
 const blankModel: CalendarModel = {
@@ -20,6 +21,12 @@ const blankModel: CalendarModel = {
   currentYear: -1,
   months: [],
   daysOfWeek: [],
+  leapYearRules: {
+    month: 0,
+    interval: 0,
+    unlessDivisions: [],
+  },
+  
 };
 
 const CalendarState = observable<ICalendarState>({
@@ -35,7 +42,13 @@ const CalendarState = observable<ICalendarState>({
       LoadCalendar(id);
     }    
   },
+  isLeapYear: () => {
+    const isLeapYear = CheckIfLeapYear(CalendarState.yearView, CalendarState.calendar);
+    return isLeapYear;
+  },
 });
+
+
 
 async function LoadCalendar(id: string) {
   console.log("Getting Calendar", id);

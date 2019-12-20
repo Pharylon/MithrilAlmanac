@@ -7,6 +7,7 @@ import DayDetailView from "./DayDetail/DayDetailView";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
+import { CheckIfLeapYear } from "./Models/CalendarModel";
 
 
 const CalendarView = observer(() => {
@@ -26,6 +27,20 @@ const CalendarView = observer(() => {
   if (CalendarState.calendar.id === "__BLANK__") {
     return (<div>Could not load Calendar</div>);
   }
+  const prevYears = CalendarState.yearView > 0 ?  Array.from(Array(CalendarState.yearView).keys()) : [0];
+  const totalDaysInYear = CalendarState.calendar.months.reduce((total, currMonth) => {
+    return total + currMonth.days;
+  }, 0);
+  const leapYears: number[] = [];
+  const daysBeforeYear = prevYears.reduce((totalDays, yearNum) => {
+    const isLeapYear = CheckIfLeapYear(yearNum, CalendarState.calendar);
+    if (isLeapYear){
+      leapYears.push(yearNum);
+    }
+    return totalDays + totalDaysInYear + (isLeapYear ? 1 : 0);
+  }, 0);
+  console.log(leapYears);
+  const offSetDays = daysBeforeYear % CalendarState.calendar.daysOfWeek.length;
   return (
     <div className="calendar" id="calendar">
       <div className="year-header">
@@ -35,8 +50,8 @@ const CalendarView = observer(() => {
       </div>
       <div className="calendar-months">
         {
-          CalendarState.calendar.months.map(x =>
-            <MonthView key={x.position} monthNumber={x.position} />,
+          CalendarState.calendar.months.map((x, i) =>
+            <MonthView key={x.position} offsetDays={offSetDays} monthNumber={x.position} />,
           )
         }
       </div>

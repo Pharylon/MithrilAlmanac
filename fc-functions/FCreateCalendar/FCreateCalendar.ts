@@ -1,21 +1,20 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import {AddCalendar } from "../DataAccess/calendarDb";
-import {CalendarModel} from "../Models/CalendarModel";
-import GreyhawkCalendar from "../Models/GreyhawkCalendar";
+import {CalendarModel, CalendarTemplate} from "../Models/CalendarModel";
 import * as uuid from "uuid/v1";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
-    const myCalendar: CalendarModel = {
-        id: uuid(),
-        currentYear: 567,
-        ...GreyhawkCalendar,
-    };
-    await AddCalendar(myCalendar);
-    
+    // const myCalendar = req.body as CalendarTemplate;
+    // const calendarModel = {
+    //     ...myCalendar,
+    //     id: uuid(),
+    // };
+    // await AddCalendar(calendarModel);
+    const id = uuid();
 
     context.res = {
         // status: 200, /* Defaults to 200 */
-        body: "Done!",
+        body: JSON.stringify({id}),
     };
 };
 

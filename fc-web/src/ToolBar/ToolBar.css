@@ -1,0 +1,57 @@
+
+.top-bar{
+  background-color: rgba(58, 58, 58);
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  color: rgb(236, 236, 236);
+  height: 34px;
+  z-index: 10;
+}
+
+.top-bar div{
+  align-self: center;
+  cursor: pointer;
+}
+
+.top-bar img{
+  width: 80px;
+  padding: 5px;
+}
+
+.top-bar .title{
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.calendar-dd{
+  position: absolute;
+  background-color: rgba(58, 58, 58);
+  color: rgb(236, 236, 236);
+  width: 130px;
+  padding-left: 10px;
+  margin-left: -10px;
+  padding-bottom: 10px;
+  z-index: 100;
+}
+
+.calendar-dd div{
+  margin-top: 5px;
+}
+
+.calendar-dd div:not(:last-child){
+  border-bottom: 1px solid white;
+}
+
+.hover-bold:hover{
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}

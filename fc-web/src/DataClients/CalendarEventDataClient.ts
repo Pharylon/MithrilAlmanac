@@ -1,6 +1,6 @@
 import {get, post} from "./fetchHelper";
 import CalendarEvent from "../Models/CalendarEvent";
-import {CalendarModel} from "../Models/CalendarModel";
+import {CalendarModel, CalendarTemplate} from "../Models/CalendarModel";
 import CalendarState from "../State/CalendarState";
 import { UserModel } from "../Models/UserModel";
 import UserState from "../State/UserState";
@@ -49,6 +49,19 @@ export async function UpsertEvent(event: CalendarEvent): Promise<void>{
       }
     }
   }
+}
+
+
+export async function AddCalendar(calendarModel: CalendarTemplate): Promise<string>{
+  const response = await post("CreatCalendar", calendarModel);
+  console.log("AddCalendar", response);
+  if (response.success){
+    const payload = response.value as {id: string};
+    if (payload){
+      return payload.id;
+    }
+  }
+  return "";
 }
 
 export async function AuthenticateUser(token: string): Promise<void> {
