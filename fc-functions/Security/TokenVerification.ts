@@ -18,6 +18,9 @@ const client = new OAuth2Client(process.env.googleClientId);
 const cache: Map<string, TokenCacheObj> = new Map();
 
 export async function VerifyTicket(token: string) {
+  if (!token){
+    return undefined;
+  }
   const cached = getModelFromCache(token);
   if (cached){
     return cached;

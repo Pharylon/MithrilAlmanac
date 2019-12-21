@@ -15,14 +15,14 @@ const DayDetailView = observer((props: {event: CalendarEvent, defaultEdit: boole
       saveEvent();
     }
   }
-  async function saveEvent(){
+  function saveEvent(){
     CalendarState.calendarEventEditId = "";
     const updateEvent: CalendarEvent = {
       ...props.event,
       name,
       description,
     };
-    await UpsertEvent(updateEvent);
+    CalendarState.updateEvent(updateEvent);
   }
   function startEdit(){
     CalendarState.calendarEventEditId = props.event.id;

@@ -5,8 +5,9 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "AddOrUpdateEvent",
+      "route": "GetUserCalendars",
       "methods": [
+        "get",
         "post"
       ]
     },
@@ -16,5 +17,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/FAddCalendarEvent/fAddEvent.js"
+  "scriptFile": "../dist/FGetUserCalendars/fGetUserCalendars.js"
 }

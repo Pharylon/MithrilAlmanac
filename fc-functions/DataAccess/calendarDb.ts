@@ -1,6 +1,7 @@
 import {CosmosClient, SqlQuerySpec} from "@azure/cosmos";
 import CalendarEvent from "../Models/CalendarEvent";
-import {CalendarModel} from "../Models/CalendarModel";
+import {CalendarModel, CalendarInsertDto} from "../Models/CalendarModel";
+import UserCalendarDto from "../Models/UserCalendarDto";
 
 const endpoint = process.env.endpoint;
 const key = process.env.key;
@@ -44,15 +45,6 @@ export async function GetAllCalendarEvents(id: string): Promise<CalendarEvent[]>
   return resources;
 }
 
-export async function AddEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {
-  const dataObject = calendarEvent as any;
-  dataObject.type = "calendarEvent";
-  const response = await container.items.create(dataObject);
-  if (response.resource){
-    return response.resource;
-  }
-  throw new Error("Something went wrong");
-}
 
 export async function UpdateEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {
   const dataObject = calendarEvent as any;
@@ -96,4 +88,19 @@ export async function GetCalendar(id: string): Promise<CalendarModel> {
     }
   }
   return undefined;
+}
+
+export async function GetUserCalendars(userId: string): Promise<UserCalendarDto[]> {
+  const query: SqlQuerySpec = {
+    query: "SELECT c.id, c.name FROM c where c.type = 'calendar' and c.userId = @userId",
+    parameters: [
+      {
+        name: "@userId",
+        value: userId,
+      },
+    ],
+  };
+  const {resources} = await container.items.query(query).fetchAll();
+  const myObjects = resources as UserCalendarDto[];
+  return myObjects;
 }

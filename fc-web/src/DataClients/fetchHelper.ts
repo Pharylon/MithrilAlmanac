@@ -1,5 +1,5 @@
+import UserState from "../State/UserState";
 const baseUriAddress = getBaseAddress();
-
 
 interface ErrorObject {
   status: number;
@@ -16,6 +16,7 @@ export async function get(uri: string, parameters?: any): Promise<Result>{
   const fullUri = getUri(baseUriAddress + uri, parameters);
   const requestInit: RequestInit = {
     method: "GET",
+    headers: getHeaders(false),
   };
   const response = await request(fullUri, requestInit);
   return response;
@@ -26,9 +27,7 @@ export async function post(uri: string, body: any): Promise<Result>{
   const requestInit: RequestInit = {
     method: "POST",
     body: JSON.stringify(body),
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getHeaders(!!body),
   };
   const response = await request(fullUri, requestInit);
   return response;
@@ -145,4 +144,17 @@ function getBaseAddress(){
     baseAddress += "/";
   }
   return baseAddress;
+}
+
+function getHeaders(hasBody: boolean): Headers{
+  const headers: HeadersInit = new Headers();
+  headers.set("Accept", "application/json");
+  if (hasBody){
+    headers.set("Content-Type", "application/json");
+  }  
+  const token = UserState.getAccessToken();
+  if (token){
+    headers.set("Authorization", token);
+  }
+  return headers;
 }

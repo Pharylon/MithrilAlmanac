@@ -6,7 +6,7 @@ import Modal from "react-modal";
 import DayDetailView from "./DayDetail/DayDetailView";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { CheckIfLeapYear } from "./Models/CalendarModel";
 
 
@@ -22,24 +22,24 @@ const CalendarView = observer(() => {
   function onModalClose(){
     CalendarState.selectedDay = undefined;
     CalendarState.calendarEventEditId = "";
+    CalendarState.events = CalendarState.events.filter(x => x.id !== "__NEW_EVENT__");
   }
-  console.log("Calendar View");
-  if (CalendarState.calendar.id === "__BLANK__") {
-    return (<div>Could not load Calendar</div>);
+  if (CalendarState.calendarLoadState === "Loading") {
+    return (<div>Loading...</div>);
+    //return <Redirect to={"/"} />;
   }
+  if (CalendarState.calendarLoadState === "Error") {
+    return <Redirect to={"/"} />;
+  }
+  console.log("CurrentCalendar", CalendarState.calendar);
   const prevYears = CalendarState.yearView > 0 ?  Array.from(Array(CalendarState.yearView).keys()) : [0];
   const totalDaysInYear = CalendarState.calendar.months.reduce((total, currMonth) => {
     return total + currMonth.days;
   }, 0);
-  const leapYears: number[] = [];
   const daysBeforeYear = prevYears.reduce((totalDays, yearNum) => {
     const isLeapYear = CheckIfLeapYear(yearNum, CalendarState.calendar);
-    if (isLeapYear){
-      leapYears.push(yearNum);
-    }
     return totalDays + totalDaysInYear + (isLeapYear ? 1 : 0);
   }, 0);
-  console.log(leapYears);
   const offSetDays = daysBeforeYear % CalendarState.calendar.daysOfWeek.length;
   return (
     <div className="calendar" id="calendar">

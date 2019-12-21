@@ -9,12 +9,10 @@ import GoogleLogo from "./Images/GoogleG.png";
 const GoogleButton: React.FC = observer(() => {
   
   const responseGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    console.log("Google Response", response);
     const loginResponse = response as GoogleLoginResponse;
     //Make sure the cast is correct
     if (loginResponse.tokenId) {
       const idToken = loginResponse.getAuthResponse().id_token;
-      console.log("LoginResponse", loginResponse);
       AuthenticateUser(idToken);
       UserState.loginModalOpen = false;
     }

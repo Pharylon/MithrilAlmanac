@@ -13,7 +13,12 @@ export interface CalendarTemplate {
   currentYear: number;
 }
 
-export interface CalendarModel extends CalendarTemplate {
+export interface CalendarInsertDto extends CalendarTemplate {
+  name: string;
+}
+
+export interface CalendarModel extends CalendarInsertDto {
+  userId: string;
   id: string;
 }
 

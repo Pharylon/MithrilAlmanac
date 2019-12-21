@@ -4,18 +4,24 @@ import "./NewCalendar.css";
 import {CalendarTemplates} from "../Models/CalendarTemplates";
 import {AddCalendar} from "../DataClients/CalendarEventDataClient";
 import { withRouter, Redirect } from "react-router-dom";
+import { CalendarInsertDto } from "../Models/CalendarModel";
+import UserState from "../State/UserState";
 
-const NewCalendar: React.FC = observer(() => {
+const NewCalendar = observer((props: {close: () => void}) => {
   const [name, setName] = useState("My Calendar");
   const [calendarId, setCalendar] = useState(CalendarTemplates[0].id);
   const [createdCalendarId, setCreatedCalendarId] = useState("");
   async function createCalendar(){
     const myTemplate = CalendarTemplates.find(x => x.id === calendarId);
-    console.log("MyTemplate", myTemplate);
     if (myTemplate){
-      const savedCalendarId = await AddCalendar(myTemplate.value);
-      console.log("SavedID", savedCalendarId);
+      const dto: CalendarInsertDto = {
+        ...myTemplate.value,
+        name,
+      };
+      const savedCalendarId = await AddCalendar(dto);
+      UserState.updateCalendars();
       setCreatedCalendarId(savedCalendarId);
+      props.close();
     }
   }
   if (createdCalendarId){

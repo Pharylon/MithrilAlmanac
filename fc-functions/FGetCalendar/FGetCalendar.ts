@@ -3,6 +3,7 @@ import { GetCalendar } from "../DataAccess/calendarDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     const calendarId = req.query.id;
+    context.log("Getting Calendar", calendarId);
     const calendar = await GetCalendar(calendarId);
 
     context.res = {

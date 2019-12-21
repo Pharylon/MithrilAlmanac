@@ -1,9 +1,7 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import {AddCalendar } from "../DataAccess/calendarDb";
-import { CalendarInsertDto, CalendarModel} from "../Models/CalendarModel";
-import * as uuid from "uuid/v1";
+import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { VerifyTicket } from "../Security/TokenVerification";
 import { GetOrAddUserModelByGoogleId } from "../DataAccess/UserDb";
+import { GetUserCalendars } from "../DataAccess/calendarDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     const userToken = req.headers.authorization;
@@ -18,21 +16,13 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
         };
     }
     const user = await GetOrAddUserModelByGoogleId(validateUser.userId, validateUser.payload);
-    const id = uuid();
-    const myCalendar = req.body as CalendarInsertDto;
-    const calendarModel: CalendarModel = {
-        ...myCalendar,
-        userId: user.id,
-        id,
-    };
-    await AddCalendar(calendarModel);
+    const dtos = await GetUserCalendars(user.id);
 
     context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: JSON.stringify({id}),
         headers: {
             "content-type": "application/json; charset=utf-16le",
         },
+        body: JSON.stringify(dtos),
     };
 };
 

@@ -1,9 +1,10 @@
 import {get, post} from "./fetchHelper";
 import CalendarEvent from "../Models/CalendarEvent";
-import {CalendarModel, CalendarTemplate} from "../Models/CalendarModel";
-import CalendarState from "../State/CalendarState";
+import {CalendarModel, CalendarTemplate, CalendarInsertDto} from "../Models/CalendarModel";
 import { UserModel } from "../Models/UserModel";
 import UserState from "../State/UserState";
+import UserCalendarDto from "../Models/UserCalendarDto";
+import { useMemo } from "react";
 
 
 export async function GetCalendar(id: string): Promise<CalendarModel | undefined>{
@@ -33,28 +34,20 @@ export async function GetCalendarEvents(id: string): Promise<CalendarEvent[]>{
   return [];
 }
 
-export async function UpsertEvent(event: CalendarEvent): Promise<void>{
+export async function UpsertEvent(event: CalendarEvent): Promise<CalendarEvent | undefined>{
   const response = await post("UpdateEvent", event);
-  console.log("NEW EVENT", response);
   if (response.success){
     const newEvent = response.value as CalendarEvent;
     if (newEvent){
-      const oldEvent = CalendarState.events.find(x => x.id === newEvent.id);
-      if (!oldEvent){
-        CalendarState.events.push(newEvent);
-      }
-      else{
-        const stillGoodEvents = CalendarState.events.filter(x => x.id !== newEvent.id);
-        CalendarState.events = [newEvent, ...stillGoodEvents];
-      }
+      return newEvent;
     }
   }
+  return undefined;
 }
 
 
-export async function AddCalendar(calendarModel: CalendarTemplate): Promise<string>{
+export async function AddCalendar(calendarModel: CalendarInsertDto): Promise<string>{
   const response = await post("CreatCalendar", calendarModel);
-  console.log("AddCalendar", response);
   if (response.success){
     const payload = response.value as {id: string};
     if (payload){
@@ -70,8 +63,17 @@ export async function AuthenticateUser(token: string): Promise<void> {
     const userModel = response.value as UserModel;
     UserState.setAccessToken(token);
     UserState.userName = userModel.userName;
+    UserState.updateCalendars();
   }
   console.log(response);
 }
 
+export async function GetUserCalendars(): Promise<UserCalendarDto[]> {
+  const response = await get("GetUserCalendars");
+  if (response.success){
+    const models = response.value as UserCalendarDto[];
+    return models;
+  }
+  return [];
+}
 
