@@ -39,29 +39,51 @@
 }
 
 
+.month{
+  margin-left: 5px;
+  margin-right: 5px;
+  display: inline-flex;
+  flex-direction: column;
+  align-content: center;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  background-color: rgb(26, 47, 73);
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid black;
+}
+
+.month-name{
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
 
 .week{
   display: flex;
   width: auto;
+  
 }
 
 .day{
-  border: 1px solid rgb(216, 216, 216);
-  border-collapse: collapse;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
 }
 
-.day:hover {
-  background-color: rgb(195, 216, 247);
-}
 
 .hide{
   display: none;
 }
 
 .day.has-events{
-  background-color: rgb(146, 199, 172);
+  background-color: rgb(41, 71, 109);
+  overflow: hidden;
+
+}
+
+.days-events{
+  font-size: 10px;
 }
 
 .day-events{
@@ -78,17 +100,30 @@
   justify-content: space-around;
 }
 
-.year-header{
-  background-color: rgb(255, 241, 203);
-  font-size: 2em;
-  position: sticky;
-  top: 34px;
+
+.edit-calendar{
+  font-size: 8px;
 }
 
 
 .year-number{
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.calendar-name{
+  margin-left: 20px;
+  cursor: pointer;
+  color: black;
+}
+
+.day:hover {
+  background-color: rgb(195, 216, 247);
+  color: black;
+}
+
+.calendar-name:hover{
+  text-decoration: underline;
 }
 
 .ReactModal__Overlay{
@@ -105,19 +140,6 @@
   background-color: #ffffff;
 }
 
-.month{
-  margin-left: 5px;
-  margin-right: 5px;
-  flex: 1;
-  display: inline-flex;
-  flex-direction: column;
-  align-content: center;
-  margin-bottom: 20px;
-  border-collapse: collapse;
-  background-color: rgb(240, 240, 240);
-  padding-left: 20px;
-  padding-right: 20px;
-}
 
 @keyframes animate-top {
   from {top:-300px; opacity:0}
@@ -132,4 +154,9 @@
 
 .fake-link:hover{
   text-decoration: underline;
+}
+
+.input-standard{
+  border: 1px solid rgb(70, 78, 100);
+  border-radius: 3px;
 }

@@ -1,0 +1,81 @@
+.calendar-edit-view{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgb(26, 47, 73);
+  color: white;
+}
+
+.calendar-edit-view div{
+  align-self: center;
+}
+
+.calendar-name{
+  font-size: 2em;
+  border-width: 2px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#calendar-edit-name-input{
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.calendar-edit-input-combo{
+  margin-bottom: 10px;
+}
+
+.calendar-edit-input-combo label{
+  display: block;
+}
+
+.calendar-edit-input-combo input{
+  margin-top: 0px;
+  display: block;
+}
+
+.calendar-num-days-tooltip{
+  position: absolute;
+  z-index: 1000;
+  background-color: rgb(122, 179, 255);
+  border: 1px solid black;
+  border-radius: 5px;
+  max-width: 200px;
+  padding: 5px 10px 5px 10px;
+}
+
+.day-number-info-icon{
+  font-size: 8px;
+  vertical-align: top;
+  padding-top: 3px;
+  color: rgb(122, 179, 255);
+}
+
+.num-days-in-month{
+  font-size: 10px;
+}
+
+.month-edit-title{
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.month-edit-icon{
+  font-size: 10px;
+  vertical-align: top;
+  padding-top: 3px;
+  color: rgb(122, 179, 255);
+  cursor: pointer;
+}
+
+.month-dd{
+  border: 1px solid rgb(58, 58, 58);
+}
+
+.month-dd.dragging{
+  background-color: rgb(55, 87, 126);
+  border-color: white;
+}

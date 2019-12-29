@@ -31,10 +31,11 @@ const CalendarDay = observer((props: { date: FantasyDate }) => {
         onClick={() => CalendarState.selectedDay = props.date}
         onMouseLeave={onLeave}>
         <div>{props.date.dayOfMonth}</div>
-        <div className={showPopUp && events.length ? "day-events" : "hide"}>
+        <div className="days-events">
           {
-            events.map(x => <div key={x.id}>{x.name}</div>)
+            events.length > 1 && (<div>{`${events.length} Events`}</div>)
           }
+          {events.map(x => (<div key={x.id}>{x.name}</div>))}
         </div>
       </div>
     </LongPress>

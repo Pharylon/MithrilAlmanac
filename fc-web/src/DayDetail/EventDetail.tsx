@@ -4,7 +4,6 @@ import "./DayDetail.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import CalendarEvent from "../Models/CalendarEvent";
-import {UpsertEvent} from "../DataClients/CalendarEventDataClient";
 import CalendarState from "../State/CalendarState";
 
 const DayDetailView = observer((props: {event: CalendarEvent, defaultEdit: boolean}) => {

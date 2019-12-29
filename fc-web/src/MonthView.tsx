@@ -1,6 +1,6 @@
 import React from "react";
 import CalendarDay from "./CalendarDay";
-import chunks from "./Utility";
+import {chunks} from "./Utility";
 import FantasyDate from "./Models/FantasyDate";
 import { observer } from "mobx-react";
 import CalendarState from "./State/CalendarState";
@@ -14,15 +14,18 @@ const MonthView = observer((props: { monthNumber: number, offsetDays: number  })
   if (offSetDays >= 7){
     offSetDays -= 7;
   }
-  const month = CalendarState.calendar.months[props.monthNumber - 1];
+  const month = CalendarState.calendar.months.find(x => x.position === props.monthNumber);
+  if (!month){
+    return(<React.Fragment></React.Fragment>);
+  }
   const isLeapMonth = CalendarState.isLeapYear() && CalendarState.calendar.leapYearRules.month === props.monthNumber;
   const numberOfDayBoxes = month.days + offSetDays + (isLeapMonth ? 1 : 0);
   const days = Array.from({ length: numberOfDayBoxes }, (v, i) => i + 1);
   const weeks = chunks(days, CalendarState.calendar.daysOfWeek.length);
   return (
     <div className="month">
-      <div>{month.name}</div>
-      <div className="month-days">
+      <div className="month-name">{month.name}</div>
+      <div>
         {
           weeks.map((week, weekIndex) => (
             <div key={weekIndex} className="week">

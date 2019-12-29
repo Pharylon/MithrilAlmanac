@@ -18,6 +18,7 @@ interface ICalendarState {
   calendarLoadState: "Blank" | "Loaded" | "Loading" | "Error";
   addNewEvent: (props: FantasyDate) => void;
   updateEvent: (props: CalendarEvent) => void;
+  updateMonthName: (position: number, newName: string) => void;
 }
 
 const blankModel: CalendarModel = {
@@ -72,15 +73,19 @@ const CalendarState = observable<ICalendarState>({
       CalendarState.events = [...stillGoodEvents, newEvent];
     }    
   },
+  updateMonthName: (position: number, newName: string) => {
+    const month = CalendarState.calendar.months.find(x => x.position === position);
+    if (month){
+      month.name = newName;
+    }
+  },
 });
 
 
 
 async function LoadCalendar(id: string) {
-  console.log("Getting Calendar", id);
   CalendarState.calendarLoadState = "Loading";
   const calendar = await GetCalendar(id);
-  console.log("Got Calendar", calendar);
   if (!calendar){
     CalendarState.calendar = {
       ...blankModel,

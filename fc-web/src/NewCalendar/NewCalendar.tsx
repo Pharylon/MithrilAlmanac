@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import "./NewCalendar.css";
 import {CalendarTemplates} from "../Models/CalendarTemplates";
 import {AddCalendar} from "../DataClients/CalendarEventDataClient";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { CalendarInsertDto } from "../Models/CalendarModel";
 import UserState from "../State/UserState";
 

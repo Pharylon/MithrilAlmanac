@@ -1,0 +1,18 @@
+.year-header{
+  font-size: 2em;
+  position: sticky;
+  top: 34px;
+  display: flex;
+  justify-content: center;
+  color: rgb(0, 17, 90);
+}
+
+.calendar-year-link{
+  color: rgb(0, 17, 90);
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.calendar-year-current-number{
+  margin-right: 20px;
+}

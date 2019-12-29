@@ -1,11 +1,9 @@
 import {get, post} from "./fetchHelper";
 import CalendarEvent from "../Models/CalendarEvent";
-import {CalendarModel, CalendarTemplate, CalendarInsertDto} from "../Models/CalendarModel";
+import {CalendarModel, CalendarInsertDto} from "../Models/CalendarModel";
 import { UserModel } from "../Models/UserModel";
 import UserState from "../State/UserState";
 import UserCalendarDto from "../Models/UserCalendarDto";
-import { useMemo } from "react";
-
 
 export async function GetCalendar(id: string): Promise<CalendarModel | undefined>{
   // if (!id){
@@ -65,7 +63,6 @@ export async function AuthenticateUser(token: string): Promise<void> {
     UserState.userName = userModel.userName;
     UserState.updateCalendars();
   }
-  console.log(response);
 }
 
 export async function GetUserCalendars(): Promise<UserCalendarDto[]> {

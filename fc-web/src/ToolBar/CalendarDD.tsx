@@ -12,7 +12,7 @@ const CalendarDd: React.FC = observer(() => {
   return (
     <div onMouseLeave={() => setIsOpen(false)}>
       <div style={{ fontWeight: isOpen && !createModalOpen ? "bold" : "normal" }}
-        className="hover-bold"
+        className="hover-bold hover-underline"
         onClick={() => setIsOpen(true)}>Calendars</div>
       <div style={{ display: isOpen && !createModalOpen ? "" : "none" }} className="calendar-dd">
         {

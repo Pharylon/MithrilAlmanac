@@ -1,4 +1,4 @@
-export default function chunks<T>(arr: T[], n: number): T[][] {
+export function chunks<T>(arr: T[], n: number): T[][] {
 
   const start: T[][] = [];
 
@@ -15,4 +15,10 @@ export default function chunks<T>(arr: T[], n: number): T[][] {
   }, start);
 
   return result;
+}
+
+export function clone<T>(object: T): T {
+  const json = JSON.stringify(object);
+  const clonedOjb = JSON.parse(json) as T;
+  return clonedOjb;
 }

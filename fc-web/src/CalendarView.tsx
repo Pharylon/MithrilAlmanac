@@ -4,10 +4,9 @@ import { observer } from "mobx-react";
 import CalendarState from "./State/CalendarState";
 import Modal from "react-modal";
 import DayDetailView from "./DayDetail/DayDetailView";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useParams, Redirect } from "react-router-dom";
 import { CheckIfLeapYear } from "./Models/CalendarModel";
+import CalendarToolbar from "./CalendarNavigation/CalendarToolBar";
 
 
 const CalendarView = observer(() => {
@@ -22,16 +21,14 @@ const CalendarView = observer(() => {
   function onModalClose(){
     CalendarState.selectedDay = undefined;
     CalendarState.calendarEventEditId = "";
-    CalendarState.events = CalendarState.events.filter(x => x.id !== "__NEW_EVENT__");
+    CalendarState.events = CalendarState.events.filter(x => x.description && x.name !== "Title");
   }
   if (CalendarState.calendarLoadState === "Loading") {
     return (<div>Loading...</div>);
-    //return <Redirect to={"/"} />;
   }
   if (CalendarState.calendarLoadState === "Error") {
     return <Redirect to={"/"} />;
   }
-  console.log("CurrentCalendar", CalendarState.calendar);
   const prevYears = CalendarState.yearView > 0 ?  Array.from(Array(CalendarState.yearView).keys()) : [0];
   const totalDaysInYear = CalendarState.calendar.months.reduce((total, currMonth) => {
     return total + currMonth.days;
@@ -41,16 +38,14 @@ const CalendarView = observer(() => {
     return totalDays + totalDaysInYear + (isLeapYear ? 1 : 0);
   }, 0);
   const offSetDays = daysBeforeYear % CalendarState.calendar.daysOfWeek.length;
+  const positions = CalendarState.calendar.months.map(x => ({name: x.name, position: x.position}));
+  console.log(positions);
   return (
     <div className="calendar" id="calendar">
-      <div className="year-header">
-        <FontAwesomeIcon icon={faAngleLeft} onClick={() => CalendarState.decrementYear()} />
-        <span className="year-number">{CalendarState.yearView}</span>
-        <FontAwesomeIcon icon={faAngleRight} onClick={() => CalendarState.incrementYear()}/>
-      </div>
+      <CalendarToolbar/>
       <div className="calendar-months">
         {
-          CalendarState.calendar.months.map((x, i) =>
+          CalendarState.calendar.months.map((x) =>
             <MonthView key={x.position} offsetDays={offSetDays} monthNumber={x.position} />,
           )
         }

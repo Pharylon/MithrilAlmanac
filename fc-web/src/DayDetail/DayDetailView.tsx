@@ -7,7 +7,11 @@ import EventDetail from "./EventDetail";
 
 
 const DayDetailView = observer((props: {date: FantasyDate}) => {
-  const monthName = CalendarState.calendar.months[props.date.month - 1].name;
+  let monthName = "";
+  const month = CalendarState.calendar.months.find(x => x.position === props.date.month);
+  if (month){
+    monthName = month.name;
+  }
   const events = CalendarState.events.filter(x => datesAreEqual(props.date, x.fantasyDate));
   return (
     <div className="day-detail">
