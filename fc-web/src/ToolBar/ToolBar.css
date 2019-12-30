@@ -7,7 +7,7 @@
   top: 0;
   color: rgb(236, 236, 236);
   height: 34px;
-  z-index: 10;
+  padding-right: 20px;
 }
 
 .top-bar div{
@@ -36,7 +36,7 @@
   padding-left: 10px;
   margin-left: -10px;
   padding-bottom: 10px;
-  z-index: 100;
+  z-index: 5000;
 }
 
 .calendar-dd div{

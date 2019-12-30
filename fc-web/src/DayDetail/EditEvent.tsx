@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import CalendarEvent from "../Models/CalendarEvent";
 import { format, parseISO } from "date-fns";
+import { DeleteEvent } from "../DataClients/CalendarEventDataClient";
 
 const EditEvent: React.FC = observer(() => {
   if (!CalendarState.calendarEditEvent) {
@@ -22,6 +23,22 @@ const EditEvent: React.FC = observer(() => {
       await CalendarState.updateEvent(updateEvent);
       CalendarState.calendarEditEvent = undefined;
     }
+  }
+  async function deleteEvent() {
+    if (CalendarState.calendarEditEvent){
+      const myEvent = CalendarState.calendarEditEvent;
+      const myIndex = CalendarState.events.findIndex(x => x.id === myEvent.id);
+      CalendarState.events.splice(myIndex, 1);
+      CalendarState.calendarEditEvent = undefined;
+      CalendarState.selectedDay = undefined;
+      try{
+        await DeleteEvent(myEvent.id);
+      }
+      catch (e) {
+        console.log("Something went wrong when trying to delete an event", e);
+        CalendarState.events.push(myEvent);
+      }      
+    }    
   }
   async function textAreaKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.keyCode === 13 && e.ctrlKey) {
@@ -49,7 +66,10 @@ const EditEvent: React.FC = observer(() => {
           value={format(realDate, "yyyy-MM-dd")}
           onChange={(e) => onRealDateChange(e.target.value)} />
       </div>
-      <button onClick={() => saveEvent()}>Save</button>
+      <div className="edit-event-buttons">
+        <button onClick={() => deleteEvent()}>Delete</button>
+        <button onClick={() => saveEvent()}>Save</button>
+      </div>
     </div>
   );
 });

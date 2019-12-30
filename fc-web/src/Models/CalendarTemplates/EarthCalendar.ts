@@ -31,6 +31,16 @@ const EarthCalendar: CalendarTemplate = {
     unlessDivisions: [100, 400],
   },
   resetWeekAtMonthStart: false,
+  holidays: [
+    {
+      name: "New Year",
+      date: {month: 1, dayOfMonth: 1},
+    },
+    {
+      name: "Festivus",
+      date: {month: 12, dayOfMonth: 23},
+    },
+  ],
 };
 
 export default EarthCalendar;

@@ -23,6 +23,7 @@ const blankModel: CalendarModel = {
     unlessDivisions: [],
   },
   resetWeekAtMonthStart: false,
+  holidays: [],
 };
 
 const CalendarEditState = observable<ICalendarEditState>({

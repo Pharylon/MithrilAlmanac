@@ -6,6 +6,17 @@
   justify-content: center;
   color: rgb(0, 17, 90);
   background-color: white;
+  padding: 0px 10px 0px 10px;
+  flex-wrap: wrap;
+  z-index: 50;
+}
+
+.calendar-toolbar-color{
+  color: rgb(0, 17, 90);
+}
+
+.calendar-bar-main{
+  display: flex;
 }
 
 .calendar-year-link{
@@ -16,4 +27,38 @@
 
 .calendar-year-current-number{
   margin-right: 20px;
+}
+
+.calendar-bar-left{
+  flex: 1;
+  margin-right: auto;
+}
+
+.calendar-bar-right{
+  flex: 1;
+  margin-left: auto;
+}
+
+.calendar-bar-main{
+  flex: 3;
+  display: flex;
+  justify-content: center;
+}
+
+.view-picker span{
+  align-self: center;
+}
+
+.view-picker-down-arrow{
+  padding-top: 4px;
+}
+
+@media (orientation: portrait) {
+  .year-header{
+    flex-direction: column-reverse;
+    align-content: center;
+  }
+  .calendar-bar-right{
+    display: none;
+  }
 }

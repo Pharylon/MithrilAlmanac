@@ -30,6 +30,12 @@ const ExandriaCalendar: CalendarTemplate = {
     unlessDivisions: [],
   },
   resetWeekAtMonthStart: false,
+  holidays: [
+    {
+      name: "New Dawn",
+      date: {month: 1, dayOfMonth: 1},
+    },
+  ],
 };
 
 export default ExandriaCalendar;

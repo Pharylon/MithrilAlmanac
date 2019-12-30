@@ -6,12 +6,18 @@ interface LeapYearRules{
   month: number;
 }
 
+interface Holiday{
+  name: string;
+  date: {month: number; dayOfMonth: number};
+}
+
 export interface CalendarTemplate {
   months: Month[];
   daysOfWeek: string[];
   leapYearRules: LeapYearRules;
   currentYear: number;
   resetWeekAtMonthStart: boolean;
+  holidays: Holiday[];
 }
 
 

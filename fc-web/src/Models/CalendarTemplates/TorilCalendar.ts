@@ -15,18 +15,18 @@ const TorilCalendar: CalendarTemplate = {
     "TenthDay",
   ],
   months: [
-    {name: "Deepwinter", days: 31, position: 1},
-    {name: "The Claw of Winter", days: 30, position: 2},
-    {name: "The Claw of the Sunsets", days: 30, position: 3},
-    {name: "The Claw of the Storms", days: 31, position: 4},
-    {name: "The Melting ", days: 30, position: 5},
-    {name: "The Time of Flowers", days: 30, position: 6},
-    {name: "Summertide", days: 31, position: 7},
-    {name: "Highsun", days: 30, position: 8},
-    {name: "The Fading", days: 31, position: 9},
-    {name: "Leaffall", days: 30, position: 10},
-    {name: "The Rotting ", days: 31, position: 11},
-    {name: "The Drawing Down", days: 30, position: 12},
+    {name: "Hammer, Deepwinter", days: 31, position: 1},
+    {name: "Alturaik, The Claw of Winter", days: 30, position: 2},
+    {name: "Ches, The Claw of the Sunsets", days: 30, position: 3},
+    {name: "Tarsakh, The Claw of the Storms", days: 31, position: 4},
+    {name: "Mirtul, The Melting ", days: 30, position: 5},
+    {name: "Kythorn, The Time of Flowers", days: 30, position: 6},
+    {name: "Flamerule, Summertide", days: 31, position: 7},
+    {name: "Eleasis, Highsun", days: 30, position: 8},
+    {name: "Eleint, The Fading", days: 31, position: 9},
+    {name: "Marpenoth, Leaffall", days: 30, position: 10},
+    {name: "Uktar, The Rotting ", days: 31, position: 11},
+    {name: "Nightal, The Drawing Down", days: 30, position: 12},
   ],
   leapYearRules: {
     month: 9,
@@ -34,6 +34,28 @@ const TorilCalendar: CalendarTemplate = {
     unlessDivisions: [],
   },
   resetWeekAtMonthStart: true,
+  holidays: [
+    {
+      name: "Midwinter",
+      date: {month: 1, dayOfMonth: 31},
+    },
+    {
+      name: "Greengrass",
+      date: {month: 4, dayOfMonth: 31},
+    },
+    {
+      name: "Midsummer",
+      date: {month: 7, dayOfMonth: 31},
+    },
+    {
+      name: "Highharvestide",
+      date: {month: 9, dayOfMonth: 31},
+    },
+    {
+      name: "Feast of the Moon",
+      date: {month: 11, dayOfMonth: 31},
+    },
+  ],
 };
 
 export default TorilCalendar;

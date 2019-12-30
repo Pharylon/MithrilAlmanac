@@ -7,19 +7,16 @@ import uuid from "uuid";
 
 interface ICalendarState {
   calendar: CalendarModel;
-  yearView: number;
   selectedDay: FantasyDate | undefined;
   events: CalendarEvent[];
-  incrementYear: () => void;
-  decrementYear: () => void;
   calendarEditEvent: CalendarEvent | undefined;
   setCalendar: (id: string) => void;
-  isLeapYear: () => boolean;
   calendarLoadState: "Blank" | "Loaded" | "Loading" | "Error";
   addNewEvent: (props: FantasyDate) => void;
   updateEvent: (props: CalendarEvent) => Promise<void>;
   updateMonthName: (position: number, newName: string) => void;
   reset: () => void;
+viewType: "Calendar" | "Timeline";
 }
 
 const blankModel: CalendarModel = {
@@ -34,25 +31,19 @@ const blankModel: CalendarModel = {
     unlessDivisions: [],
   },
   resetWeekAtMonthStart: false,
+  holidays: [],
 };
 
 const CalendarState = observable<ICalendarState>({
   calendarLoadState: "Blank",
   calendar: blankModel,
-  yearView: -1,
   selectedDay: undefined,
   events: [],
-  incrementYear: () => CalendarState.yearView++,
-  decrementYear: () => CalendarState.yearView--,
   calendarEditEvent: undefined,
   setCalendar: (id: string) => {
     if (id !== CalendarState.calendar.id){
       LoadCalendar(id);
     }    
-  },
-  isLeapYear: () => {
-    const isLeapYear = CheckIfLeapYear(CalendarState.yearView, CalendarState.calendar);
-    return isLeapYear;
   },
   addNewEvent: (date: FantasyDate) => {
     const newEvent: CalendarEvent = {
@@ -83,6 +74,7 @@ const CalendarState = observable<ICalendarState>({
     CalendarState.calendar = blankModel;
     CalendarState.calendarLoadState = "Blank";
   },
+  viewType: "Calendar",
 });
 
 
@@ -100,11 +92,7 @@ async function LoadCalendar(id: string) {
     return;
   }
   CalendarState.calendar = calendar;
-  CalendarState.yearView = calendar.currentYear;
   CalendarState.calendarLoadState = "Loaded";
-  if (CalendarState.yearView === -1){
-    CalendarState.yearView = calendar.currentYear;
-  }
   const events = await GetCalendarEvents(calendar.id);
   CalendarState.events = events;
 }

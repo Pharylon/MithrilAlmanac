@@ -42,17 +42,6 @@
   margin-top: 30px;
 }
 
-.edit-event-area button {
-  width: 100px;
-  display: block;
-  border: 1px solid black;
-  border-radius: 0px;
-  background-color: rgb(0, 113, 212);
-  font-size: 18px;
-  color: white;
-  margin-left: auto;
-  margin-top: 10px;
-}
 
 .edit-event-area textarea {
   margin-top: 5px;
@@ -88,4 +77,28 @@
 .real-world-date-line input{
   max-width: 300px;
   border: 1px solid gray;
+}
+
+.edit-event-buttons{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.edit-event-buttons button {
+  width: 100px;
+  display: block;
+  border: 1px solid black;
+  border-radius: 0px;
+  font-size: 18px;
+  color: white;
+  margin-top: 10px;
+}
+
+.edit-event-buttons button:nth-child(1) {
+  background-color: rgb(212, 0, 0);
+}
+
+.edit-event-buttons button:nth-child(2) {
+  background-color: rgb(0, 113, 212);
 }

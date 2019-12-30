@@ -70,7 +70,7 @@ export async function AddCalendar(model: CalendarModel): Promise<CalendarModel> 
   throw new Error("Something went wrong");
 }
 
-export async function DeleteById(resource: any): Promise<void> {
+export async function DeleteItem(resource: any): Promise<void> {
   const item = container.item(resource.id, resource.type);
   const foo = await item.delete(resource);
   console.log(foo);
@@ -87,18 +87,22 @@ export async function DeleteCalendar(id: string): Promise<void> {
     ],
   };
   const {resources} = await container.items.query(query).fetchAll();
-  await DeleteById(resources[0]);
+  await DeleteItem(resources[0]);
 }
 
 
 
 export async function GetCalendar(id: string): Promise<CalendarModel> {
   const query: SqlQuerySpec = {
-    query: "SELECT * FROM root r WHERE r.id = @id",
+    query: "SELECT * FROM root r WHERE r.id = @id and r.type = @type",
     parameters: [
       {
         name: "@id",
         value: id,
+      },
+      {
+        name: "@type",
+        value: "calendar",
       },
     ],
   };

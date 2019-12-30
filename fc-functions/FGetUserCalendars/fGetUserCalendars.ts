@@ -14,6 +14,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
                 "content-type": "application/json; charset=utf-16le",
             },
         };
+        return;
     }
     const user = await GetOrAddUserModelByGoogleId(validateUser.userId, validateUser.payload);
     const calendarIds = [...user.ownedCalendars, ...user.memberCalendars];

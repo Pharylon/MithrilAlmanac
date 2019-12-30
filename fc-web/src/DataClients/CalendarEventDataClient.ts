@@ -50,6 +50,13 @@ export async function UpsertEvent(event: CalendarEvent): Promise<CalendarEvent |
   return undefined;
 }
 
+export async function DeleteEvent(eventId: string): Promise<void>{
+  const response = await post("DeleteEvent", {id: eventId});
+  if (!response.success){
+    throw new Error("There was an error deleting the event");
+  }
+}
+
 
 export async function SaveCalendar(calendarModel: CalendarModel): Promise<string>{
   const response = await post("SaveCalendar", calendarModel);

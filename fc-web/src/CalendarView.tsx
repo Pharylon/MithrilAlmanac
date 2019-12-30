@@ -7,9 +7,20 @@ import DayDetailView from "./DayDetail/DayDetailView";
 import { useParams, Redirect } from "react-router-dom";
 import { CheckIfLeapYear } from "./Models/CalendarModel";
 import CalendarToolbar from "./CalendarNavigation/CalendarToolBar";
+import TimeLineView from "./TimelineView/TimelineView";
 
 
 const CalendarView = observer(() => {
+  const { year } = useParams();
+  function getYear(): number {    
+    if (!year){
+      return CalendarState.calendar.currentYear;
+    }
+    return parseInt(year, 10);
+  }
+  if (CalendarState.viewType === "Timeline"){
+    return <TimeLineView />;
+  }
   const {calendarId} = useParams();
   if (calendarId){
     CalendarState.setCalendar(calendarId);
@@ -28,7 +39,8 @@ const CalendarView = observer(() => {
   if (CalendarState.calendarLoadState === "Error") {
     return <Redirect to={"/"} />;
   }
-  const prevYears = CalendarState.yearView > 0 ?  Array.from(Array(CalendarState.yearView).keys()) : [0];
+  const currentYear = getYear();
+  const prevYears = currentYear > 0 ?  Array.from(Array(currentYear).keys()) : [0];
   const totalDaysInYear = CalendarState.calendar.months.reduce((total, currMonth) => {
     return total + currMonth.days;
   }, 0);
@@ -39,11 +51,11 @@ const CalendarView = observer(() => {
   const offSetDays = daysBeforeYear % CalendarState.calendar.daysOfWeek.length;
   return (
     <div className="calendar" id="calendar">
-      <CalendarToolbar/>
+      <CalendarToolbar year={currentYear}/>
       <div className="calendar-months">
         {
           CalendarState.calendar.months.map((x) =>
-            <MonthView key={x.position} offsetDays={offSetDays} monthNumber={x.position} />,
+            <MonthView year={currentYear} key={x.position} offsetDays={offSetDays} monthNumber={x.position} />,
           )
         }
       </div>

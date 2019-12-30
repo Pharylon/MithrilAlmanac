@@ -5,18 +5,27 @@ import CalendarState from "./State/CalendarState";
 
 const CalendarDay = observer((props: { date: FantasyDate }) => {
   const events = CalendarState.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
-  const style = events.length === 0 ? "day" : "day has-events";
   function selectDay(){
     CalendarState.selectedDay = props.date;
     if (events.length === 0){
       CalendarState.addNewEvent(props.date);
     }
   }
+  function getHoliday(){
+    if (CalendarState.calendar.holidays){
+      return CalendarState.calendar.holidays.find(x => 
+        x.date.month === props.date.month && x.date.dayOfMonth === props.date.dayOfMonth);
+    }
+  }
+  const holiday = getHoliday();    
   return (
-    <div className={style}
+    <div className={events.length === 0 && !holiday ? "day" : "day has-events"}
         onClick={() => selectDay()}>
         <div>{props.date.dayOfMonth}</div>
         <div className="days-events">
+          {
+            holiday && <div>{holiday.name}</div>
+          }
           {
             events.length > 1 && (<div>{`${events.length} Events`}</div>)
           }

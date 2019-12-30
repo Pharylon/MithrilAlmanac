@@ -38,7 +38,10 @@ const App: React.FC = observer(() => {
           <Route path="/calendar/:calendarId/edit">
             <CalendarEditView />
           </Route>
-          <Route path="/calendar/:calendarId">
+          <Route path="/calendar/:calendarId/:year">
+            <CalendarView />
+          </Route>
+          <Route path="/calendar/:calendarId/">
             <CalendarView />
           </Route>
           <Route path="/">

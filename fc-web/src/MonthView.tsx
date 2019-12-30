@@ -4,8 +4,9 @@ import { chunks } from "./Utility";
 import FantasyDate from "./Models/FantasyDate";
 import { observer } from "mobx-react";
 import CalendarState from "./State/CalendarState";
+import {CheckIfLeapYear} from "./Models/CalendarModel";
 
-const MonthView = observer((props: { monthNumber: number, offsetDays: number }) => {
+const MonthView = observer((props: { monthNumber: number, offsetDays: number, year: number }) => {
   function getOffSetDays(): number {
     if (CalendarState.calendar.resetWeekAtMonthStart){
       return 0;
@@ -25,7 +26,8 @@ const MonthView = observer((props: { monthNumber: number, offsetDays: number }) 
   if (!month) {
     return (<React.Fragment></React.Fragment>);
   }
-  const isLeapMonth = CalendarState.isLeapYear() && CalendarState.calendar.leapYearRules.month === props.monthNumber;
+  const isLeapMonth = CheckIfLeapYear(props.year, CalendarState.calendar) && 
+    CalendarState.calendar.leapYearRules.month === props.monthNumber;
   const numberOfDayBoxes = month.days + offSetDays + (isLeapMonth ? 1 : 0);
   const days = Array.from({ length: numberOfDayBoxes }, (v, i) => i + 1);
   const weeks = chunks(days, CalendarState.calendar.daysOfWeek.length);
@@ -41,9 +43,9 @@ const MonthView = observer((props: { monthNumber: number, offsetDays: number }) 
                   return (<div key={i} className="day"></div>);
                 }
                 const fantasyDate: FantasyDate = {
-                  year: CalendarState.yearView,
+                  year: props.year,
                   dayOfMonth: x - offSetDays,
-                  month: props.monthNumber
+                  month: props.monthNumber,
                 };
                 return <CalendarDay key={i} date={fantasyDate} />;
               })}

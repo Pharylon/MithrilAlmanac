@@ -17,7 +17,7 @@ const CalendarEditView: React.FC = observer(() => {
   if (redirect){
     return (<Redirect to={`/calendar/${calendarId}`} />);
   }
-  if (CalendarState.calendarLoadState === "Blank"){
+  if (CalendarState.calendarLoadState === "Error"){
     return (<Redirect to="/" />);
   }
   if (calendarId) {
