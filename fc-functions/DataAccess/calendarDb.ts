@@ -2,14 +2,13 @@ import {CosmosClient, SqlQuerySpec} from "@azure/cosmos";
 import CalendarEvent from "../Models/CalendarEvent";
 import {CalendarModel} from "../Models/CalendarModel";
 import UserCalendarDto from "../Models/UserCalendarDto";
-import {formatISO} from "date-fns";
 
 const endpoint = process.env.endpoint;
 const key = process.env.key;
 const client = new CosmosClient({endpoint, key});
 
 const db = client.database("fantasy-calendar");
-const container = db.container("calendarEvents");
+const container = db.container("calendar-items");
 
 export async function GetCalendarEvent(id: string): Promise<CalendarEvent | undefined> {
   const query: SqlQuerySpec = {
@@ -71,6 +70,28 @@ export async function AddCalendar(model: CalendarModel): Promise<CalendarModel> 
   throw new Error("Something went wrong");
 }
 
+export async function DeleteById(resource: any): Promise<void> {
+  const item = container.item(resource.id, resource.type);
+  const foo = await item.delete(resource);
+  console.log(foo);
+}
+
+export async function DeleteCalendar(id: string): Promise<void> {
+  const query: SqlQuerySpec = {
+    query: "SELECT * FROM root r WHERE r.id = @id",
+    parameters: [
+      {
+        name: "@id",
+        value: id,
+      },
+    ],
+  };
+  const {resources} = await container.items.query(query).fetchAll();
+  await DeleteById(resources[0]);
+}
+
+
+
 export async function GetCalendar(id: string): Promise<CalendarModel> {
   const query: SqlQuerySpec = {
     query: "SELECT * FROM root r WHERE r.id = @id",
@@ -91,15 +112,15 @@ export async function GetCalendar(id: string): Promise<CalendarModel> {
   return undefined;
 }
 
-export async function GetUserCalendars(userId: string): Promise<UserCalendarDto[]> {
+export async function GetUserCalendars(ids: string[]): Promise<UserCalendarDto[]> {
+  const parameters = ids.map((x, i) => ({
+    name: "@id" + i,
+    value: x,
+  }));
+  const paramString = parameters.map(x => x.name).join(", ");
   const query: SqlQuerySpec = {
-    query: "SELECT c.id, c.name FROM c where c.type = 'calendar' and c.userId = @userId",
-    parameters: [
-      {
-        name: "@userId",
-        value: userId,
-      },
-    ],
+    query: `SELECT c.id, c.name FROM c where c.type = 'calendar' and c.id in (${paramString})`,
+    parameters,
   };
   const {resources} = await container.items.query(query).fetchAll();
   const myObjects = resources as UserCalendarDto[];

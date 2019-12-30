@@ -30,6 +30,7 @@ const EarthCalendar: CalendarTemplate = {
     interval: 4,
     unlessDivisions: [100, 400],
   },
+  resetWeekAtMonthStart: false,
 };
 
 export default EarthCalendar;

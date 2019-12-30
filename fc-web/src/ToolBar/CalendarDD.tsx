@@ -9,6 +9,10 @@ import NewCalendar from "../NewCalendar/NewCalendar";
 const CalendarDd: React.FC = observer(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [createModalOpen, setCreateModal] = useState(false);
+  function closeCall(){
+    setCreateModal(false);
+    setIsOpen(false);
+  }
   return (
     <div onMouseLeave={() => setIsOpen(false)}>
       <div style={{ fontWeight: isOpen && !createModalOpen ? "bold" : "normal" }}
@@ -27,7 +31,7 @@ const CalendarDd: React.FC = observer(() => {
           isOpen={createModalOpen}
           onRequestClose={() => setCreateModal(false)}
         >
-          <NewCalendar close={() => setIsOpen(false)}  />
+          <NewCalendar close={() => closeCall()}  />
         </Modal>
       </div>
     </div>

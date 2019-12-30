@@ -5,6 +5,7 @@
   background-color: rgb(26, 47, 73);
   color: white;
   padding-bottom: 20px;
+  height: 100%;
 }
 
 .calendar-edit-view div{
@@ -106,4 +107,32 @@
   background-color: rgb(45, 84, 131);
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.danger-modal{
+  padding: 10px 20px 10px 20px;
+  background-color: rgb(190, 9, 9);
+  color: white;
+  font-size: 2em;
+}
+
+.delete-buttons{
+  display: flex;
+  flex-direction: column;
+}
+
+.no-delete-btn{
+  margin-top: 20px;
+  font-size: 1em;
+  background-color: rgb(112, 122, 255);
+  border: 1px solid black;
+  margin-left: auto;
+}
+
+.yes-delete-btn{
+  margin-top: 20px;
+  font-size: 12x;
+  background-color: rgb(59, 0, 0);
+  border: 1px solid black;
+  color: white;
 }

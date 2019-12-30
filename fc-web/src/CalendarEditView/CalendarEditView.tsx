@@ -7,13 +7,18 @@ import "./CalendarEditViewStyle.css";
 import CalendarNumDays from "./CalendarNumDaysTooltip";
 import {SaveCalendar} from "../DataClients/CalendarEventDataClient";
 import CalendarState from "../State/CalendarState";
+import DangerZone from "./DangerZone";
 
 const CalendarEditView: React.FC = observer(() => {
   const { calendarId } = useParams();
   const [redirect, setRedirect] = useState(false);
+  const [showDanger, setShowDanger] = useState(false);
   console.log("Redirect", redirect);
   if (redirect){
     return (<Redirect to={`/calendar/${calendarId}`} />);
+  }
+  if (CalendarState.calendarLoadState === "Blank"){
+    return (<Redirect to="/" />);
   }
   if (calendarId) {
     CalendarEditState.setCalendar(calendarId);
@@ -64,6 +69,16 @@ const CalendarEditView: React.FC = observer(() => {
       <div>
         <button className="save-button" onClick={() => save()}>Save</button>
       </div>
+      <div>
+        <input type="checkbox" checked={showDanger} onChange={(e) => setShowDanger(!showDanger)} />
+        <span>Show Danger Zone</span>
+      </div>
+      {
+        showDanger && (
+          <DangerZone/>
+        )
+      }
+
     </div>
   );
 });

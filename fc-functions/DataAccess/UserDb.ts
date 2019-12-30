@@ -7,6 +7,17 @@ import uuid = require("uuid");
 import { TokenPayload } from "google-auth-library/build/src/auth/loginticket";
 
 export async function GetOrAddUserModelByGoogleId(googleId: string, tokenPayload: TokenPayload): Promise<UserModel> {
+  const user = await getUserFromGoogleId(googleId);
+  if (user){
+    return user;
+  }
+  else{
+    const model = await CreateUser(googleId, tokenPayload);
+    return model;
+  }
+}
+
+async function getUserFromGoogleId(googleId: string): Promise<UserModel | undefined>{
   const query: SqlQuerySpec = {
     query: "SELECT TOP 1 * FROM root r WHERE r.googleId = @googleId",
     parameters: [
@@ -17,13 +28,10 @@ export async function GetOrAddUserModelByGoogleId(googleId: string, tokenPayload
     ],
   };
   const {resources} = await container.items.query(query).fetchAll();
-  if (resources.length){
+  if (resources.length && resources[0].type === "user"){
     return resources[0];
   }
-  else{
-    const model = await CreateUser(googleId, tokenPayload);
-    return model;
-  }
+  return undefined;
 }
 
 export async function CreateUser(googleId: string, tokenPayload: TokenPayload): Promise<UserModel> {
@@ -41,6 +49,17 @@ export async function CreateUser(googleId: string, tokenPayload: TokenPayload): 
     return response.resource;
   }
   throw new Error("Something went wrong");
+}
+
+export async function AddCalendarToUser(googleId: string, calendarId: string, owner: boolean): Promise<void> {
+  const user = await getUserFromGoogleId(googleId);
+  if (owner){
+    user.ownedCalendars.push(calendarId);
+  }
+  else{
+    user.memberCalendars.push(calendarId);
+  }
+  await container.items.upsert(user);
 }
 
 export async function UpdateEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {

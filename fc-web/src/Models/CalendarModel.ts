@@ -11,11 +11,11 @@ export interface CalendarTemplate {
   daysOfWeek: string[];
   leapYearRules: LeapYearRules;
   currentYear: number;
+  resetWeekAtMonthStart: boolean;
 }
 
 
 export interface CalendarModel extends CalendarTemplate {
-  userId: string;
   id: string;
   name: string;
 }

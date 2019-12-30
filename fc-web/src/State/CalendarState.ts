@@ -24,7 +24,6 @@ interface ICalendarState {
 
 const blankModel: CalendarModel = {
   name: "",
-  userId: "",
   id: "__BLANK__",
   currentYear: -1,
   months: [],
@@ -34,6 +33,7 @@ const blankModel: CalendarModel = {
     interval: 0,
     unlessDivisions: [],
   },
+  resetWeekAtMonthStart: false,
 };
 
 const CalendarState = observable<ICalendarState>({

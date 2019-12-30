@@ -62,6 +62,15 @@ export async function SaveCalendar(calendarModel: CalendarModel): Promise<string
   return "";
 }
 
+export async function DeleteCalendar(id: string): Promise<void>{
+  const response = await post("DeleteCalendar", {id});
+  if (response.success){
+    await UserState.updateCalendars();
+    return;
+  }
+  throw new Error("Something went wrong trying to delete the calendar");
+}
+
 export async function AuthenticateUser(token: string): Promise<void> {
   const response = await post("AuthenticateUser", {token});
   if (response.success){

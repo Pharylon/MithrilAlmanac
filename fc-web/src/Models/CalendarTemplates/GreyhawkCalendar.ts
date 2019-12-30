@@ -34,6 +34,7 @@ const GreyhawkCalendar: CalendarTemplate = {
     interval: 0,
     unlessDivisions: [],
   },
+  resetWeekAtMonthStart: false,
 };
 
 export default GreyhawkCalendar;

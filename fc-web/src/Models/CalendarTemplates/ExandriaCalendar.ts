@@ -29,6 +29,7 @@ const ExandriaCalendar: CalendarTemplate = {
     interval: 0,
     unlessDivisions: [],
   },
+  resetWeekAtMonthStart: false,
 };
 
 export default ExandriaCalendar;
