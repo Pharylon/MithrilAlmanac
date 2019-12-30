@@ -1,6 +1,6 @@
 import {get, post} from "./fetchHelper";
 import CalendarEvent from "../Models/CalendarEvent";
-import {CalendarModel, CalendarInsertDto} from "../Models/CalendarModel";
+import {CalendarModel} from "../Models/CalendarModel";
 import { UserModel } from "../Models/UserModel";
 import UserState from "../State/UserState";
 import UserCalendarDto from "../Models/UserCalendarDto";
@@ -27,6 +27,13 @@ export async function GetCalendarEvents(id: string): Promise<CalendarEvent[]>{
     if (!asEvents){
       return [];
     }
+    asEvents.forEach(element => {
+      //The dates are actually strings instead of Date objects right now.
+      //Let's fix that!
+      if (element.realDate){
+        element.realDate = new Date(element.realDate);
+      }
+    });
     return asEvents;
   }
   return [];
@@ -44,8 +51,8 @@ export async function UpsertEvent(event: CalendarEvent): Promise<CalendarEvent |
 }
 
 
-export async function AddCalendar(calendarModel: CalendarInsertDto): Promise<string>{
-  const response = await post("CreatCalendar", calendarModel);
+export async function SaveCalendar(calendarModel: CalendarModel): Promise<string>{
+  const response = await post("SaveCalendar", calendarModel);
   if (response.success){
     const payload = response.value as {id: string};
     if (payload){

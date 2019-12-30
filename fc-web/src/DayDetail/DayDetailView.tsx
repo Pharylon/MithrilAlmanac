@@ -1,15 +1,16 @@
 import React from "react";
 import { observer } from "mobx-react";
-import FantasyDate, {datesAreEqual} from "../Models/FantasyDate";
+import FantasyDate, { datesAreEqual } from "../Models/FantasyDate";
 import CalendarState from "../State/CalendarState";
 import "./DayDetail.css";
 import EventDetail from "./EventDetail";
+import EditEvent from "./EditEvent";
 
 
-const DayDetailView = observer((props: {date: FantasyDate}) => {
+const DayDetailView = observer((props: { date: FantasyDate }) => {
   let monthName = "";
   const month = CalendarState.calendar.months.find(x => x.position === props.date.month);
-  if (month){
+  if (month) {
     monthName = month.name;
   }
   const events = CalendarState.events.filter(x => datesAreEqual(props.date, x.fantasyDate));
@@ -18,34 +19,37 @@ const DayDetailView = observer((props: {date: FantasyDate}) => {
       <h2>{`${monthName} ${getDayString(props.date.dayOfMonth)}, ${props.date.year}`}</h2>
       <div>
         {
-        events.map(x => (
-          <div key={x.id}>
-            <EventDetail defaultEdit={!x.id} event={x} />
-          </div>
-        ))
+          CalendarState.calendarEditEvent ?
+            (<EditEvent />) :
+            events.map(x => (
+              <div key={x.id}>
+                <EventDetail event={x} />
+              </div>
+            ))
         }
       </div>
       {
-        !CalendarState.calendarEventEditId && (
-        <button onClick={() => CalendarState.addNewEvent(props.date)} className="add-event-button">
-          <span>Add New Event</span>
-        </button>)
+        !CalendarState.calendarEditEvent && (
+          <button onClick={() => CalendarState.addNewEvent(props.date)} className="add-event-button">
+            <span>Add New Event</span>
+          </button>
+        )
       }
     </div>
   );
 });
 
-function getDayString(dayNum: number){
-  if (dayNum === 1){
+function getDayString(dayNum: number) {
+  if (dayNum === 1) {
     return "1st";
   }
-  else if (dayNum === 2){
+  else if (dayNum === 2) {
     return "2nd";
   }
-  else if (dayNum === 3){
+  else if (dayNum === 3) {
     return "3rd";
   }
-  else{
+  else {
     return dayNum + "th";
   }
 }

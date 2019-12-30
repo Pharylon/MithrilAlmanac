@@ -20,8 +20,7 @@ const CalendarView = observer(() => {
   }
   function onModalClose(){
     CalendarState.selectedDay = undefined;
-    CalendarState.calendarEventEditId = "";
-    CalendarState.events = CalendarState.events.filter(x => x.description && x.name !== "Title");
+    CalendarState.calendarEditEvent = undefined;
   }
   if (CalendarState.calendarLoadState === "Loading") {
     return (<div>Loading...</div>);
@@ -38,8 +37,6 @@ const CalendarView = observer(() => {
     return totalDays + totalDaysInYear + (isLeapYear ? 1 : 0);
   }, 0);
   const offSetDays = daysBeforeYear % CalendarState.calendar.daysOfWeek.length;
-  const positions = CalendarState.calendar.months.map(x => ({name: x.name, position: x.position}));
-  console.log(positions);
   return (
     <div className="calendar" id="calendar">
       <CalendarToolbar/>

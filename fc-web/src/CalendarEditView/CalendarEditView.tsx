@@ -1,49 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react";
-import CalendarState from "../State/CalendarState";
-import { clone } from "../Utility";
-import { CalendarModel } from "../Models/CalendarModel";
-import { useParams } from "react-router-dom";
+import CalendarEditState from "../State/CalendarEditState";
+import { useParams, Redirect } from "react-router-dom";
 import MonthList from "./MonthList";
-import Month from "../Models/Month";
 import "./CalendarEditViewStyle.css";
 import CalendarNumDays from "./CalendarNumDaysTooltip";
+import {SaveCalendar} from "../DataClients/CalendarEventDataClient";
+import CalendarState from "../State/CalendarState";
 
 const CalendarEditView: React.FC = observer(() => {
   const { calendarId } = useParams();
-  if (calendarId) {
-    CalendarState.setCalendar(calendarId);
+  const [redirect, setRedirect] = useState(false);
+  console.log("Redirect", redirect);
+  if (redirect){
+    return (<Redirect to={`/calendar/${calendarId}`} />);
   }
-  const clonedCalendar = clone(CalendarState.calendar);
-  const [clonedState, setState] = useState(clonedCalendar);
-  useEffect(() => {
-    setState(clone(CalendarState.calendar));
-  }, [clonedCalendar.id]);
+  if (calendarId) {
+    CalendarEditState.setCalendar(calendarId);
+  }
+  if (CalendarEditState.calendarLoadState === "Loading") {
+    return (<div>Loading...</div>);
+  }
   function setCalendarName(newValue: string) {
-    const newCalendarValue: CalendarModel = {
-      ...clonedState,
-      name: newValue,
-    };
-    setState(newCalendarValue);
+    CalendarEditState.calendar.name = newValue;
   }
   function setCurrentYear(newValue: string) {
     const currentYear = parseInt(newValue, 10);
     if (currentYear) {
-      setState({
-        ...clonedCalendar,
-        currentYear,
-      });
+      CalendarEditState.calendar.currentYear = currentYear;
     }
   }
-  function setMonths(newMonths: Month[]) {
-    console.log("newMonths", newMonths);
-    const newCalendarValue: CalendarModel = {
-      ...clonedState,
-      months: newMonths,
-    };
-    setState(newCalendarValue);
+  async function save(){
+    await SaveCalendar(CalendarEditState.calendar);
+    setRedirect(true);
+    CalendarState.reset();
   }
-  const totalDaysInYear = clonedCalendar.months.reduce((total, currMonth) => {
+  const totalDaysInYear = CalendarEditState.calendar.months.reduce((total, currMonth) => {
     return total + currMonth.days;
   }, 0);
   return (
@@ -52,7 +44,7 @@ const CalendarEditView: React.FC = observer(() => {
         <label htmlFor="calendar-name" style={{ display: "none" }}>Calendar Name</label>
         <div>
           <input id="calendar-edit-name-input" className="input-standard"
-            value={clonedState.name}
+            value={CalendarEditState.calendar.name}
             onChange={(e) => setCalendarName(e.target.value)} />
         </div>
       </div>
@@ -62,13 +54,16 @@ const CalendarEditView: React.FC = observer(() => {
           type="number"
           min="0"
           step="1"
-          value={clonedState.currentYear}
+          value={CalendarEditState.calendar.currentYear}
           onChange={(e) => setCurrentYear(e.target.value)} />
       </div>
       <div>
         <CalendarNumDays totalDaysInYear={totalDaysInYear} />
       </div>
-      <MonthList months={clonedState.months} updateMonths={setMonths} />
+      <MonthList />
+      <div>
+        <button className="save-button" onClick={() => save()}>Save</button>
+      </div>
     </div>
   );
 });

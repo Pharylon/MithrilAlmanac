@@ -13,13 +13,11 @@ export interface CalendarTemplate {
   currentYear: number;
 }
 
-export interface CalendarInsertDto extends CalendarTemplate {
-  name: string;
-}
 
-export interface CalendarModel extends CalendarInsertDto {
+export interface CalendarModel extends CalendarTemplate {
   userId: string;
   id: string;
+  name: string;
 }
 
 export function CheckIfLeapYear(year: number, calendar: CalendarModel): boolean{

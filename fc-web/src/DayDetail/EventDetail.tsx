@@ -1,61 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 import "./DayDetail.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import CalendarEvent from "../Models/CalendarEvent";
 import CalendarState from "../State/CalendarState";
+import { format } from "date-fns";
 
-const DayDetailView = observer((props: {event: CalendarEvent, defaultEdit: boolean}) => {
-  const [name, setName] = useState(props.event.name);
-  const [description, setDescription] = useState(props.event.description);
-  async function textAreaKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>){
-    if (e.keyCode === 13 && e.ctrlKey){
-      saveEvent();
-    }
+const EventDetail = observer((props: { event: CalendarEvent }) => {
+  function startEdit() {
+    CalendarState.calendarEditEvent = props.event;
   }
-  function saveEvent(){
-    CalendarState.calendarEventEditId = "";
-    const updateEvent: CalendarEvent = {
-      ...props.event,
-      name,
-      description,
-    };
-    CalendarState.updateEvent(updateEvent);
-  }
-  function startEdit(){
-    CalendarState.calendarEventEditId = props.event.id;
-  }
-  if (CalendarState.calendarEventEditId !== props.event.id){
-    return (
-      <div>
-        <h3>
-          {name}&nbsp;
-          <FontAwesomeIcon icon={faEdit} onClick={() => startEdit()} />
-        </h3>
-        <div className="event-description">
-          {
-            description.split("\n").map((x, i) => (<div style={{marginBottom: 5}} key={i}>{x}</div>))
-          }
-        </div>
+  const realDate = props.event.realDate ? format(props.event.realDate, "MMM do yyyy") : "Unknown Real Date";
+  return (
+    <div className="event-detail-container">
+      <h3 className="event-detail-title">
+        {props.event.name}&nbsp;
+        <FontAwesomeIcon className="event-edit-icon" icon={faEdit} onClick={() => startEdit()} />
+      </h3>
+      <div className="event-real-date">{realDate}</div>
+      <div className="event-description">
+        {
+          props.event.description.split("\n").map((x, i) => (<div style={{ marginBottom: 5 }} key={i}>{x}</div>))
+        }
       </div>
-    );
-  }
-  else{
-    return (
-      <div className="edit-event-area">
-        <div>
-          <input style={{fontSize: 18}} type="string" value={name} onChange={(e) => setName(e.target.value)} />
-        </div>
-        <textarea 
-          value={description} 
-          onKeyDown={(e) => textAreaKeyDown(e) } 
-          onChange={(e) => setDescription(e.target.value)}/>
-        <button onClick={() => saveEvent()}>Save</button>
-      </div>
-    );
-  }
+    </div>
+  );
 });
 
-export default DayDetailView;
+export default EventDetail;
 

@@ -7,15 +7,17 @@ import {
 } from "react-beautiful-dnd";
 import Month from "../Models/Month";
 import MonthEditCard from "./MonthEditCard";
+import { observer } from "mobx-react";
+import CalendarEditState from "../State/CalendarEditState";
+import CalendarState from "../State/CalendarState";
 
-const DragAndDropExample = (props: {months: Month[], updateMonths: (months: Month[]) => void}) => {
+const DragAndDropExample = observer(() => {
   const grid = 3;
   // tslint:disable-next-line:max-line-length
   function getItemStyle(isDragging: boolean, draggableStyle: CSSProperties | undefined): CSSProperties {
     const myStyle: CSSProperties = {
       // some basic styles to make the items look a bit nicer
       userSelect: "none",
-      padding: grid * 2,
       margin: `0 0 ${grid}px 0`,
 
       // change background colour if dragging
@@ -49,15 +51,23 @@ const DragAndDropExample = (props: {months: Month[], updateMonths: (months: Mont
     }
 
     const myItems: Month[] = reorder(
-      props.months,
+      CalendarEditState.calendar.months,
       result.source.index,
       result.destination.index,
     );
-
-    props.updateMonths(myItems);
+    if (CalendarEditState.monthEditPosition){
+      const myMonth = CalendarEditState.calendar.months.find(x => x.position === CalendarEditState.monthEditPosition);
+      if (myMonth){
+        const newMonth = myItems.find(x => x.name === myMonth.name);
+        if (newMonth){
+          CalendarEditState.monthEditPosition = newMonth.position;
+        }
+      }     
+    }
+    CalendarEditState.calendar.months = myItems;
   }
 
-
+  console.log("Months", CalendarState.calendar.months);
   return (
     <div className="month-edit-container">
       <div className="month-edit-title">Months</div>
@@ -69,7 +79,7 @@ const DragAndDropExample = (props: {months: Month[], updateMonths: (months: Mont
               ref={provided.innerRef}
               className={snapshot.isDraggingOver ? "month-dd dragging" : "month-dd not-dragging"}
             >
-              {props.months.map((item: Month, index: number) => (
+              {CalendarEditState.calendar.months.map((item: Month, index: number) => (
                 <Draggable key={item.name} draggableId={item.name} index={index}>
                   {(dProvided, dSnapshot) => (
                     <div
@@ -81,7 +91,7 @@ const DragAndDropExample = (props: {months: Month[], updateMonths: (months: Mont
                         dProvided.draggableProps.style,
                       )}
                     >
-                      <MonthEditCard month={item} />
+                      <MonthEditCard position={item.position} />
                     </div>
                   )}
                 </Draggable>
@@ -93,6 +103,6 @@ const DragAndDropExample = (props: {months: Month[], updateMonths: (months: Mont
       </DragDropContext>
     </div>
   );
-};
+});
 
 export default DragAndDropExample;

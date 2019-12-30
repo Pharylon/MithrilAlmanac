@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { observer } from "mobx-react";
 import "./NewCalendar.css";
 import {CalendarTemplates} from "../Models/CalendarTemplates";
-import {AddCalendar} from "../DataClients/CalendarEventDataClient";
+import {SaveCalendar} from "../DataClients/CalendarEventDataClient";
 import { Redirect } from "react-router-dom";
-import { CalendarInsertDto } from "../Models/CalendarModel";
 import UserState from "../State/UserState";
+import { CalendarModel } from "../Models/CalendarModel";
 
 const NewCalendar = observer((props: {close: () => void}) => {
   const [name, setName] = useState("My Calendar");
@@ -14,11 +14,13 @@ const NewCalendar = observer((props: {close: () => void}) => {
   async function createCalendar(){
     const myTemplate = CalendarTemplates.find(x => x.id === calendarId);
     if (myTemplate){
-      const dto: CalendarInsertDto = {
+      const dto: CalendarModel = {
         ...myTemplate.value,
         name,
+        id: "",
+        userId: "",
       };
-      const savedCalendarId = await AddCalendar(dto);
+      const savedCalendarId = await SaveCalendar(dto);
       UserState.updateCalendars();
       setCreatedCalendarId(savedCalendarId);
       props.close();

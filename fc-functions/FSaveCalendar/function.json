@@ -4,7 +4,7 @@
       "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
-      "route": "CreatCalendar",
+      "route": "SaveCalendar",
       "name": "req",
       "methods": [
         "get",
@@ -17,5 +17,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/FCreateCalendar/FCreateCalendar.js"
+  "scriptFile": "../dist/FSaveCalendar/FSaveCalendar.js"
 }

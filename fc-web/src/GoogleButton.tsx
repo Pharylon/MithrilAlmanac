@@ -18,7 +18,6 @@ const GoogleButton: React.FC = observer(() => {
     }
   };
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID as string;
-  console.log("ClientID", clientId);
   return (
     <div>
       <GoogleLogin

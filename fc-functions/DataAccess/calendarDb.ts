@@ -1,7 +1,8 @@
 import {CosmosClient, SqlQuerySpec} from "@azure/cosmos";
 import CalendarEvent from "../Models/CalendarEvent";
-import {CalendarModel, CalendarInsertDto} from "../Models/CalendarModel";
+import {CalendarModel} from "../Models/CalendarModel";
 import UserCalendarDto from "../Models/UserCalendarDto";
+import {formatISO} from "date-fns";
 
 const endpoint = process.env.endpoint;
 const key = process.env.key;
@@ -63,9 +64,9 @@ export async function UpdateEvent(calendarEvent: CalendarEvent): Promise<Calenda
 export async function AddCalendar(model: CalendarModel): Promise<CalendarModel> {
   const dataObject = model as any;
   dataObject.type = "calendar";
-  const response = await container.items.create(dataObject);
+  const response = await container.items.upsert(dataObject);
   if (response.resource){
-    return response.resource;
+    return response.resource as any;
   }
   throw new Error("Something went wrong");
 }

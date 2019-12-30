@@ -12,13 +12,14 @@ interface ICalendarState {
   events: CalendarEvent[];
   incrementYear: () => void;
   decrementYear: () => void;
-  calendarEventEditId: string | undefined;
+  calendarEditEvent: CalendarEvent | undefined;
   setCalendar: (id: string) => void;
   isLeapYear: () => boolean;
   calendarLoadState: "Blank" | "Loaded" | "Loading" | "Error";
   addNewEvent: (props: FantasyDate) => void;
-  updateEvent: (props: CalendarEvent) => void;
+  updateEvent: (props: CalendarEvent) => Promise<void>;
   updateMonthName: (position: number, newName: string) => void;
+  reset: () => void;
 }
 
 const blankModel: CalendarModel = {
@@ -43,7 +44,7 @@ const CalendarState = observable<ICalendarState>({
   events: [],
   incrementYear: () => CalendarState.yearView++,
   decrementYear: () => CalendarState.yearView--,
-  calendarEventEditId: undefined,
+  calendarEditEvent: undefined,
   setCalendar: (id: string) => {
     if (id !== CalendarState.calendar.id){
       LoadCalendar(id);
@@ -54,18 +55,17 @@ const CalendarState = observable<ICalendarState>({
     return isLeapYear;
   },
   addNewEvent: (date: FantasyDate) => {
-    const newEventId = uuid();
-    CalendarState.events.push({
+    const newEvent: CalendarEvent = {
       calendarId: CalendarState.calendar.id,
       fantasyDate: date,
       name: "Title",
       description: "",
       realDate: undefined,
-      id: newEventId,
-    });
-    CalendarState.calendarEventEditId = newEventId;
+      id: uuid(),
+    };
+    CalendarState.calendarEditEvent = newEvent;
   },
-  updateEvent: async (myEvent: CalendarEvent) => {
+  updateEvent: async (myEvent: CalendarEvent): Promise<void> => {
     const stillGoodEvents = CalendarState.events.filter(x => x.id !== myEvent.id);
     CalendarState.events = [...stillGoodEvents, myEvent];
     const newEvent = await UpsertEvent(myEvent);
@@ -78,6 +78,10 @@ const CalendarState = observable<ICalendarState>({
     if (month){
       month.name = newName;
     }
+  },
+  reset: () => {
+    CalendarState.calendar = blankModel;
+    CalendarState.calendarLoadState = "Blank";
   },
 });
 
