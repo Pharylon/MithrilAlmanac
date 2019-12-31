@@ -1,15 +1,11 @@
-import {CosmosClient, SqlQuerySpec} from "@azure/cosmos";
+import { SqlQuerySpec} from "@azure/cosmos";
 import CalendarEvent from "../Models/CalendarEvent";
 import {CalendarModel} from "../Models/CalendarModel";
 import UserCalendarDto from "../Models/UserCalendarDto";
 import uuid = require("uuid");
+import { container } from "./DbClient";
 
-const endpoint = process.env.endpoint;
-const key = process.env.key;
-const client = new CosmosClient({endpoint, key});
 
-const db = client.database("fantasy-calendar");
-const container = db.container("calendar-items");
 
 export async function GetCalendarEvent(id: string): Promise<CalendarEvent | undefined> {
   const query: SqlQuerySpec = {

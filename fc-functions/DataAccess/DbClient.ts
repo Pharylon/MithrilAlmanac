@@ -5,4 +5,4 @@ const key = process.env.key;
 const client = new CosmosClient({endpoint, key});
 
 export const db = client.database("fantasy-calendar");
-export const container = db.container("calendarEvents");
+export const container = db.container("calendar-items");
