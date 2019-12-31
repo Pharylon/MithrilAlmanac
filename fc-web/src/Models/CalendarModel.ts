@@ -24,7 +24,25 @@ export interface CalendarTemplate {
 export interface CalendarModel extends CalendarTemplate {
   id: string;
   name: string;
+  shareId: string;
 }
+
+export const blankModel: CalendarModel = {
+  name: "",
+  id: "__BLANK__",
+  currentYear: -1,
+  months: [],
+  daysOfWeek: [],
+  leapYearRules: {
+    month: 0,
+    interval: 0,
+    unlessDivisions: [],
+  },
+  resetWeekAtMonthStart: false,
+  holidays: [],
+  shareId: "",
+};
+
 
 export function CheckIfLeapYear(year: number, calendar: CalendarModel): boolean{
   if (year === 0){

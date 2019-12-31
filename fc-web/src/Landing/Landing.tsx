@@ -7,8 +7,10 @@ import UserState from "../State/UserState";
 const Landing: React.FC = observer(() => {
   return (
     <div className="landing">
-      <div className="content">
-        <div className="logo"><img className="logo" src={logo} alt="Mithril Almanac Logo"/></div>
+      <div className="landing-content">
+        <div className="logo">
+          <img className="big-logo" src={logo} alt="Mithril Almanac Logo"/>
+        </div>
         <div className="intro-text">
           <p>"What did we do last week?"</p>
           <p>It's the eternal question that starts every game. Hopefully someone kept good notes,

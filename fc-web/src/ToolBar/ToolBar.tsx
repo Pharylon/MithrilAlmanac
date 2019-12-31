@@ -6,13 +6,14 @@ import GoogleButton from "../GoogleButton";
 import UserState from "../State/UserState";
 import "./ToolBar.css";
 import CalendarDd from "./CalendarDD";
+import { Link } from "react-router-dom";
 
 const ToolBar: React.FC = observer(() => {
   useEffect(() => Modal.setAppElement("#app"), []);
 
   return (
     <div className="top-bar">
-      <div><img src={ColoredSquares} alt="small logo" /></div>
+      <Link to="/"><div><img src={ColoredSquares} alt="small logo" /></div></Link>
       {/* <div className="title">The Mithril Almanac</div> */}
       {
         UserState.userName ?

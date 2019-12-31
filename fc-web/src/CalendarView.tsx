@@ -8,6 +8,7 @@ import { useParams, Redirect } from "react-router-dom";
 import { CheckIfLeapYear } from "./Models/CalendarModel";
 import CalendarToolbar from "./CalendarNavigation/CalendarToolBar";
 import TimeLineView from "./TimelineView/TimelineView";
+import JoinCalendarHelper from "./CalenderJoinHelper";
 
 
 const CalendarView = observer(() => {
@@ -46,6 +47,8 @@ const CalendarView = observer(() => {
     return totalDays + totalDaysInYear + (isLeapYear ? 1 : 0);
   }, 0);
   const offSetDays = daysBeforeYear % CalendarState.calendar.daysOfWeek.length;
+  JoinCalendarHelper(CalendarState.calendar.id);
+  console.log("TEST");
   return (
     <div className="calendar" id="calendar">
       <CalendarToolbar year={currentYear} />

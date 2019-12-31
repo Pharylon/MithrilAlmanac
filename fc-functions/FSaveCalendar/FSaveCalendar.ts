@@ -1,5 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import {AddCalendar, GetCalendar } from "../DataAccess/calendarDb";
+import {SaveCalendar, GetCalendar } from "../DataAccess/calendarDb";
 import { CalendarModel} from "../Models/CalendarModel";
 import * as uuid from "uuid/v1";
 import { VerifyTicket } from "../Security/TokenVerification";
@@ -35,7 +35,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
         ...myCalendar,
         id,
     };
-    await AddCalendar(calendarModel);
+    await SaveCalendar(calendarModel);
     await AddCalendarToUser(validateUser.userId, calendarModel.id, true);
 
     context.res = {

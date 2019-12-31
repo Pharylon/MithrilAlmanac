@@ -18,6 +18,7 @@ const NewCalendar = observer((props: {close: () => void}) => {
         ...myTemplate.value,
         name,
         id: "",
+        shareId: "",
       };
       const savedCalendarId = await SaveCalendar(dto);
       UserState.updateCalendars();

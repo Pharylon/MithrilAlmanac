@@ -31,7 +31,7 @@ const TimeLineView: React.FC = observer(() => {
     <div className="timeline-events">
       {
         events.map(x => (
-          <div className="timeline-event">
+          <div key={x.id} className="timeline-event">
             <FontAwesomeIcon className="event-icon" icon={faInfoCircle} />
             <div className="event-description">
               <div>{x.name}</div>

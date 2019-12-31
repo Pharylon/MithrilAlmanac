@@ -2,7 +2,7 @@ import {observable} from "mobx";
 import CalendarEvent from "../Models/CalendarEvent";
 import FantasyDate from "../Models/FantasyDate";
 import { GetCalendar, GetCalendarEvents, UpsertEvent } from "../DataClients/CalendarEventDataClient";
-import {CalendarModel} from "../Models/CalendarModel";
+import {CalendarModel, blankModel} from "../Models/CalendarModel";
 import uuid from "uuid";
 
 interface ICalendarState {
@@ -19,20 +19,7 @@ interface ICalendarState {
 viewType: "Calendar" | "Timeline";
 }
 
-const blankModel: CalendarModel = {
-  name: "",
-  id: "__BLANK__",
-  currentYear: -1,
-  months: [],
-  daysOfWeek: [],
-  leapYearRules: {
-    month: 0,
-    interval: 0,
-    unlessDivisions: [],
-  },
-  resetWeekAtMonthStart: false,
-  holidays: [],
-};
+
 
 const CalendarState = observable<ICalendarState>({
   calendarLoadState: "Blank",

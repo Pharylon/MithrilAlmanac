@@ -2,6 +2,7 @@ import {CosmosClient, SqlQuerySpec} from "@azure/cosmos";
 import CalendarEvent from "../Models/CalendarEvent";
 import {CalendarModel} from "../Models/CalendarModel";
 import UserCalendarDto from "../Models/UserCalendarDto";
+import uuid = require("uuid");
 
 const endpoint = process.env.endpoint;
 const key = process.env.key;
@@ -60,7 +61,7 @@ export async function UpdateEvent(calendarEvent: CalendarEvent): Promise<Calenda
   throw new Error("Something went wrong");
 }
 
-export async function AddCalendar(model: CalendarModel): Promise<CalendarModel> {
+export async function SaveCalendar(model: CalendarModel): Promise<CalendarModel> {
   const dataObject = model as any;
   dataObject.type = "calendar";
   const response = await container.items.upsert(dataObject);
@@ -110,11 +111,16 @@ export async function GetCalendar(id: string): Promise<CalendarModel> {
   if (resources.length){
     const resource = resources[0];
     if (resource.type === "calendar"){
+      if (!resource.shareId){
+        resource.shareId = uuid();
+        await SaveCalendar(resource as CalendarModel);
+      }
       return resource;
     }
   }
   return undefined;
 }
+
 
 export async function GetUserCalendars(ids: string[]): Promise<UserCalendarDto[]> {
   const parameters = ids.map((x, i) => ({

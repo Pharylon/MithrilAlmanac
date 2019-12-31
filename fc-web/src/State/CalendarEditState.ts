@@ -1,6 +1,6 @@
 import {observable} from "mobx";
 import { GetCalendar } from "../DataClients/CalendarEventDataClient";
-import { CalendarModel } from "../Models/CalendarModel";
+import { CalendarModel, blankModel } from "../Models/CalendarModel";
 
 interface ICalendarEditState {
   calendar: CalendarModel;
@@ -11,20 +11,6 @@ interface ICalendarEditState {
   monthEditPosition: number | undefined;
 }
 
-const blankModel: CalendarModel = {
-  name: "",
-  id: "__BLANK__",
-  currentYear: -1,
-  months: [],
-  daysOfWeek: [],
-  leapYearRules: {
-    month: 0,
-    interval: 0,
-    unlessDivisions: [],
-  },
-  resetWeekAtMonthStart: false,
-  holidays: [],
-};
 
 const CalendarEditState = observable<ICalendarEditState>({
   calendarLoadState: "Blank",

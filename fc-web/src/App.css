@@ -14,11 +14,6 @@
   margin-right: 20px;
 }
 
-.content{
-  backdrop-filter: blur(4px);
-  /* background-color: rgba(61, 61, 61, 0.8); */
-}
-
 
 .App-logo {
   height: 40vmin;
@@ -71,6 +66,13 @@
   width: 75px;
   height: 75px;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .day{
+    width: 50px;
+    height: 50px;
+  }
 }
 
 

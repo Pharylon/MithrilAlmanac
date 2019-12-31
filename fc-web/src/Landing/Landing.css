@@ -6,27 +6,46 @@
   height: 80vh;
 }
 
-.content{
-  width: 80%;
+.landing-content{
+  width: 100%;
   align-self: center;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
+  max-width: 1200px;
+}
+
+
+@media (orientation: portrait) {
+  .landing-content{
+    flex-direction: column;
+  }
+}
+
+@media (orientation: landscape) {
+  .intro-text{
+    margin-left: 20px;
+    margin-top: -10px;
+  }
 }
 
 .logo{
-  width: 500px;
   text-shadow: 2px 2px;
-  margin-bottom: 20px;
+  flex: 1;
 }
 
 .intro-text{
   padding-left: 20px;
-  width: 500px;
   font-family: Georgia, 'Times New Roman', Times, serif;
   color: rgb(36, 36, 36);
+  flex: 1;
+
   /* border: 5px solid rgb(212, 212, 212);
   border-radius: 5px; */
+}
+
+.big-logo{
+  width: 100%;
 }
 
 .login-modal{

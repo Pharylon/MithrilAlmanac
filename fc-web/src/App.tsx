@@ -1,30 +1,16 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { observer } from "mobx-react";
-import { BrowserRouter as Router, Switch, Route, HashRouter } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Landing from "./Landing/Landing";
 import CalendarView from "./CalendarView";
 import ToolBar from "./ToolBar/ToolBar";
 import UserState from "./State/UserState";
-import { AuthenticateUser } from "./DataClients/CalendarEventDataClient";
+import { AuthenticateUser } from "./DataClients/AuthenticationDataClient";
 import CalendarEditView from "./CalendarEditView/CalendarEditView";
 import Authenticate from "./Authenticate/Authenticate";
 
 const App: React.FC = observer(() => {
-  // useEffect(() => {
-  //   function start() {
-  //     const myWindow: any = window;
-  //     const gapi: any = myWindow.gapi;
-  //     gapi.load('auth2', function() {
-  //       const auth2 = gapi.auth2.init({
-  //         client_id: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
-  //         // Scopes to request in addition to 'profile' and 'email'
-  //         //scope: 'additional_scope'
-  //       });
-  //     });
-  //   }
-
-  // }, []);
   useEffect(() => {
     const accessToken = UserState.getAccessToken();
     if (accessToken) {
@@ -50,8 +36,7 @@ const App: React.FC = observer(() => {
           </Route>
           <Route path="/">
             <Landing />
-          </Route>
-  
+          </Route>  
         </Switch>
       </Router>
     </div>
