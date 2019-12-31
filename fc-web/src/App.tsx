@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { observer } from "mobx-react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, HashRouter } from "react-router-dom";
 import Landing from "./Landing/Landing";
 import CalendarView from "./CalendarView";
 import ToolBar from "./ToolBar/ToolBar";
@@ -32,7 +32,7 @@ const App: React.FC = observer(() => {
   }, []);
   return (
     <div className="App" id="app">
-      <Router>
+      <HashRouter>
         <ToolBar />
         <Switch>
           <Route path="/calendar/:calendarId/edit">
@@ -48,7 +48,7 @@ const App: React.FC = observer(() => {
             <Landing />
           </Route>
         </Switch>
-      </Router>
+      </HashRouter>
     </div>
   );
 });
