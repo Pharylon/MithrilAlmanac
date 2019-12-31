@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { CSSProperties } from "react";
 import { observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import CalendarState from "../State/CalendarState";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./CalendarToolBar.css";
 
 const CalendarToolbar = observer((props: { year: number }) => {
@@ -15,6 +15,7 @@ const CalendarToolbar = observer((props: { year: number }) => {
       CalendarState.viewType = "Timeline";
     }
   }
+  const myDisplay: CSSProperties = {display: CalendarState.viewType === "Calendar" ? "" : "none"};
   return (
     <div className="year-header">
       <div className="calendar-bar-left">
@@ -27,7 +28,7 @@ const CalendarToolbar = observer((props: { year: number }) => {
         </select>
       </div>
       <div className="calendar-bar-main">
-        <Link to={`/calendar/${CalendarState.calendar.id}/${props.year - 1}`}>
+        <Link style={myDisplay} to={`/calendar/${CalendarState.calendar.id}/${props.year - 1}`}>
           <div><FontAwesomeIcon className="calendar-toolbar-color" icon={faAngleLeft} /></div>
         </Link>
         <Link className="calendar-year-link" to={`/calendar/${CalendarState.calendar.id}/edit`}>
@@ -36,8 +37,8 @@ const CalendarToolbar = observer((props: { year: number }) => {
           </div>
         </Link>
 
-        <div className="calendar-year-current-number">{props.year}</div>
-        <Link to={`/calendar/${CalendarState.calendar.id}/${props.year + 1}`}>
+        <div  style={myDisplay}  className="calendar-year-current-number">{props.year}</div>
+        <Link  style={myDisplay}  to={`/calendar/${CalendarState.calendar.id}/${props.year + 1}`}>
           <div><FontAwesomeIcon className="calendar-toolbar-color" icon={faAngleRight} /></div>
         </Link>
       </div>

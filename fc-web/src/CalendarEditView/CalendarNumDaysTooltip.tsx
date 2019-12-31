@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
+
 const CalendarNumDays = (props: {totalDaysInYear: number}) => {
   const [showToolTip, setShowTooltip] = useState(false);
   return (

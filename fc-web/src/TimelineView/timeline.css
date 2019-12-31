@@ -1,0 +1,33 @@
+.timeline-events{
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.timeline-event{
+  /* margin: 5px 10px 5px 10px; */
+  border-left: blue;
+  border-width: 2px;
+  border-style: solid;
+  border-top: 0px;
+  border-bottom: 0px;
+  padding: 5px 0px 5px 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.event-icon{
+  position: absolute;
+  margin-left: -8px;
+  margin-top: 3px;
+  color: rgb(29, 29, 187);
+  background-color: white;
+}
+
+.event-description{
+  margin-left: 10px;
+}
+
+.timeline-date{
+  font-size: 12px;
+}

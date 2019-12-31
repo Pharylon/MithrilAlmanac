@@ -2,7 +2,7 @@ import {observable} from "mobx";
 import CalendarEvent from "../Models/CalendarEvent";
 import FantasyDate from "../Models/FantasyDate";
 import { GetCalendar, GetCalendarEvents, UpsertEvent } from "../DataClients/CalendarEventDataClient";
-import {CalendarModel, CheckIfLeapYear} from "../Models/CalendarModel";
+import {CalendarModel} from "../Models/CalendarModel";
 import uuid from "uuid";
 
 interface ICalendarState {

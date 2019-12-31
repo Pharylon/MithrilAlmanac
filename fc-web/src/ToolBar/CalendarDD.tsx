@@ -7,7 +7,7 @@ import NewCalendar from "../NewCalendar/NewCalendar";
 
 
 const CalendarDd: React.FC = observer(() => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [createModalOpen, setCreateModal] = useState(false);
   function closeCall(){
     setCreateModal(false);

@@ -12,24 +12,21 @@ import TimeLineView from "./TimelineView/TimelineView";
 
 const CalendarView = observer(() => {
   const { year } = useParams();
-  function getYear(): number {    
-    if (!year){
+  function getYear(): number {
+    if (!year) {
       return CalendarState.calendar.currentYear;
     }
     return parseInt(year, 10);
   }
-  if (CalendarState.viewType === "Timeline"){
-    return <TimeLineView />;
-  }
-  const {calendarId} = useParams();
-  if (calendarId){
+  const { calendarId } = useParams();
+  if (calendarId) {
     CalendarState.setCalendar(calendarId);
   }
   const myApp = document.getElementById("calendar");
   if (myApp) {
     Modal.setAppElement(myApp);
   }
-  function onModalClose(){
+  function onModalClose() {
     CalendarState.selectedDay = undefined;
     CalendarState.calendarEditEvent = undefined;
   }
@@ -40,7 +37,7 @@ const CalendarView = observer(() => {
     return <Redirect to={"/"} />;
   }
   const currentYear = getYear();
-  const prevYears = currentYear > 0 ?  Array.from(Array(currentYear).keys()) : [0];
+  const prevYears = currentYear > 0 ? Array.from(Array(currentYear).keys()) : [0];
   const totalDaysInYear = CalendarState.calendar.months.reduce((total, currMonth) => {
     return total + currMonth.days;
   }, 0);
@@ -51,14 +48,18 @@ const CalendarView = observer(() => {
   const offSetDays = daysBeforeYear % CalendarState.calendar.daysOfWeek.length;
   return (
     <div className="calendar" id="calendar">
-      <CalendarToolbar year={currentYear}/>
-      <div className="calendar-months">
-        {
-          CalendarState.calendar.months.map((x) =>
-            <MonthView year={currentYear} key={x.position} offsetDays={offSetDays} monthNumber={x.position} />,
-          )
-        }
-      </div>
+      <CalendarToolbar year={currentYear} />
+      {
+        CalendarState.viewType === "Calendar" ?
+          (<div className="calendar-months">
+            {
+              CalendarState.calendar.months.map((x) =>
+                <MonthView year={currentYear} key={x.position} offsetDays={offSetDays} monthNumber={x.position} />,
+              )
+            }
+          </div>) :
+          (<TimeLineView />)
+      }
       {
         CalendarState.selectedDay && (
           <Modal
