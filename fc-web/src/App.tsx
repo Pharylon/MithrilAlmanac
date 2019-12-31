@@ -8,6 +8,7 @@ import ToolBar from "./ToolBar/ToolBar";
 import UserState from "./State/UserState";
 import { AuthenticateUser } from "./DataClients/CalendarEventDataClient";
 import CalendarEditView from "./CalendarEditView/CalendarEditView";
+import Authenticate from "./Authenticate/Authenticate";
 
 const App: React.FC = observer(() => {
   // useEffect(() => {
@@ -32,7 +33,7 @@ const App: React.FC = observer(() => {
   }, []);
   return (
     <div className="App" id="app">
-      <HashRouter>
+      <Router>
         <ToolBar />
         <Switch>
           <Route path="/calendar/:calendarId/edit">
@@ -44,11 +45,15 @@ const App: React.FC = observer(() => {
           <Route path="/calendar/:calendarId/">
             <CalendarView />
           </Route>
+          <Route path="/authenticate">
+            <Authenticate />
+          </Route>
           <Route path="/">
             <Landing />
           </Route>
+  
         </Switch>
-      </HashRouter>
+      </Router>
     </div>
   );
 });

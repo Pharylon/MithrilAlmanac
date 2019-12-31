@@ -1,6 +1,7 @@
 import { OAuth2Client } from "google-auth-library";
 import { UserModel } from "../Models/UserModel";
 import { TokenPayload } from "google-auth-library/build/src/auth/loginticket";
+import oauth2Client from "./OauthClient";
 
 
 interface GoogleTokenResult {
@@ -38,6 +39,22 @@ export async function VerifyTicket(token: string) {
   return {
     payload,
     userId,
+  };
+}
+
+export async function VerifyToken(token: string) {
+  if (!token){
+    return undefined;
+  }
+  const cached = getModelFromCache(token);
+  if (cached){
+    return cached;
+  }
+  const userInfo = await oauth2Client.getTokenInfo(token);
+  const asAny = userInfo as any;
+  return {
+    googleId: userInfo.sub,
+    email: asAny.email,
   };
 }
 

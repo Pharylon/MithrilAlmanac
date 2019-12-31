@@ -78,6 +78,15 @@ export async function DeleteCalendar(id: string): Promise<void>{
   throw new Error("Something went wrong trying to delete the calendar");
 }
 
+export async function GetToken(code: string): Promise<string> {
+  const response = await post("GetToken", {code});
+  if (response.success){
+    const responseObj = response.value as {token: string};
+    return responseObj.token;
+  }
+  return "";
+}
+
 export async function AuthenticateUser(token: string): Promise<void> {
   const response = await post("AuthenticateUser", {token});
   if (response.success){
