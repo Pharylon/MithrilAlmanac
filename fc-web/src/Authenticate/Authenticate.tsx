@@ -11,7 +11,6 @@ const Authenticate = observer(() => {
     return <Redirect to="/" />;
   }
   if (code) {
-    console.log("Auth");
     auth();
   }
   async function auth() {

@@ -20,6 +20,9 @@
   .landing-content{
     flex-direction: column;
   }
+  .intro-text{
+    padding-right: 20px;
+  }
 }
 
 @media (orientation: landscape) {

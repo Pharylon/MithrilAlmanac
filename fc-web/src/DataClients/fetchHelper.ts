@@ -176,7 +176,7 @@ async function EnsureFreshToken() {
     if (timeStamp) {
       const diff = timeStamp - (new Date().getTime());
       const minutesUntilExpiry = diff / 1000 / 60;
-      if (minutesUntilExpiry > 0 && minutesUntilExpiry < 15) {
+      if (minutesUntilExpiry > 0 && minutesUntilExpiry < 30) {
         UserState.refreshToken();
       }
     }

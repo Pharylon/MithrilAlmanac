@@ -2,6 +2,7 @@ import { observable } from "mobx";
 import { GetUserCalendars } from "../DataClients/CalendarEventDataClient";
 import { get, post } from "../DataClients/fetchHelper";
 import { UserModel } from "../Models/UserModel";
+import { GetRefreshedToken } from "../DataClients/AuthenticationDataClient";
 
 interface CalendarId {
   id: string;
@@ -52,15 +53,16 @@ const UserState = observable<IUserState>({
   },
   refreshToken: async () => {
     const oldToken = localStorage.getItem("accessToken");
-    const result = await get("GetToken", { token: oldToken });
-    if (!result.success) {
-      console.log("There was an error attempting to refresh token");
-    }
-    else {
-      const token = (result.value as any).token;
-      console.log("Got refresh token", token);
-      UserState.setAccessToken(token);
-    }
+    if (oldToken){
+      const newToken = await GetRefreshedToken(oldToken);
+      if (!newToken) {
+        console.log("There was an error attempting to refresh token");
+      }
+      else {
+        console.log("Got refresh token", newToken);
+        UserState.setAccessToken(newToken);
+      }
+    }    
   },
   authenticateUser: async (token: string) => {
     const response = await post("AuthenticateUser", { token });
