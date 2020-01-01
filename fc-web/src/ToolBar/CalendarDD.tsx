@@ -22,7 +22,7 @@ const CalendarDd: React.FC = observer(() => {
         {
           UserState.calendars.map(x => (
             <div key={x.id}>
-              <Link className="hover-bold" to={"/calendar/" + x.id}>{x.name}</Link>
+              <Link onClick={() => setIsOpen(false)} className="hover-bold" to={"/calendar/" + x.id}>{x.name}</Link>
             </div>))
         }
         <div className="hover-bold" onClick={() => setCreateModal(true)}>Create New</div>
