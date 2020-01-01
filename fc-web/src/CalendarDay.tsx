@@ -6,9 +6,11 @@ import CalendarState from "./State/CalendarState";
 const CalendarDay = observer((props: { date: FantasyDate }) => {
   const events = CalendarState.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
   function selectDay(){
-    CalendarState.selectedDay = props.date;
     if (events.length === 0){
       CalendarState.addNewEvent(props.date);
+    }
+    else{
+      CalendarState.selectedDay = props.date;
     }
   }
   function getHoliday(){

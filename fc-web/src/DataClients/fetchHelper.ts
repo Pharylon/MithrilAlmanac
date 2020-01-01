@@ -12,7 +12,7 @@ interface Result {
   value: unknown | ErrorObject;
 }
 
-export async function get(uri: string, parameters?: any): Promise<Result>{
+export async function get(uri: string, parameters?: any): Promise<Result> {
   const fullUri = getUri(baseUriAddress + uri, parameters);
   const requestInit: RequestInit = {
     method: "GET",
@@ -22,7 +22,7 @@ export async function get(uri: string, parameters?: any): Promise<Result>{
   return response;
 }
 
-export async function post(uri: string, body: any): Promise<Result>{
+export async function post(uri: string, body: any): Promise<Result> {
   const fullUri = getUri(baseUriAddress + uri);
   const requestInit: RequestInit = {
     method: "POST",
@@ -34,9 +34,17 @@ export async function post(uri: string, body: any): Promise<Result>{
 }
 
 async function request(uri: string, requestInit: RequestInit): Promise<Result> {
+  EnsureFreshToken();
   const response = await fetch(uri, requestInit);
-
-  if (response.status === 200) {
+  if (response.status === 401) {
+    console.log("Hit timeout");
+    UserState.timeout();
+    return {
+      success: false,
+      value: undefined,
+    };
+  }
+  else if (response.status === 200) {
     if (isJson(response)) {
       try {
         const responseObj = await response.json();
@@ -135,26 +143,43 @@ function getUnknownErrorMsg(status: number) {
   }
 }
 
-function getBaseAddress(){
+function getBaseAddress() {
   let baseAddress = process.env.REACT_APP_API_ADDRESS;
-  if (!baseAddress){
+  if (!baseAddress) {
     console.log("YOU MUST ADD THE FUNCTION BASE ADDRESS TO THE ENV FILE!");
   }
-  else if (!baseAddress.endsWith("/")){
+  else if (!baseAddress.endsWith("/")) {
     baseAddress += "/";
   }
   return baseAddress;
 }
 
-function getHeaders(hasBody: boolean): Headers{
+function getHeaders(hasBody: boolean): Headers {
   const headers: HeadersInit = new Headers();
   headers.set("Accept", "application/json");
-  if (hasBody){
+  if (hasBody) {
     headers.set("Content-Type", "application/json");
-  }  
+  }
   const token = UserState.getAccessToken();
-  if (token){
+  if (token) {
     headers.set("Authorization", token);
   }
   return headers;
+}
+
+
+
+async function EnsureFreshToken() {
+  const tokenExpiration = localStorage.getItem("tokenExpiration");
+  if (tokenExpiration) {
+    const timeStamp = parseInt(tokenExpiration, 10);
+    if (timeStamp) {
+      const diff = timeStamp - (new Date().getTime());
+      const minutesUntilExpiry = diff / 1000 / 60;
+      if (minutesUntilExpiry > 0 && minutesUntilExpiry < 15) {
+        UserState.refreshToken();
+      }
+    }
+  }
+
 }

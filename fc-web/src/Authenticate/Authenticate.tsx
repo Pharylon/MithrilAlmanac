@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthenticateUser, GetToken } from "../DataClients/AuthenticationDataClient";
+import { GetToken } from "../DataClients/AuthenticationDataClient";
 import UserState from "../State/UserState";
 import { observer } from "mobx-react";
 import { Redirect } from "react-router-dom";
@@ -7,17 +7,18 @@ import { Redirect } from "react-router-dom";
 const Authenticate = observer(() => {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
+  if (UserState.userName){
+    return <Redirect to="/" />;
+  }
   if (code) {
+    console.log("Auth");
     auth();
   }
   async function auth() {
     if (code) {
       const token = await GetToken(code);
-      await AuthenticateUser(token);
+      await UserState.authenticateUser(token);
     }
-  }
-  if (UserState.userName){
-    return <Redirect to="/" />;
   }
   return (
     <div style={{ fontSize: 20, marginTop: 20 }}>

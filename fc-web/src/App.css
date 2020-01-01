@@ -180,3 +180,18 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.user-toolbar{
+  position: relative;
+  justify-content: left;
+}
+.user-toolbar div{
+  align-self: center;
+}
+
+.logout{
+  position: absolute;
+  background-color: rgba(58, 58, 58);
+  width: 100%;
+  padding: 10px 10px 5px 10px;
+}

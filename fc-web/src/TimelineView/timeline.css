@@ -31,3 +31,14 @@
 .timeline-date{
   font-size: 12px;
 }
+
+.timeline-view-event-name{
+  display: flex;
+}
+
+
+
+.timeline-view-event-name div:nth-child(2){
+  font-size: 12px;
+  margin-left: 5px;
+}

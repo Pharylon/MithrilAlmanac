@@ -1,9 +1,14 @@
 import { google } from "googleapis";
 
-const oauth2Client = new google.auth.OAuth2(
-  process.env.googleClientId,
-  process.env.googleClientSecret,
-  "http://localhost:3000/authenticate",
-);
+function getOauth2Client(){
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.googleClientId,
+    process.env.googleClientSecret,
+    process.env.authenticationRedirectUrl,
+  );
+  return oauth2Client;
+}
 
-export default oauth2Client;
+
+
+export default getOauth2Client;

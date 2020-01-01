@@ -15,11 +15,11 @@ const MonthView = observer((props: { monthNumber: number, offsetDays: number, ye
     const previousDays = prevMonths.reduce((total, currMonth) => {
       return total + currMonth.days;
     }, 0);
-    let offSetDays = props.offsetDays + previousDays % CalendarState.calendar.daysOfWeek.length;
-    if (offSetDays >= 7) {
-      offSetDays -= 7;
+    let myOffsetDays = props.offsetDays + previousDays % CalendarState.calendar.daysOfWeek.length;
+    if (myOffsetDays >= 7) {
+      myOffsetDays -= 7;
     }
-    return offSetDays;
+    return myOffsetDays;
   }
   const offSetDays = getOffSetDays();
   const month = CalendarState.calendar.months.find(x => x.position === props.monthNumber);

@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import "./timeline.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faEdit } from "@fortawesome/free-solid-svg-icons";
 import FantasyDate from "../Models/FantasyDate";
 
 const TimeLineView: React.FC = observer(() => {
@@ -27,6 +27,10 @@ const TimeLineView: React.FC = observer(() => {
     }
     return "Date Unknown";
   }
+  function addNewEvent(){
+    const newEventDate = events[events.length - 1].fantasyDate;
+    CalendarState.addNewEvent(newEventDate);
+  }
   return (
     <div className="timeline-events">
       {
@@ -34,12 +38,20 @@ const TimeLineView: React.FC = observer(() => {
           <div key={x.id} className="timeline-event">
             <FontAwesomeIcon className="event-icon" icon={faInfoCircle} />
             <div className="event-description">
-              <div>{x.name}</div>
+              <div className="timeline-view-event-name">
+                <div>{x.name}</div>
+                <div onClick={() => CalendarState.calendarEditEvent = x}>
+                  <FontAwesomeIcon icon={faEdit} />
+                </div>
+              </div>
               <div className="timeline-date">{getDateString(x.fantasyDate)}</div>
             </div>
           </div>
         ))
       }
+      <div>
+        <button onClick={addNewEvent} className="save-button">Add New Date</button>
+      </div>
     </div>
   );
 });

@@ -6,7 +6,6 @@ import Landing from "./Landing/Landing";
 import CalendarView from "./CalendarView";
 import ToolBar from "./ToolBar/ToolBar";
 import UserState from "./State/UserState";
-import { AuthenticateUser } from "./DataClients/AuthenticationDataClient";
 import CalendarEditView from "./CalendarEditView/CalendarEditView";
 import Authenticate from "./Authenticate/Authenticate";
 
@@ -14,7 +13,7 @@ const App: React.FC = observer(() => {
   useEffect(() => {
     const accessToken = UserState.getAccessToken();
     if (accessToken) {
-      AuthenticateUser(accessToken);
+      UserState.authenticateUser(accessToken);
     }
   }, []);
   return (

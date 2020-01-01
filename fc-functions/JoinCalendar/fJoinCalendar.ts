@@ -1,6 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { VerifyTicket } from "../Security/TokenVerification";
-import { GetOrAddUserModelByGoogleId, AddCalendarToUser } from "../DataAccess/UserDb";
+import { GetOrAddUserModelByGoogle, AddCalendarToUser } from "../DataAccess/UserDb";
 import { GetCalendar } from "../DataAccess/calendarDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
@@ -9,7 +9,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
     const validateUser = await VerifyTicket(userToken);
     if (!validateUser || !validateUser.userId){
         context.res = {
-            status: 400, /* Defaults to 200 */
+            status: 401, /* Defaults to 200 */
             body: JSON.stringify({message: "Could not validate token"}),
             headers: {
                 "content-type": "application/json; charset=utf-16le",
@@ -17,7 +17,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
         };
         return;
     }
-    const user = await GetOrAddUserModelByGoogleId(validateUser.userId, validateUser.payload);
+    const user = await GetOrAddUserModelByGoogle(validateUser.userId, validateUser.payload.email);
     const {joinId, calendarId} = req.body as {joinId: string, calendarId: string};
     const calendar = await GetCalendar(calendarId);
     if (calendar.shareId === joinId){

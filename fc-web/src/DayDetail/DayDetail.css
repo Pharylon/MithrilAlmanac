@@ -102,3 +102,35 @@
 .edit-event-buttons button:nth-child(2) {
   background-color: rgb(0, 113, 212);
 }
+
+.event-edit-date{
+  display: flex;
+  justify-content: center;
+}
+
+.event-edit-date span{
+  align-self: center;
+  margin-left: 10px;
+}
+
+.edit-event-date{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.edit-event-date input{
+  max-width: 75px;
+}
+
+.edit-event-date-combo label {
+  display: block;
+  font-weight: bold;
+  color: rgb(13, 13, 139);
+}
+
+.edit-date-cancel{
+  margin-left: 10px;
+  font-size: 10px;
+}

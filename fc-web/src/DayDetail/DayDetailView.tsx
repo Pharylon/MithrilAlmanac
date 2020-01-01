@@ -4,7 +4,6 @@ import FantasyDate, { datesAreEqual } from "../Models/FantasyDate";
 import CalendarState from "../State/CalendarState";
 import "./DayDetail.css";
 import EventDetail from "./EventDetail";
-import EditEvent from "./EditEvent";
 
 
 const DayDetailView = observer((props: { date: FantasyDate }) => {
@@ -19,22 +18,16 @@ const DayDetailView = observer((props: { date: FantasyDate }) => {
       <h2>{`${monthName} ${getDayString(props.date.dayOfMonth)}, ${props.date.year}`}</h2>
       <div>
         {
-          CalendarState.calendarEditEvent ?
-            (<EditEvent />) :
-            events.map(x => (
-              <div key={x.id}>
-                <EventDetail event={x} />
-              </div>
-            ))
+          events.map(x => (
+            <div key={x.id}>
+              <EventDetail event={x} />
+            </div>
+          ))
         }
       </div>
-      {
-        !CalendarState.calendarEditEvent && (
-          <button onClick={() => CalendarState.addNewEvent(props.date)} className="add-event-button">
-            <span>Add New Event</span>
-          </button>
-        )
-      }
+      <button onClick={() => CalendarState.addNewEvent(props.date)} className="add-event-button">
+        <span>Add New Event</span>
+      </button>
     </div>
   );
 });

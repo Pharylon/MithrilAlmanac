@@ -1,24 +1,15 @@
 import { post, get } from "./fetchHelper";
-import { UserModel } from "../Models/UserModel";
-import UserState from "../State/UserState";
 
 export async function GetToken(code: string): Promise<string> {
   const response = await post("GetToken", {code});
   if (response.success){
-    const responseObj = response.value as {token: string};
+    const responseObj = response.value as {token: string, expiration: number};
+    if (responseObj.expiration){
+      localStorage.setItem("tokenExpiration", responseObj.expiration.toString());
+    }    
     return responseObj.token;
   }
   return "";
-}
-
-export async function AuthenticateUser(token: string): Promise<void> {
-  const response = await post("AuthenticateUser", {token});
-  if (response.success){
-    const userModel = response.value as UserModel;
-    UserState.setAccessToken(token);
-    UserState.userName = userModel.userName;
-    UserState.updateCalendars();
-  }
 }
 
 

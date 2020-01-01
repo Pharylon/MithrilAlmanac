@@ -9,6 +9,7 @@ import { CheckIfLeapYear } from "./Models/CalendarModel";
 import CalendarToolbar from "./CalendarNavigation/CalendarToolBar";
 import TimeLineView from "./TimelineView/TimelineView";
 import JoinCalendarHelper from "./CalenderJoinHelper";
+import EditEvent from "./DayDetail/EditEvent";
 
 
 const CalendarView = observer(() => {
@@ -48,7 +49,6 @@ const CalendarView = observer(() => {
   }, 0);
   const offSetDays = daysBeforeYear % CalendarState.calendar.daysOfWeek.length;
   JoinCalendarHelper(CalendarState.calendar.id);
-  console.log("TEST");
   return (
     <div className="calendar" id="calendar">
       <CalendarToolbar year={currentYear} />
@@ -63,17 +63,24 @@ const CalendarView = observer(() => {
           </div>) :
           (<TimeLineView />)
       }
-      {
-        CalendarState.selectedDay && (
-          <Modal
-            className="event-modal"
-            isOpen={!!CalendarState.selectedDay}
-            onRequestClose={() => onModalClose()}>
-            <DayDetailView date={CalendarState.selectedDay} />
-          </Modal>
-        )
-      }
-
+      <Modal
+        className="event-modal"
+        isOpen={!!CalendarState.selectedDay || !!CalendarState.calendarEditEvent}
+        onRequestClose={() => onModalClose()}>
+        <div>
+          {
+            CalendarState.selectedDay && !CalendarState.calendarEditEvent &&
+              (
+                <DayDetailView date={CalendarState.selectedDay} />
+              )
+          }
+          {
+            CalendarState.calendarEditEvent && (
+              <EditEvent />
+            )
+          }
+        </div>
+      </Modal>
     </div>
   );
 });

@@ -1,7 +1,7 @@
 import { OAuth2Client } from "google-auth-library";
 import { UserModel } from "../Models/UserModel";
 import { TokenPayload } from "google-auth-library/build/src/auth/loginticket";
-import oauth2Client from "./OauthClient";
+import getOauth2Client from "./OauthClient";
 
 
 interface GoogleTokenResult {
@@ -50,6 +50,7 @@ export async function VerifyToken(token: string) {
   if (cached){
     return cached;
   }
+  const oauth2Client = getOauth2Client();
   const userInfo = await oauth2Client.getTokenInfo(token);
   const asAny = userInfo as any;
   return {

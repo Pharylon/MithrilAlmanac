@@ -1,10 +1,10 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import { google } from "googleapis";
-import oauth2Client from "../Security/OauthClient";
+import getOath2Client from "../Security/OauthClient";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     context.log("Consent");
 
+    const oauth2Client = getOath2Client();
     const url = oauth2Client.generateAuthUrl({
         access_type: "offline",
         scope: [

@@ -3,14 +3,14 @@ import {SaveCalendar, GetCalendar } from "../DataAccess/calendarDb";
 import { CalendarModel} from "../Models/CalendarModel";
 import * as uuid from "uuid/v1";
 import { VerifyTicket } from "../Security/TokenVerification";
-import { GetOrAddUserModelByGoogleId, AddCalendarToUser } from "../DataAccess/UserDb";
+import { GetOrAddUserModelByGoogle, AddCalendarToUser } from "../DataAccess/UserDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     const userToken = req.headers.authorization;
     const validateUser = await VerifyTicket(userToken);
     if (!validateUser || !validateUser.userId){
         context.res = {
-            status: 400, /* Defaults to 200 */
+            status: 401, /* Defaults to 200 */
             body: JSON.stringify({message: "Could not validate token"}),
             headers: {
                 "content-type": "application/json; charset=utf-16le",
@@ -18,7 +18,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
         };
         return;
     }
-    const user = await GetOrAddUserModelByGoogleId(validateUser.userId, validateUser.payload);
+    const user = await GetOrAddUserModelByGoogle(validateUser.userId, validateUser.payload.email);
     const myCalendar = req.body as CalendarModel;
     if (myCalendar.id){
         const userOwnedCalendars = [...user.memberCalendars, ...user.ownedCalendars];

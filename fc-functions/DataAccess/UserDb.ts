@@ -4,15 +4,16 @@ import {container} from "./DbClient";
 import { SqlQuerySpec } from "@azure/cosmos";
 import { UserModel } from "../Models/UserModel";
 import uuid = require("uuid");
-import { TokenPayload } from "google-auth-library/build/src/auth/loginticket";
+import { Credentials } from "google-auth-library";
 
-export async function GetOrAddUserModelByGoogleId(googleId: string, tokenPayload: TokenPayload): Promise<UserModel> {
+// tslint:disable-next-line:max-line-length
+export async function GetOrAddUserModelByGoogle(googleId: string, email: string, googleCredentials?: Credentials): Promise<UserModel> {
   const user = await getUserFromGoogleId(googleId);
   if (user){
     return user;
   }
   else{
-    const model = await CreateUser(googleId, tokenPayload);
+    const model = await CreateUser(googleId, email, googleCredentials);
     return model;
   }
 }
@@ -34,13 +35,28 @@ async function getUserFromGoogleId(googleId: string): Promise<UserModel | undefi
   return undefined;
 }
 
-export async function CreateUser(googleId: string, tokenPayload: TokenPayload): Promise<UserModel> {
+export async function updateUser(user: UserModel): Promise<UserModel | undefined>{
+  const updated = await container.items.upsert(user);
+  return updated.resource as any;
+}
+
+export async function CreateUser(googleId: string, email: string, googleCredentials: Credentials): Promise<UserModel> {
+  function getGoogleTokens(){
+    if (googleCredentials){
+      return {
+        refreshToken: googleCredentials.refresh_token,
+        accessToken: googleCredentials.access_token,
+      };
+    }
+    return undefined;
+  }
   const newUser: UserModel = {
     id: uuid(),
-    userName: tokenPayload.email,
+    userName: email,
     ownedCalendars: [],
     memberCalendars: [],
     googleId,
+    googleTokens: getGoogleTokens(),
   };
   const dataObj = newUser as any;
   dataObj.type = "user";
