@@ -40,6 +40,7 @@ async function request(uri: string, requestInit: RequestInit): Promise<Result> {
     if (isJson(response)) {
       try {
         const responseObj = await response.json();
+        ConvertDateTimes(responseObj);
         return {
           success: true,
           value: responseObj,
@@ -188,5 +189,16 @@ async function EnsureFreshToken() {
       }
       timeout = undefined;
     }, tokenRefreshInterval);
+  }
+}
+
+function ConvertDateTimes(obj: any){
+  if (obj.realDate){
+    if (typeof(obj.realDate) === "string"){
+      obj.realDate = new Date(obj.realDate);
+    }
+  }
+  if (Array.isArray(obj)){
+    obj.forEach(x => ConvertDateTimes(x));
   }
 }

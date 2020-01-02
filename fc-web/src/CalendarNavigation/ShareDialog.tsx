@@ -29,7 +29,11 @@ const ShareDialog = observer((props: { id: string }) => {
       </div>
       <div style={{ display: showOptions ? "" : "none" }} className="share-content">
         <ShareLink id={props.id} link={viewLink} isEdit={false}/>
-        <ShareLink id={props.id + "-edit"} link={editLink} isEdit={true}/>
+        {
+          CalendarState.canEditCalendar && (
+            <ShareLink id={props.id + "-edit"} link={editLink} isEdit={true}/>
+          )
+        }
       </div>
       <div>
       </div>

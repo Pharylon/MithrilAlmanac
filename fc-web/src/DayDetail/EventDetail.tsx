@@ -11,12 +11,23 @@ const EventDetail = observer((props: { event: CalendarEvent }) => {
   function startEdit() {
     CalendarState.calendarEditEvent = props.event;
   }
-  const realDate = props.event.realDate ? format(props.event.realDate, "MMM do yyyy") : "Unknown Real Date";
+  let realDate = "Error";
+  try{
+    realDate = props.event.realDate ? format(props.event.realDate, "MMM do yyyy") : "Unknown Real Date";
+  }
+  catch (e){
+    console.log("Real Date error", e, realDate);
+  }
+  
   return (
     <div className="event-detail-container">
       <h3 className="event-detail-title">
-        {props.event.name}&nbsp;
-        <FontAwesomeIcon className="event-edit-icon" icon={faEdit} onClick={() => startEdit()} />
+        {props.event.name}&nbsp;        
+        {
+          CalendarState.canEditCalendar && (
+            <FontAwesomeIcon className="event-edit-icon" icon={faEdit} onClick={() => startEdit()} />
+          )
+        }
       </h3>
       <div className="event-real-date">{realDate}</div>
       <div className="event-description">

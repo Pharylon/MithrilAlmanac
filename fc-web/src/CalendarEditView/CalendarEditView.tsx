@@ -6,25 +6,18 @@ import MonthList from "./MonthList";
 import "./CalendarEditViewStyle.css";
 import CalendarNumDays from "./CalendarNumDaysTooltip";
 import {SaveCalendar} from "../DataClients/CalendarEventDataClient";
-import CalendarState from "../State/CalendarState";
 import DangerZone from "./DangerZone";
+import CalendarState from "../State/CalendarState";
 
 const CalendarEditView: React.FC = observer(() => {
   const { calendarId } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [showDanger, setShowDanger] = useState(false);
-  console.log("Redirect", redirect);
   if (redirect){
     return (<Redirect to={`/calendar/${calendarId}`} />);
   }
-  if (CalendarState.calendarLoadState === "Error"){
-    return (<Redirect to="/" />);
-  }
   if (calendarId) {
     CalendarEditState.setCalendar(calendarId);
-  }
-  if (CalendarEditState.calendarLoadState === "Loading") {
-    return (<div>Loading...</div>);
   }
   function setCalendarName(newValue: string) {
     CalendarEditState.calendar.name = newValue;

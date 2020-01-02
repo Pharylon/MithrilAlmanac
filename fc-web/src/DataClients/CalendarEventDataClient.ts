@@ -1,7 +1,6 @@
 import {get, post} from "./fetchHelper";
 import CalendarEvent from "../Models/CalendarEvent";
 import {CalendarModel} from "../Models/CalendarModel";
-import UserState from "../State/UserState";
 import UserCalendarDto from "../Models/UserCalendarDto";
 
 export async function GetCalendar(id: string): Promise<CalendarModel | undefined>{
@@ -26,13 +25,6 @@ export async function GetCalendarEvents(id: string): Promise<CalendarEvent[]>{
     if (!asEvents){
       return [];
     }
-    asEvents.forEach(element => {
-      //The dates are actually strings instead of Date objects right now.
-      //Let's fix that!
-      if (element.realDate){
-        element.realDate = new Date(element.realDate);
-      }
-    });
     return asEvents;
   }
   return [];
@@ -65,7 +57,6 @@ export async function SaveCalendar(calendarModel: CalendarModel): Promise<string
 export async function DeleteCalendar(id: string): Promise<void>{
   const response = await post("DeleteCalendar", {id});
   if (response.success){
-    await UserState.updateCalendars();
     return;
   }
   throw new Error("Something went wrong trying to delete the calendar");

@@ -1,10 +1,10 @@
 import React from "react";
 import CalendarDay from "./CalendarDay";
-import { chunks } from "./Utility";
-import FantasyDate from "./Models/FantasyDate";
+import { chunks } from "../Utility";
+import FantasyDate from "../Models/FantasyDate";
 import { observer } from "mobx-react";
-import CalendarState from "./State/CalendarState";
-import {CheckIfLeapYear} from "./Models/CalendarModel";
+import CalendarState from "../State/CalendarState";
+import {CheckIfLeapYear} from "../Models/CalendarModel";
 
 const MonthView = observer((props: { monthNumber: number, offsetDays: number, year: number }) => {
   const hasEvents = CalendarState.events.length === 0 || CalendarState.events

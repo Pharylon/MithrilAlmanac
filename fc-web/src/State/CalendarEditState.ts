@@ -34,18 +34,26 @@ const CalendarEditState = observable<ICalendarEditState>({
 
 
 async function LoadCalendar(id: string) {
-  CalendarEditState.calendarLoadState = "Loading";
-  const calendar = await GetCalendar(id);
-  if (!calendar){
-    CalendarEditState.calendar = {
-      ...blankModel,
-      id: "__ERROR__",
-    };
-    CalendarEditState.calendarLoadState = "Error";
-    return;
+  try{
+    CalendarEditState.calendarLoadState = "Loading";
+    const calendar = await GetCalendar(id);
+    if (!calendar){
+      console.log("No Calendar");
+      CalendarEditState.calendar = {
+        ...blankModel,
+        id: "__ERROR__",
+      };
+      CalendarEditState.calendarLoadState = "Error";
+    }
+    else{
+      CalendarEditState.calendar = calendar;
+      CalendarEditState.calendarLoadState = "Loaded";
+    }
+
   }
-  CalendarEditState.calendar = calendar;
-  CalendarEditState.calendarLoadState = "Loaded";
+  catch (e){
+    CalendarEditState.calendarLoadState = "Error";
+  }
 }
 
 

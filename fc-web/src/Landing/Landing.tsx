@@ -25,7 +25,7 @@ const Landing: React.FC = observer(() => {
             campaign adventures. Record what happened when, search those records, and sort them, either by your game 
             calendar or the real life calendar. Pretty cool, right? We think so to! 
           </p>
-          <p className="fake-link" onClick={() => UserState.loginModalOpen = true}>So let's get started!</p>
+          <p className="fake-link get-started" onClick={() => UserState.loginModalOpen = true}>So let's get started!</p>
         </div>
       </div>
     </div>);

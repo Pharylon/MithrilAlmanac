@@ -3,7 +3,6 @@ import "./App.css";
 import { observer } from "mobx-react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Landing from "./Landing/Landing";
-import CalendarView from "./CalendarView";
 import ToolBar from "./ToolBar/ToolBar";
 import UserState from "./State/UserState";
 import CalendarEditView from "./CalendarEditView/CalendarEditView";
@@ -12,6 +11,7 @@ import Modal from "react-modal";
 import ErrorState from "./State/ErrorState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import CalendarViewWrapper from "./CalendarView/CalendarViewWrapper";
 
 const App: React.FC = observer(() => {
   const [loaded, setLoaded] = useState(false);
@@ -27,9 +27,11 @@ const App: React.FC = observer(() => {
   useEffect(() => {
     const accessToken = UserState.getAccessToken();
     if (accessToken) {
-      UserState.authenticateUser(accessToken);
+      UserState.authenticateUser(accessToken);      
     }
   }, []);
+
+
   return (
     <div className="App" id="app">
       <Router>
@@ -39,10 +41,10 @@ const App: React.FC = observer(() => {
             <CalendarEditView />
           </Route>
           <Route path="/calendar/:calendarId/:year">
-            <CalendarView />
+            <CalendarViewWrapper />
           </Route>
           <Route path="/calendar/:calendarId/">
-            <CalendarView />
+            <CalendarViewWrapper />
           </Route>
           <Route path="/authenticate">
             <Authenticate />

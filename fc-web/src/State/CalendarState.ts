@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable, action, computed } from "mobx";
 import CalendarEvent from "../Models/CalendarEvent";
 import FantasyDate from "../Models/FantasyDate";
 import { GetCalendar, GetCalendarEvents } from "../DataClients/CalendarEventDataClient";
@@ -6,13 +6,14 @@ import { CalendarModel, blankModel } from "../Models/CalendarModel";
 import uuid from "uuid";
 import ErrorState from "./ErrorState";
 import { post, ErrorObject } from "../DataClients/fetchHelper";
+import UserState from "./UserState";
 
 interface ICalendarState {
   calendar: CalendarModel;
   selectedDay: FantasyDate | undefined;
   events: CalendarEvent[];
   calendarEditEvent: CalendarEvent | undefined;
-  setCalendar: (id: string) => void;
+  loadCalendar: (id: string) => void;
   calendarLoadState: "Blank" | "Loaded" | "Loading" | "Error";
   addNewEvent: (props: FantasyDate) => void;
   updateEvent: (props: CalendarEvent) => Promise<void>;
@@ -20,6 +21,7 @@ interface ICalendarState {
   reset: () => void;
   viewType: "Calendar" | "Timeline";
   setSelectedDay: (date: FantasyDate) => void;
+  canEditCalendar: boolean;
 }
 
 export class CalendarStore implements ICalendarState {
@@ -31,7 +33,7 @@ export class CalendarStore implements ICalendarState {
   @observable viewType: "Calendar" | "Timeline" = "Calendar";
 
   @action.bound
-  public async setCalendar(id: string){
+  public async loadCalendar(id: string){
     if (id !== this.calendar.id) {
       this.calendarLoadState = "Loading";
       const calendar = await GetCalendar(id);
@@ -51,8 +53,18 @@ export class CalendarStore implements ICalendarState {
     }
   }
 
+  @computed get canEditCalendar(): boolean{
+    return !!UserState.userName && UserState.calendars.some(x => x.id === this.calendar.id);
+  }
+
   @action.bound
   public async addNewEvent(date: FantasyDate){
+    if (!UserState.userName){
+      ErrorState.errorMessage = "You must be logged in to add an event to a calendar";
+    }
+    if (!this.canEditCalendar){
+      ErrorState.errorMessage = "You do not have permission to add events to this to this calendar";
+    }
     const newEvent: CalendarEvent = {
       calendarId: this.calendar.id,
       fantasyDate: date,

@@ -7,7 +7,10 @@ import FantasyDateSelector from "./FantasyDateSelector";
 import FantasyDate from "../Models/FantasyDate";
 
 const EditDateHeader = observer((props: {date: FantasyDate, updateDate: (date: FantasyDate) => void}) => {
-  const [editMode, setEditMode] = useState(false);
+  const editCalendarYearByDefault = CalendarState.calendarEditEvent &&
+    CalendarState.calendarEditEvent.fantasyDate.year === 0 &&
+    CalendarState.calendarEditEvent.fantasyDate.dayOfMonth === 0;
+  const [editMode, setEditMode] = useState(editCalendarYearByDefault);
   function getDateString() {
     if (CalendarState.calendarEditEvent) {
       let monthName = "";
@@ -28,7 +31,13 @@ const EditDateHeader = observer((props: {date: FantasyDate, updateDate: (date: F
         !editMode ?
           (<React.Fragment>
             <h2>{getDateString()}</h2>
-            <span><FontAwesomeIcon icon={faEdit} onClick={() => setEditMode(true)} /></span>
+            <span>
+              {
+                CalendarState.canEditCalendar && (
+                  <FontAwesomeIcon icon={faEdit} onClick={() => setEditMode(true)} />
+                )
+              }
+            </span>
           </React.Fragment>)
           :
           (

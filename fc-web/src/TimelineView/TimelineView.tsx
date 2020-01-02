@@ -9,26 +9,30 @@ import FantasyDate from "../Models/FantasyDate";
 const TimeLineView: React.FC = observer(() => {
   const events = [...CalendarState.events];
   events.sort((a, b) => {
-    if (a.fantasyDate.year !== b.fantasyDate.year){
+    if (a.fantasyDate.year !== b.fantasyDate.year) {
       return a.fantasyDate.year - b.fantasyDate.year;
     }
-    else if (a.fantasyDate.month !== b.fantasyDate.month){
+    else if (a.fantasyDate.month !== b.fantasyDate.month) {
       return a.fantasyDate.month - b.fantasyDate.month;
     }
     else {
       return a.fantasyDate.dayOfMonth - b.fantasyDate.dayOfMonth;
     }
   });
-  function getDateString(date: FantasyDate){
+  function getDateString(date: FantasyDate) {
     const dayNum = getDayString(date.dayOfMonth);
     const month = CalendarState.calendar.months.find(x => x.position === date.month);
-    if (month){
+    if (month) {
       return `${dayNum} of ${month.name}, ${date.year}`;
     }
     return "Date Unknown";
   }
-  function addNewEvent(){
-    const newEventDate = events[events.length - 1].fantasyDate;
+  function addNewEvent() {
+    const newEventDate: FantasyDate = {
+      year: 0,
+      dayOfMonth: 0,
+      month: 1,
+    };
     CalendarState.addNewEvent(newEventDate);
   }
   return (
@@ -41,7 +45,11 @@ const TimeLineView: React.FC = observer(() => {
               <div className="timeline-view-event-name">
                 <div>{x.name}</div>
                 <div onClick={() => CalendarState.calendarEditEvent = x}>
-                  <FontAwesomeIcon icon={faEdit} />
+                  {
+                    CalendarState.canEditCalendar && (
+                      <FontAwesomeIcon icon={faEdit} />
+                    )
+                  }
                 </div>
               </div>
               <div className="timeline-date">{getDateString(x.fantasyDate)}</div>
@@ -49,9 +57,13 @@ const TimeLineView: React.FC = observer(() => {
           </div>
         ))
       }
-      <div>
-        <button onClick={addNewEvent} className="save-button">Add New Date</button>
-      </div>
+      {
+        CalendarState.canEditCalendar && (
+          <div>
+            <button onClick={addNewEvent} className="save-button">Add New Date</button>
+          </div>
+        )
+      }
     </div>
   );
 });

@@ -20,28 +20,36 @@ const CalendarToolbar = observer((props: { year: number }) => {
   return (
     <div className="year-header">
       <div className="calendar-bar-left">
-          <div className="calendar-select">
-            <select
-              value={CalendarState.viewType}
-              className="view-picker"
-              onChange={(e) => updateViewType(e.target.value)}>
-              <option value="Calendar">Calendar View</option>
-              <option value="Timeline">Timeline View</option>
-            </select>
-          </div>
-          <div className="share-div share-left">
-            <ShareDialog id="share-link-2" />
-          </div>
+        <div className="calendar-select">
+          <select
+            value={CalendarState.viewType}
+            className="view-picker"
+            onChange={(e) => updateViewType(e.target.value)}>
+            <option value="Calendar">Calendar View</option>
+            <option value="Timeline">Timeline View</option>
+          </select>
+        </div>
+        <div className="share-div share-left">
+          <ShareDialog id="share-link-2" />
+        </div>
       </div>
       <div className="calendar-bar-main">
         <Link style={myDisplay} to={`/calendar/${CalendarState.calendar.id}/${props.year - 1}`}>
           <div><FontAwesomeIcon className="calendar-toolbar-color" icon={faAngleLeft} /></div>
         </Link>
-        <Link className="calendar-year-link" to={`/calendar/${CalendarState.calendar.id}/edit`}>
-          <div>
-            {CalendarState.calendar.name}
-          </div>
-        </Link>
+        {
+          CalendarState.canEditCalendar ? (
+            <Link className="calendar-year-link" to={`/calendar/${CalendarState.calendar.id}/edit`}>
+              <div>
+                {CalendarState.calendar.name}
+              </div>
+            </Link>
+          ) :
+            <div className="calendar-year-link">
+              {CalendarState.calendar.name}
+            </div>
+        }
+
 
         <div style={myDisplay} className="calendar-year-current-number">{props.year}</div>
         <Link style={myDisplay} to={`/calendar/${CalendarState.calendar.id}/${props.year + 1}`}>
@@ -49,7 +57,7 @@ const CalendarToolbar = observer((props: { year: number }) => {
         </Link>
       </div>
       <div className="calendar-bar-right">
-        <ShareDialog  id="share-link-1" />
+        <ShareDialog id="share-link-1" />
       </div>
     </div>
   );

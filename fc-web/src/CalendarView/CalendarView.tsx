@@ -1,15 +1,15 @@
 import React from "react";
 import MonthView from "./MonthView";
 import { observer } from "mobx-react";
-import CalendarState from "./State/CalendarState";
+import CalendarState from "../State/CalendarState";
 import Modal from "react-modal";
-import DayDetailView from "./DayDetail/DayDetailView";
+import DayDetailView from "../DayDetail/DayDetailView";
 import { useParams, Redirect } from "react-router-dom";
-import { CheckIfLeapYear } from "./Models/CalendarModel";
-import CalendarToolbar from "./CalendarNavigation/CalendarToolBar";
-import TimeLineView from "./TimelineView/TimelineView";
-import JoinCalendarHelper from "./CalenderJoinHelper";
-import EditEvent from "./DayDetail/EditEvent";
+import { CheckIfLeapYear } from "../Models/CalendarModel";
+import CalendarToolbar from "../CalendarNavigation/CalendarToolBar";
+import TimeLineView from "../TimelineView/TimelineView";
+import JoinCalendarHelper from "../CalenderJoinHelper";
+import EditEvent from "../DayDetail/EditEvent";
 
 
 const CalendarView = observer(() => {
@@ -20,19 +20,9 @@ const CalendarView = observer(() => {
     }
     return parseInt(year, 10);
   }
-  const { calendarId } = useParams();
-  if (calendarId) {
-    CalendarState.setCalendar(calendarId);
-  }
   function onModalClose() {
     CalendarState.selectedDay = undefined;
     CalendarState.calendarEditEvent = undefined;
-  }
-  if (CalendarState.calendarLoadState === "Loading") {
-    return (<div>Loading...</div>);
-  }
-  if (CalendarState.calendarLoadState === "Error") {
-    return <Redirect to={"/"} />;
   }
   const currentYear = getYear();
   const prevYears = currentYear > 0 ? Array.from(Array(currentYear).keys()) : [0];

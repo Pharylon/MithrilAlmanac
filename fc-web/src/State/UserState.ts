@@ -3,6 +3,7 @@ import { GetUserCalendars } from "../DataClients/CalendarEventDataClient";
 import { get, post } from "../DataClients/fetchHelper";
 import { UserModel } from "../Models/UserModel";
 import { GetRefreshedToken } from "../DataClients/AuthenticationDataClient";
+import { JoinPendingCalendars } from "../CalenderJoinHelper";
 
 interface CalendarId {
   id: string;
@@ -15,7 +16,7 @@ interface IUserState {
   setAccessToken: (token: string) => void;
   userName: string;
   calendars: CalendarId[];
-  updateCalendars: () => Promise<void>;
+  updateCalendars: (disableJoinPending?: boolean) => Promise<void>;
   timeout: () => void;
   logOut: () => void;
   refreshToken: () => void;
@@ -28,13 +29,20 @@ const UserState = observable<IUserState>({
   setAccessToken: (token: string) => localStorage.setItem("accessToken", token),
   userName: "",
   calendars: [],
-  updateCalendars: async () => {
+  updateCalendars: async (disableJoinPending?: boolean) => {
     const token = UserState.getAccessToken();
     if (token) {
       const calendars = await GetUserCalendars();
       if (calendars) {
         UserState.calendars = calendars;
       }
+      const joinPending = await JoinPendingCalendars();
+      //Prevent any nasty recursion.
+      if (!disableJoinPending){
+        if (joinPending){
+          UserState.updateCalendars(true);
+        }
+      }      
     }
   },
   timeout: () => {
@@ -43,13 +51,13 @@ const UserState = observable<IUserState>({
     localStorage.removeItem("accessToken");
   },
   logOut: async () => {
+    UserState.userName = "";
+    UserState.calendars = [];
+    localStorage.removeItem("accessToken");
     const result = await get("LogOut");
     if (!result.success) {
       console.log("There was an error attempting to log out");
     }
-    UserState.userName = "";
-    UserState.calendars = [];
-    //localStorage.removeItem("accessToken");
   },
   refreshToken: async () => {
     const oldToken = localStorage.getItem("accessToken");
@@ -72,7 +80,7 @@ const UserState = observable<IUserState>({
       UserState.userName = userModel.userName;
       UserState.updateCalendars();
     }
-  }
+  },
 });
 
 

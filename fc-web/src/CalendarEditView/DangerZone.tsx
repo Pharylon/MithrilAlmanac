@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
-import { DeleteCalendar } from "../DataClients/CalendarEventDataClient";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { DeleteCalendar } from "../DataClients/CalendarEventDataClient";
 
 const DangerZone = observer(() => {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteButton, setSHowDeleteButton] = useState(false);
   async function deletePressed() {
     await DeleteCalendar(CalendarState.calendar.id);
-    CalendarState.reset();
+    window.location.assign("/");
   }
   return (
     <div>
@@ -32,7 +32,7 @@ const DangerZone = observer(() => {
               <input
                 type="checkbox"
                 checked={showDeleteButton}
-                onClick={(e) => setSHowDeleteButton(!showDeleteButton)} />
+                onChange={(e) => setSHowDeleteButton(!showDeleteButton)} />
               <label>I want to delete this calendar</label>
             </div>
           </div>

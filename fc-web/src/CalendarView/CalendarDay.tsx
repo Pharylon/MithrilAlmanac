@@ -1,13 +1,15 @@
 import React from "react";
-import FantasyDate, { datesAreEqual } from "./Models/FantasyDate";
+import FantasyDate, { datesAreEqual } from "../Models/FantasyDate";
 import { observer } from "mobx-react";
-import CalendarState from "./State/CalendarState";
+import CalendarState from "../State/CalendarState";
 
 const CalendarDay = observer((props: { date: FantasyDate }) => {
   const events = CalendarState.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
   function selectDay(){
-    if (events.length === 0){
-      CalendarState.addNewEvent(props.date);
+    if (events.length === 0) {
+      if (CalendarState.canEditCalendar){
+        CalendarState.addNewEvent(props.date);
+      }      
     }
     else{
       CalendarState.selectedDay = props.date;
