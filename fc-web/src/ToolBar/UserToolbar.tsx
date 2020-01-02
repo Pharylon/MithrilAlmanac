@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
 import UserState from "../State/UserState";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const UserToolbar: React.FC = observer(() => {
   const [showLogout, setShowLogout] = useState(false);
-
+  function logOut(){
+    UserState.logOut();
+    setShowLogout(false);
+  }
   return (
-    <div className="user-toolbar" onMouseLeave={() => setShowLogout(false)}>
-      <div onClick={() => setShowLogout(!showLogout)}>{UserState.userName}</div>
+    <div className="user-toolbar tool-child" onMouseLeave={() => setShowLogout(false)}>
+      <div onClick={() => setShowLogout(!showLogout)}>
+        <FontAwesomeIcon icon={faUser} />
+        <span className="user-toolbar-user-name">&nbsp;{UserState.userName}</span>
+      </div>
       <div style={{display: showLogout ? "" : "none"}} className="logout">
-          <div onClick={() => UserState.logOut()} className="fake-link">Logout</div>
+          <div onClick={() => logOut()} className="fake-link">Logout</div>
         </div>
     </div>
   );

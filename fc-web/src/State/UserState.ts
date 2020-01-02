@@ -4,6 +4,7 @@ import { get, post } from "../DataClients/fetchHelper";
 import { UserModel } from "../Models/UserModel";
 import { GetRefreshedToken } from "../DataClients/AuthenticationDataClient";
 import { JoinPendingCalendars } from "../CalenderJoinHelper";
+import CalendarState from "./CalendarState";
 
 interface CalendarId {
   id: string;
@@ -35,6 +36,9 @@ const UserState = observable<IUserState>({
       const calendars = await GetUserCalendars();
       if (calendars) {
         UserState.calendars = calendars;
+        if (calendars.length === 0){
+          CalendarState.createCalendarIsOpen = true;
+        }
       }
       const joinPending = await JoinPendingCalendars();
       //Prevent any nasty recursion.

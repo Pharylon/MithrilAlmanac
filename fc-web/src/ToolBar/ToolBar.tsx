@@ -14,7 +14,7 @@ const ToolBar: React.FC = observer(() => {
 
   return (
     <div className="top-bar">
-      <Link to="/"><div><img src={ColoredSquares} alt="small logo" /></div></Link>
+      <Link to="/"><div><img className="small-logo" src={ColoredSquares} alt="small logo" /></div></Link>
       {/* <div className="title">The Mithril Almanac</div> */}
       {
         UserState.userName ?

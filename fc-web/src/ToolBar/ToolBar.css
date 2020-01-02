@@ -8,10 +8,10 @@
   color: rgb(236, 236, 236);
   height: 34px;
   padding-right: 20px;
-  z-index: 10;
+  z-index: 200;
 }
 
-.top-bar div{
+.top-bar .tool-child{
   align-self: center;
   cursor: pointer;
 }
@@ -29,24 +29,48 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+.calendar-dd-wrap{
+  position: relative;
+}
+
 .calendar-dd{
   position: absolute;
   background-color: rgba(58, 58, 58);
   color: rgb(236, 236, 236);
-  width: 130px;
   padding-left: 10px;
   margin-left: -10px;
   padding-bottom: 10px;
   z-index: 5000;
+  display: flex;
+  flex-direction: column;
 }
 
-.calendar-dd div{
+
+
+.calendar-dd-item{
+  display: flex;
+  width: 100%;
+}
+
+.calendar-dd-name{
+  white-space: nowrap;
+}
+
+.calendar-edit-dd{
+  margin-left: auto;
+}
+
+
+
+
+
+.calendar-dd .calendar-dd-item{
   margin-top: 5px;
 }
 
-.calendar-dd div:not(:last-child){
+/* .calendar-dd .calendar-dd-item:not(:last-child){
   border-bottom: 1px solid white;
-}
+} */
 
 .hover-bold:hover{
   font-weight: bold;
@@ -58,4 +82,10 @@
 a {
   text-decoration: none;
   color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .user-toolbar-user-name{
+    display: none;
+  }
 }

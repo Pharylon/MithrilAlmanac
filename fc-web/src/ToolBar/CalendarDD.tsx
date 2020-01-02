@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import NewCalendar from "../NewCalendar/NewCalendar";
 import CalendarState from "../State/CalendarState";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 
 const CalendarDd: React.FC = observer(() => {
@@ -13,19 +15,43 @@ const CalendarDd: React.FC = observer(() => {
     CalendarState.createCalendarIsOpen = false;
     setIsOpen(false);
   }
+  let mouseLeaveTimeout: number | undefined;
+  function onMouseLeave(){
+    mouseLeaveTimeout = window.setTimeout(() => {
+      setIsOpen(false);
+    }, 500);
+  }
+  function onMouseEnter(){
+    if (mouseLeaveTimeout){
+      window.clearTimeout(mouseLeaveTimeout);
+    }
+  }
   return (
-    <div onMouseLeave={() => setIsOpen(false)}>
+    <div 
+      onMouseLeave={() => onMouseLeave()} onMouseEnter={() => onMouseEnter()}
+      className="calendar-dd-wrap tool-child">
       <div style={{ fontWeight: isOpen && !CalendarState.createCalendarIsOpen ? "bold" : "normal" }}
-        className="hover-bold hover-underline"
         onClick={() => setIsOpen(true)}>Calendars</div>
       <div style={{ display: isOpen && !CalendarState.createCalendarIsOpen ? "" : "none" }} className="calendar-dd">
         {
           UserState.calendars.map(x => (
-            <div key={x.id}>
-              <Link onClick={() => setIsOpen(false)} className="hover-bold" to={"/calendar/" + x.id}>{x.name}</Link>
+            <div key={x.id} className="calendar-dd-item">
+              <div>
+                <Link onClick={() => setIsOpen(false)} to={"/calendar/" + x.id}>
+                  <span className="calendar-dd-name hover-underline">{x.name}</span>
+                </Link>
+              </div>
+              <div className="calendar-edit-dd">
+                <div>
+                  <Link 
+                    onClick={() => setIsOpen(false)} className="hover-underline"  to={`/calendar/${x.id}/edit`}>
+                      <FontAwesomeIcon icon={faEdit}/>
+                    </Link>
+                </div>
+              </div>
             </div>))
         }
-        <div className="hover-bold" onClick={() => CalendarState.createCalendarIsOpen = true}>Create New</div>
+        <div className="hover-underline" onClick={() => CalendarState.createCalendarIsOpen = true}>Create New</div>
         <Modal
           className="event-modal"
           isOpen={CalendarState.createCalendarIsOpen}

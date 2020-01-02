@@ -198,6 +198,7 @@
   background-color: rgba(58, 58, 58);
   width: 100%;
   padding: 10px 10px 5px 10px;
+  min-width: 50px;
 }
 
 .error-modal{

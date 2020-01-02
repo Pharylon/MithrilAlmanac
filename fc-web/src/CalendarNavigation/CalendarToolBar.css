@@ -8,6 +8,7 @@
   background-color: white;
   padding: 0px 10px 0px 10px;
   flex-wrap: wrap;
+  z-index: 100;
 }
 
 .calendar-toolbar-color{
