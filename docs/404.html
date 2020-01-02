@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>The Mithril Almanac</title>
+  </head>
+  <body>
+  </body>
+  <script>
+    function redirect(){
+      const path = window.location.pathname;
+      window.location.assign("https://www.mithrilalmanac.com" + path);
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      redirect();
+    });
+  </script>
+</html>
