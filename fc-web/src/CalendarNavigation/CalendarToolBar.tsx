@@ -35,25 +35,27 @@ const CalendarToolbar = observer((props: { year: number }) => {
       </div>
       <div className="calendar-bar-main">
         <Link style={myDisplay} to={`/calendar/${CalendarState.calendar.id}/${props.year - 1}`}>
-          <div><FontAwesomeIcon className="calendar-toolbar-color" icon={faAngleLeft} /></div>
+          <div><FontAwesomeIcon className="calendar-toolbar-color ct-angle-icon" icon={faAngleLeft} /></div>
         </Link>
         {
           CalendarState.canEditCalendar ? (
-            <Link className="calendar-year-link" to={`/calendar/${CalendarState.calendar.id}/edit`}>
-              <div>
+            <div className="calendar-year-link ct-small-portrait calendar-toolbar-color">
+              <Link to={`/calendar/${CalendarState.calendar.id}/edit`}>
                 {CalendarState.calendar.name}
-              </div>
-            </Link>
+              </Link>
+            </div>
           ) :
-            <div className="calendar-year-link">
+            <div className="calendar-year-link ct-small-portrait calendar-toolbar-color">
               {CalendarState.calendar.name}
             </div>
         }
 
 
-        <div style={myDisplay} className="calendar-year-current-number">{props.year}</div>
+        <div style={myDisplay} className="calendar-year-current-number ct-small-portrait">
+          <div>{props.year}</div>
+        </div>
         <Link style={myDisplay} to={`/calendar/${CalendarState.calendar.id}/${props.year + 1}`}>
-          <div><FontAwesomeIcon className="calendar-toolbar-color" icon={faAngleRight} /></div>
+          <div><FontAwesomeIcon className="calendar-toolbar-color ct-angle-icon" icon={faAngleRight} /></div>
         </Link>
       </div>
       <div className="calendar-bar-right">

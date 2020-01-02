@@ -22,7 +22,7 @@ const ToolBar: React.FC = observer(() => {
             <CalendarDd />
             <UserToolbar />
           </div>) :
-          (<div className="fake-link" onClick={() => UserState.loginModalOpen = true}>Log In</div>)
+          (<div className="fake-link tool-child" onClick={() => UserState.loginModalOpen = true}>Log In</div>)
       }
       <Modal
         className="event-modal"
