@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import Modal from "react-modal";
 import DayDetailView from "../DayDetail/DayDetailView";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { CheckIfLeapYear } from "../Models/CalendarModel";
 import CalendarToolbar from "../CalendarNavigation/CalendarToolBar";
 import TimeLineView from "../TimelineView/TimelineView";

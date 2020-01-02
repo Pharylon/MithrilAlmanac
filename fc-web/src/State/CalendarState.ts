@@ -22,6 +22,7 @@ interface ICalendarState {
   viewType: "Calendar" | "Timeline";
   setSelectedDay: (date: FantasyDate) => void;
   canEditCalendar: boolean;
+  createCalendarIsOpen: boolean;
 }
 
 export class CalendarStore implements ICalendarState {
@@ -31,6 +32,7 @@ export class CalendarStore implements ICalendarState {
   @observable events: CalendarEvent[] = [];
   @observable calendarEditEvent: CalendarEvent | undefined;
   @observable viewType: "Calendar" | "Timeline" = "Calendar";
+  @observable createCalendarIsOpen = false;
 
   @action.bound
   public async loadCalendar(id: string){

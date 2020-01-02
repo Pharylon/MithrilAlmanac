@@ -9,7 +9,6 @@ import Month from "../Models/Month";
 import MonthEditCard from "./MonthEditCard";
 import { observer } from "mobx-react";
 import CalendarEditState from "../State/CalendarEditState";
-import CalendarState from "../State/CalendarState";
 
 const DragAndDropExample = observer(() => {
   const grid = 3;
@@ -66,8 +65,7 @@ const DragAndDropExample = observer(() => {
     }
     CalendarEditState.calendar.months = myItems;
   }
-
-  console.log("Months", CalendarState.calendar.months);
+  const myMonths = [...CalendarEditState.calendar.months];
   return (
     <div className="month-edit-container">
       <div className="month-edit-title">Months</div>
@@ -79,7 +77,7 @@ const DragAndDropExample = observer(() => {
               ref={provided.innerRef}
               className={snapshot.isDraggingOver ? "month-dd dragging" : "month-dd not-dragging"}
             >
-              {CalendarEditState.calendar.months.map((item: Month, index: number) => (
+              {myMonths.map((item: Month, index: number) => (
                 <Draggable key={item.name} draggableId={item.name} index={index}>
                   {(dProvided, dSnapshot) => (
                     <div

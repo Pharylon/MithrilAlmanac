@@ -1,6 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { VerifyTicket } from "../Security/TokenVerification";
-import { GetOrAddUserModelByGoogle } from "../DataAccess/UserDb";
+import { GetOrAddUserModelByGoogle, updateUser } from "../DataAccess/UserDb";
 import { DeleteCalendar } from "../DataAccess/calendarDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
@@ -27,6 +27,8 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
         return;
     }
     await DeleteCalendar(calendarId);
+    user.ownedCalendars = user.ownedCalendars.filter(x => x !== calendarId);
+    await updateUser(user);
     if (calendarId) {
         context.res = {
             // status: 200, /* Defaults to 200 */
