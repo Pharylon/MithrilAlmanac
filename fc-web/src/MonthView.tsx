@@ -7,6 +7,9 @@ import CalendarState from "./State/CalendarState";
 import {CheckIfLeapYear} from "./Models/CalendarModel";
 
 const MonthView = observer((props: { monthNumber: number, offsetDays: number, year: number }) => {
+  const hasEvents = CalendarState.events.length === 0 || CalendarState.events
+    .some(x => x.fantasyDate.year === props.year && x.fantasyDate.month === props.monthNumber);
+  console.log(props.monthNumber + " HAS EVENTS", hasEvents);
   function getOffSetDays(): number {
     if (CalendarState.calendar.resetWeekAtMonthStart){
       return 0;
@@ -32,8 +35,8 @@ const MonthView = observer((props: { monthNumber: number, offsetDays: number, ye
   const days = Array.from({ length: numberOfDayBoxes }, (v, i) => i + 1);
   const weeks = chunks(days, CalendarState.calendar.daysOfWeek.length);
   return (
-    <div className="month">
-      <div className="month-name">{month.name}</div>
+    <div className={"month" + (hasEvents ? "" : " no-events")}>
+      <div className="month-name">{month.name + (hasEvents ? "" : " (no events)")}</div>
       <div>
         {
           weeks.map((week, weekIndex) => (

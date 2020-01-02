@@ -50,6 +50,10 @@
   border: 1px solid black;
 }
 
+.month.no-events{
+  background-color: rgba(35, 35, 61, 0.822);
+}
+
 .month-name{
   font-size: 18px;
   margin-bottom: 5px;
