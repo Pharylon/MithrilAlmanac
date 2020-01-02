@@ -24,10 +24,6 @@ const CalendarView = observer(() => {
   if (calendarId) {
     CalendarState.setCalendar(calendarId);
   }
-  const myApp = document.getElementById("calendar");
-  if (myApp) {
-    Modal.setAppElement(myApp);
-  }
   function onModalClose() {
     CalendarState.selectedDay = undefined;
     CalendarState.calendarEditEvent = undefined;

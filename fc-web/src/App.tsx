@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { observer } from "mobx-react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -8,8 +8,22 @@ import ToolBar from "./ToolBar/ToolBar";
 import UserState from "./State/UserState";
 import CalendarEditView from "./CalendarEditView/CalendarEditView";
 import Authenticate from "./Authenticate/Authenticate";
+import Modal from "react-modal";
+import ErrorState from "./State/ErrorState";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 const App: React.FC = observer(() => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const myApp = document.getElementById("root");
+    if (myApp) {
+      Modal.setAppElement(myApp);
+      setLoaded(true);
+    }
+  }, []);
+
   useEffect(() => {
     const accessToken = UserState.getAccessToken();
     if (accessToken) {
@@ -35,9 +49,26 @@ const App: React.FC = observer(() => {
           </Route>
           <Route path="/">
             <Landing />
-          </Route>  
+          </Route>
         </Switch>
       </Router>
+      {
+        loaded && (
+          <Modal
+            className="error-modal"
+            isOpen={!!ErrorState.errorMessage}
+            onRequestClose={() => ErrorState.errorMessage = ""}>
+            <div className="error-modal">
+              <div className="error-title">
+                <FontAwesomeIcon icon={faExclamationTriangle} />
+                <div>Uh-oh</div>
+                <FontAwesomeIcon icon={faExclamationTriangle} />
+              </div>
+              <div className="error-message">{ErrorState.errorMessage}</div>
+            </div>
+          </Modal>
+        )
+      }
     </div>
   );
 });

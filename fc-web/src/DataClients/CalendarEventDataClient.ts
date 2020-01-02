@@ -38,16 +38,10 @@ export async function GetCalendarEvents(id: string): Promise<CalendarEvent[]>{
   return [];
 }
 
-export async function UpsertEvent(event: CalendarEvent): Promise<CalendarEvent | undefined>{
-  const response = await post("UpdateEvent", event);
-  if (response.success){
-    const newEvent = response.value as CalendarEvent;
-    if (newEvent){
-      return newEvent;
-    }
-  }
-  return undefined;
-}
+// export async function UpsertEvent(event: CalendarEvent): Promise<Result>{
+//   const response = await post("UpdateEvent", event);
+//   return response;
+// }
 
 export async function DeleteEvent(eventId: string): Promise<void>{
   const response = await post("DeleteEvent", {id: eventId});

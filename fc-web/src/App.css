@@ -199,3 +199,22 @@
   width: 100%;
   padding: 10px 10px 5px 10px;
 }
+
+.error-modal{
+  width: 300px;
+  background-color: rgb(255, 255, 255);
+}
+
+.error-title{
+  display: flex;
+  font-size: 20px;
+  justify-content: space-around;
+  color: rgb(255, 136, 0);
+  font-weight: bold;
+  padding: 5px 10px 5px 10px;
+}
+
+.error-message{
+  padding: 5px 10px 5px 10px;
+  font-weight: bold;
+}
