@@ -1,0 +1,100 @@
+
+.App {
+  display: flex;
+  flex-direction: column;
+  /* background-image: url("./background.jpg"); */
+}
+
+
+.landing{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 80vh;
+  color: blue;
+  background-color: red;
+}
+
+.landing-content{
+  width: 100%;
+  align-self: center;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}
+
+
+@media (orientation: portrait) {
+  .landing-content{
+    flex-direction: column;
+  }
+  .intro-text{
+    padding-right: 20px;
+  }
+}
+
+@media (orientation: landscape) {
+  .intro-text{
+    margin-left: 20px;
+    margin-top: -10px;
+  }
+}
+
+.logo{
+  text-shadow: 2px 2px;
+  flex: 1;
+}
+
+.intro-text{
+  padding-left: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: rgb(36, 36, 36);
+  flex: 1;
+  color: red;
+
+  /* border: 5px solid rgb(212, 212, 212);
+  border-radius: 5px; */
+}
+
+.big-logo{
+  width: 100%;
+}
+
+.login-modal{
+  height: 100px;
+  width: 200px;
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  background-color: rgb(236, 236, 236);
+}
+
+.sign-in-text{
+  margin-bottom: 20px;
+}
+
+.google-login-button{
+  background-color: #2b6dd8;
+  border: 1px solid black;
+  color: white;
+  font-size: 18px;
+  padding: 5px 10px 5px 10px;
+  display: flex;
+}
+
+.google-login-button:hover{
+  background-color: #255fbb;
+}
+
+.g-wrap{
+  background-color: white;
+  height: 40px;
+  width: 40px;
+}
+
+.g-wrap img{
+  height: 40px;
+  width: 40px;
+}
