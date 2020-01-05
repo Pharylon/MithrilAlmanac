@@ -105,14 +105,16 @@ export async function GetCalendar(id: string): Promise<CalendarModel> {
   };
   const {resources} = await container.items.query(query).fetchAll();
   if (resources.length){
-    const resource = resources[0];
-    if (resource.type === "calendar"){
-      if (!resource.shareId){
-        resource.shareId = uuid();
-        await SaveCalendar(resource as CalendarModel);
-      }
-      return resource;
+    const calendar = resources[0] as CalendarModel;
+    if (!calendar.shareId){
+      calendar.shareId = uuid();
+      await SaveCalendar(calendar);
     }
+    if (!calendar.moons){
+      calendar.moons = [];
+      await SaveCalendar(calendar as CalendarModel);
+    }
+    return calendar;
   }
   return undefined;
 }

@@ -1,5 +1,7 @@
 import {CalendarTemplate} from "../CalendarModel";
 
+/* cSpell:disable */
+
 const GreyhawkCalendar: CalendarTemplate = {
   currentYear: 567,
   daysOfWeek: [
@@ -36,6 +38,7 @@ const GreyhawkCalendar: CalendarTemplate = {
   },
   resetWeekAtMonthStart: false,
   holidays: [],
+  moons: [],
 };
 
 export default GreyhawkCalendar;

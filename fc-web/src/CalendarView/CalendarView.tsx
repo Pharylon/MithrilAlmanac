@@ -5,11 +5,11 @@ import CalendarState from "../State/CalendarState";
 import Modal from "react-modal";
 import DayDetailView from "../DayDetail/DayDetailView";
 import { useParams } from "react-router-dom";
-import { CheckIfLeapYear } from "../Models/CalendarModel";
 import CalendarToolbar from "../CalendarNavigation/CalendarToolBar";
 import TimeLineView from "../TimelineView/TimelineView";
 import JoinCalendarHelper from "../CalenderJoinHelper";
 import EditEvent from "../DayDetail/EditEvent";
+import "./CalendarView.css";
 
 
 const CalendarView = observer(() => {
@@ -25,15 +25,6 @@ const CalendarView = observer(() => {
     CalendarState.calendarEditEvent = undefined;
   }
   const currentYear = getYear();
-  const prevYears = currentYear > 0 ? Array.from(Array(currentYear).keys()) : [0];
-  const totalDaysInYear = CalendarState.calendar.months.reduce((total, currMonth) => {
-    return total + currMonth.days;
-  }, 0);
-  const daysBeforeYear = prevYears.reduce((totalDays, yearNum) => {
-    const isLeapYear = CheckIfLeapYear(yearNum, CalendarState.calendar);
-    return totalDays + totalDaysInYear + (isLeapYear ? 1 : 0);
-  }, 0);
-  const offSetDays = daysBeforeYear % CalendarState.calendar.daysOfWeek.length;
   JoinCalendarHelper(CalendarState.calendar.id);
   return (
     <div className="calendar" id="calendar">
@@ -43,7 +34,10 @@ const CalendarView = observer(() => {
           (<div className="calendar-months">
             {
               CalendarState.calendar.months.map((x) =>
-                <MonthView year={currentYear} key={x.position} offsetDays={offSetDays} monthNumber={x.position} />,
+                <MonthView 
+                  year={currentYear} 
+                  key={x.position} 
+                  monthNumber={x.position} />,
               )
             }
           </div>) :

@@ -1,5 +1,7 @@
 import {CalendarTemplate} from "../CalendarModel";
 
+/* cSpell:disable */
+
 const TorilCalendar: CalendarTemplate = {
   currentYear: 1491,
   daysOfWeek: [
@@ -56,6 +58,7 @@ const TorilCalendar: CalendarTemplate = {
       date: {month: 11, dayOfMonth: 31},
     },
   ],
+  moons: [],
 };
 
 export default TorilCalendar;

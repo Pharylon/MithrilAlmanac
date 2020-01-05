@@ -70,7 +70,7 @@ const DragAndDropExample = observer(() => {
   myMonths.sort((a, b) => a.position - b.position);
   return (
     <div className="month-edit-container">
-      <div className="month-edit-title">Months</div>
+      <h3 className="edit-title">Months</h3>
       <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (

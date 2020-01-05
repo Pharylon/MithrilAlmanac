@@ -1,5 +1,7 @@
 import {CalendarTemplate} from "../CalendarModel";
 
+/* cSpell:disable */
+
 const ExandriaCalendar: CalendarTemplate = {
   currentYear: 836,
   daysOfWeek: [
@@ -36,6 +38,7 @@ const ExandriaCalendar: CalendarTemplate = {
       date: {month: 1, dayOfMonth: 1},
     },
   ],
+  moons: [],
 };
 
 export default ExandriaCalendar;

@@ -55,3 +55,4 @@ export function getDayString(dayNum: number) {
     return dayNum + "th";
   }
 }
+

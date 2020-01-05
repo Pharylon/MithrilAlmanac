@@ -1,9 +1,10 @@
 import React from "react";
-import FantasyDate, { datesAreEqual } from "../Models/FantasyDate";
+import FantasyDate, { datesAreEqual, recurringDatesAreEqual } from "../Models/FantasyDate";
 import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
+import { MoonPhase, MoonState } from "../Models/Moon";
 
-const CalendarDay = observer((props: { date: FantasyDate }) => {
+const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[]}) => {
   const events = CalendarState.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
   function selectDay(){
     if (events.length === 0) {
@@ -17,15 +18,23 @@ const CalendarDay = observer((props: { date: FantasyDate }) => {
   }
   function getHoliday(){
     if (CalendarState.calendar.holidays){
-      return CalendarState.calendar.holidays.find(x => 
-        x.date.month === props.date.month && x.date.dayOfMonth === props.date.dayOfMonth);
+      return CalendarState.calendar.holidays.find(x => recurringDatesAreEqual(x.date, props.date));
     }
   }
-  const holiday = getHoliday();    
+  const holiday = getHoliday();
+  const fullMoons = props.moonStates.filter(x => x.phase === MoonPhase.Full);
   return (
     <div className={events.length === 0 && !holiday ? "day" : "day has-events"}
         onClick={() => selectDay()}>
-        <div>{props.date.dayOfMonth}</div>
+        <div>{props.date.dayOfMonth}
+        {
+            fullMoons.map(moon => (
+              <div style={{backgroundColor: moon.color}} className="full-moon">
+
+              </div>
+            ))
+          }
+        </div>
         <div className="days-events">
           {
             holiday && <div>{holiday.name}</div>

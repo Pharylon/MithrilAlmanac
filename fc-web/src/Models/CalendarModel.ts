@@ -1,5 +1,6 @@
 import Month from "./Month";
 import { Holiday } from "./FantasyDate";
+import Moon from "./Moon";
 
 interface LeapYearRules{
   interval: number;
@@ -14,6 +15,7 @@ export interface CalendarTemplate {
   currentYear: number;
   resetWeekAtMonthStart: boolean;
   holidays: Holiday[];
+  moons: Moon[];
 }
 
 
@@ -37,6 +39,7 @@ export const blankModel: CalendarModel = {
   resetWeekAtMonthStart: false,
   holidays: [],
   shareId: "",
+  moons: [],
 };
 
 
@@ -51,4 +54,16 @@ export function CheckIfLeapYear(year: number, calendar: CalendarModel): boolean{
     }
   }
   return isLeapYear;
+}
+
+export function GetDaysBeforeYear(calendar: CalendarModel, year: number){
+  const prevYears = year > 0 ? Array.from(Array(year).keys()) : [0];
+  const totalDaysInYear = calendar.months.reduce((total, currMonth) => {
+    return total + currMonth.days;
+  }, 0);
+  const daysBeforeYear = prevYears.reduce((totalDays, yearNum) => {
+    const isLeapYear = CheckIfLeapYear(yearNum, calendar);
+    return totalDays + totalDaysInYear + (isLeapYear ? 1 : 0);
+  }, 0);
+  return daysBeforeYear;
 }

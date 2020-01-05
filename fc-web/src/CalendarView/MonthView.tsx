@@ -4,36 +4,45 @@ import { chunks } from "../Utility";
 import FantasyDate from "../Models/FantasyDate";
 import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
-import {CheckIfLeapYear} from "../Models/CalendarModel";
+import { CheckIfLeapYear } from "../Models/CalendarModel";
+import { GetOffSetInfo } from "../Models/Month";
+import { MoonPhase, MoonState } from "../Models/Moon";
 
-const MonthView = observer((props: { monthNumber: number, offsetDays: number, year: number }) => {
+const MonthView = observer((props: { monthNumber: number, year: number }) => {
   const hasEvents = CalendarState.events.length === 0 || CalendarState.events
     .some(x => x.fantasyDate.year === props.year && x.fantasyDate.month === props.monthNumber);
-  // console.log(props.monthNumber + " HAS EVENTS", hasEvents);
-  function getOffSetDays(): number {
-    if (CalendarState.calendar.resetWeekAtMonthStart){
-      return 0;
-    }
-    const prevMonths = CalendarState.calendar.months.filter(x => x.position < props.monthNumber);
-    const previousDays = prevMonths.reduce((total, currMonth) => {
-      return total + currMonth.days;
-    }, 0);
-    let myOffsetDays = props.offsetDays + previousDays % CalendarState.calendar.daysOfWeek.length;
-    if (myOffsetDays >= 7) {
-      myOffsetDays -= 7;
-    }
-    return myOffsetDays;
-  }
-  const offSetDays = getOffSetDays();
+  const isLeapYear = CheckIfLeapYear(props.year, CalendarState.calendar);
+
+  const { offSetDays, previousDays } = GetOffSetInfo(CalendarState.calendar, props.monthNumber, props.year);
   const month = CalendarState.calendar.months.find(x => x.position === props.monthNumber);
   if (!month) {
     return (<React.Fragment></React.Fragment>);
   }
-  const isLeapMonth = CheckIfLeapYear(props.year, CalendarState.calendar) && 
-    CalendarState.calendar.leapYearRules.month === props.monthNumber;
+  const isLeapMonth = isLeapYear && CalendarState.calendar.leapYearRules.month === props.monthNumber;
   const numberOfDayBoxes = month.days + offSetDays + (isLeapMonth ? 1 : 0);
   const days = Array.from({ length: numberOfDayBoxes }, (v, i) => i + 1);
   const weeks = chunks(days, CalendarState.calendar.daysOfWeek.length);
+
+  function getMoonStates(date: FantasyDate): MoonState[] {
+    return CalendarState.calendar.moons.map(moon => {
+      const previousToDate = previousDays + (date.dayOfMonth - 1) - moon.cycleOffset;
+      const cyclesSinceFirstFullMoon = previousToDate / moon.daysToCycle;
+      const moonFullPercentage = cyclesSinceFirstFullMoon % 1;
+      const newThreshold = 1 / moon.daysToCycle;
+      const fullThreshold = 1 - newThreshold;
+      let phase = MoonPhase.None;
+      if (moonFullPercentage > fullThreshold) {
+        phase = MoonPhase.Full;
+      }
+      else if (moonFullPercentage < newThreshold) {
+        phase = MoonPhase.New;
+      }
+      return {
+        ...moon,
+        phase,
+      };
+    });
+  }
   return (
     <div className={"month" + (hasEvents ? "" : " no-events")}>
       <div className="month-name">{month.name + (hasEvents ? "" : " (no events)")}</div>
@@ -50,7 +59,10 @@ const MonthView = observer((props: { monthNumber: number, offsetDays: number, ye
                   dayOfMonth: x - offSetDays,
                   month: props.monthNumber,
                 };
-                return <CalendarDay key={i} date={fantasyDate} />;
+                return <CalendarDay
+                  key={i}
+                  date={fantasyDate}
+                  moonStates={getMoonStates(fantasyDate)}/>;
               })}
             </div>
           ))
