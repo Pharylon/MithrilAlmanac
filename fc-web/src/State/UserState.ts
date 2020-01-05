@@ -22,6 +22,7 @@ interface IUserState {
   logOut: () => void;
   refreshToken: () => void;
   authenticateUser: (token: string) => Promise<void>;
+  reset: () => void;
 }
 
 const UserState = observable<IUserState>({
@@ -36,23 +37,27 @@ const UserState = observable<IUserState>({
       const calendars = await GetUserCalendars();
       if (calendars) {
         UserState.calendars = calendars;
-        if (calendars.length === 0){
+        if (calendars.length === 0) {
           CalendarState.createCalendarIsOpen = true;
         }
       }
       const joinPending = await JoinPendingCalendars();
       //Prevent any nasty recursion.
-      if (!disableJoinPending){
-        if (joinPending){
+      if (!disableJoinPending) {
+        if (joinPending) {
           UserState.updateCalendars(true);
         }
-      }      
+      }
     }
   },
   timeout: () => {
     UserState.userName = "";
     UserState.calendars = [];
     localStorage.removeItem("accessToken");
+  },
+  reset: () => {
+    UserState.userName = "";
+    UserState.calendars = [];
   },
   logOut: async () => {
     UserState.userName = "";
@@ -65,16 +70,23 @@ const UserState = observable<IUserState>({
   },
   refreshToken: async () => {
     const oldToken = localStorage.getItem("accessToken");
-    if (oldToken){
-      const newToken = await GetRefreshedToken(oldToken);
-      if (!newToken) {
-        console.log("There was an error attempting to refresh token");
+    if (oldToken) {
+      try {
+        const newToken = await GetRefreshedToken(oldToken);
+        if (!newToken) {
+          console.log("There was an error attempting to refresh token");
+          UserState.reset();
+        }
+        else {
+          console.log("Got refresh token", newToken);
+          UserState.setAccessToken(newToken);
+        }
       }
-      else {
-        console.log("Got refresh token", newToken);
-        UserState.setAccessToken(newToken);
+      catch (e) {
+        console.log("There was an exception attempting to refresh token", e);
+        UserState.reset();
       }
-    }    
+    }
   },
   authenticateUser: async (token: string) => {
     const response = await post("AuthenticateUser", { token });
@@ -86,6 +98,71 @@ const UserState = observable<IUserState>({
     }
   },
 });
+
+
+//const tokenRefreshInterval = 1000 * 5; //five seconds 
+const tokenRefreshInterval = 1000 * 60 * 5; //five minutes 
+window.setInterval(() => {
+  if (!UserState.userName) {
+    return;
+  }
+  if (!document.hidden) {
+    UserState.refreshToken();
+  }
+  else {
+    const minutesUntilExpiry = getTokenExpiryTimeInMinutes();
+    if (minutesUntilExpiry && minutesUntilExpiry < 15) {
+      UserState.refreshToken();
+    }
+  }
+}, tokenRefreshInterval);
+
+
+window.addEventListener("focus", (event) => {
+  const minutesUntilExpiry = getTokenExpiryTimeInMinutes();
+  if (!minutesUntilExpiry || minutesUntilExpiry < 0) {
+    UserState.reset();
+  }
+  else if (minutesUntilExpiry && minutesUntilExpiry < 45 && UserState.userName) {
+    UserState.refreshToken();
+  }
+
+}, false);
+
+
+function getTokenExpiryTimeInMinutes() {
+  const tokenExpiration = localStorage.getItem("tokenExpiration");
+  if (tokenExpiration) {
+    const timeStamp = parseInt(tokenExpiration, 10);
+    if (timeStamp) {
+      const diff = timeStamp - (new Date().getTime());
+      const minutesUntilExpiry = diff / 1000 / 60;
+      return minutesUntilExpiry;
+    }
+  }
+}
+
+// let timeout: number | undefined;
+// const tokenRefreshInterval = 1000 * 60 * 5; //five minutes
+// async function EnsureFreshToken() {
+//   if (!timeout) {
+//     timeout = window.setTimeout(() => {
+//       const tokenExpiration = localStorage.getItem("tokenExpiration");
+//       if (tokenExpiration) {
+//         const timeStamp = parseInt(tokenExpiration, 10);
+//         if (timeStamp) {
+//           const diff = timeStamp - (new Date().getTime());
+//           const minutesUntilExpiry = diff / 1000 / 60;
+//           if (minutesUntilExpiry > 0 && minutesUntilExpiry < 30) {
+//             UserState.refreshToken();
+//           }
+//         }
+//       }
+//       timeout = undefined;
+//     }, tokenRefreshInterval);
+//   }
+// }
+
 
 
 

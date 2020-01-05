@@ -34,7 +34,6 @@ export async function post(uri: string, body: any): Promise<Result> {
 }
 
 async function request(uri: string, requestInit: RequestInit): Promise<Result> {
-  EnsureFreshToken();
   const response = await fetch(uri, requestInit);
   if (response.status === 200) {
     if (isJson(response)) {
@@ -171,26 +170,26 @@ function getHeaders(hasBody: boolean): Headers {
 }
 
 
-let timeout: number | undefined;
-const tokenRefreshInterval = 1000 * 60 * 5; //five minutes
-async function EnsureFreshToken() {
-  if (!timeout) {
-    timeout = window.setTimeout(() => {
-      const tokenExpiration = localStorage.getItem("tokenExpiration");
-      if (tokenExpiration) {
-        const timeStamp = parseInt(tokenExpiration, 10);
-        if (timeStamp) {
-          const diff = timeStamp - (new Date().getTime());
-          const minutesUntilExpiry = diff / 1000 / 60;
-          if (minutesUntilExpiry > 0 && minutesUntilExpiry < 30) {
-            UserState.refreshToken();
-          }
-        }
-      }
-      timeout = undefined;
-    }, tokenRefreshInterval);
-  }
-}
+// let timeout: number | undefined;
+// const tokenRefreshInterval = 1000 * 60 * 5; //five minutes
+// async function EnsureFreshToken() {
+//   if (!timeout) {
+//     timeout = window.setTimeout(() => {
+//       const tokenExpiration = localStorage.getItem("tokenExpiration");
+//       if (tokenExpiration) {
+//         const timeStamp = parseInt(tokenExpiration, 10);
+//         if (timeStamp) {
+//           const diff = timeStamp - (new Date().getTime());
+//           const minutesUntilExpiry = diff / 1000 / 60;
+//           if (minutesUntilExpiry > 0 && minutesUntilExpiry < 30) {
+//             UserState.refreshToken();
+//           }
+//         }
+//       }
+//       timeout = undefined;
+//     }, tokenRefreshInterval);
+//   }
+// }
 
 function ConvertDateTimes(obj: any){
   if (obj.realDate){

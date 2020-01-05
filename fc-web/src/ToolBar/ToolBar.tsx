@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import ColoredSquares from "../Images/ColoredSquares.png";
 import Modal from "react-modal";
-import GoogleButton from "../GoogleButton";
+import GoogleButton from "../SignIn/GoogleButton";
 import UserState from "../State/UserState";
 import "./ToolBar.css";
 import CalendarDd from "./CalendarDD";

@@ -234,3 +234,9 @@
 .get-started{
   color: blue;
 }
+
+.login-spinner{
+  position: relative;
+  height: 30px;
+  width: 30px;
+}

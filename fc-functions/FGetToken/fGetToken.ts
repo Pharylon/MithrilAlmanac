@@ -55,7 +55,6 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
         const user = await GetOrAddUserModelByGoogle(verifiedTicket.userId, verifiedTicket.payload.email);
         oauth2Client.setCredentials({
             refresh_token: user.googleTokens.refreshToken,
-            access_token: user.googleTokens.accessToken,
         });
         const response = await oauth2Client.refreshAccessToken();
         user.googleTokens = {
