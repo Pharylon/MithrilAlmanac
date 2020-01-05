@@ -2,7 +2,7 @@ import {observable} from "mobx";
 import { GetCalendar } from "../DataClients/CalendarEventDataClient";
 import { CalendarModel, blankModel } from "../Models/CalendarModel";
 
-interface ICalendarEditState {
+interface IEditCalendarState {
   calendar: CalendarModel;
   calendarEventEditId: string | undefined;
   setCalendar: (id: string) => void;
@@ -12,17 +12,17 @@ interface ICalendarEditState {
 }
 
 
-const CalendarEditState = observable<ICalendarEditState>({
+const EditCalendarState = observable<IEditCalendarState>({
   calendarLoadState: "Blank",
   calendar: blankModel,
   calendarEventEditId: undefined,
   setCalendar: (id: string) => {
-    if (id !== CalendarEditState.calendar.id){
+    if (id !== EditCalendarState.calendar.id){
       LoadCalendar(id);
     }    
   },
   updateMonthName: (position: number, newName: string) => {
-    const month = CalendarEditState.calendar.months.find(x => x.position === position);
+    const month = EditCalendarState.calendar.months.find(x => x.position === position);
     if (month){
       month.name = newName;
     }
@@ -35,26 +35,26 @@ const CalendarEditState = observable<ICalendarEditState>({
 
 async function LoadCalendar(id: string) {
   try{
-    CalendarEditState.calendarLoadState = "Loading";
+    EditCalendarState.calendarLoadState = "Loading";
     const calendar = await GetCalendar(id);
     if (!calendar){
       console.log("No Calendar");
-      CalendarEditState.calendar = {
+      EditCalendarState.calendar = {
         ...blankModel,
         id: "__ERROR__",
       };
-      CalendarEditState.calendarLoadState = "Error";
+      EditCalendarState.calendarLoadState = "Error";
     }
     else{
-      CalendarEditState.calendar = calendar;
-      CalendarEditState.calendarLoadState = "Loaded";
+      EditCalendarState.calendar = calendar;
+      EditCalendarState.calendarLoadState = "Loaded";
     }
 
   }
   catch (e){
-    CalendarEditState.calendarLoadState = "Error";
+    EditCalendarState.calendarLoadState = "Error";
   }
 }
 
 
-export default CalendarEditState;
+export default EditCalendarState;

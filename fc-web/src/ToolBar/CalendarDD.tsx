@@ -53,7 +53,7 @@ const CalendarDd: React.FC = observer(() => {
         }
         <div className="hover-underline" onClick={() => CalendarState.createCalendarIsOpen = true}>Create New</div>
         <Modal
-          className="event-modal"
+          className="modal-wrapper"
           isOpen={CalendarState.createCalendarIsOpen}
           onRequestClose={() => closeCall()}
         >

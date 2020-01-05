@@ -72,7 +72,7 @@ const EditEvent: React.FC = observer(() => {
     setFantasyDate(date);
   }
   return (
-    <div className="day-detail">
+    <div className="standard-modal-inner">
       <EditDateHeader date={fantasyDate} updateDate={setFantasyDate2} />
       <div className="edit-event-area">
         <div>

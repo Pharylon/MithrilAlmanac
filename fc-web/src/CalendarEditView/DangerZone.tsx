@@ -15,8 +15,8 @@ const DangerZone = observer(() => {
   }
   return (
     <div>
-      <button onClick={() => setShowModal(true)} className="danger-button">Delete</button>
-      <Modal className="event-modal" isOpen={showModal} onRequestClose={() => setShowModal(false)}>
+      <button onClick={() => setShowModal(true)} className="danger-button bg">Delete</button>
+      <Modal className="modal-wrapper" isOpen={showModal} onRequestClose={() => setShowModal(false)}>
         <div className="danger-modal">
           <div>
             {

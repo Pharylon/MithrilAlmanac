@@ -8,7 +8,7 @@
   min-height: 100vh;
 }
 
-.calendar-edit-view div{
+.calendar-edit-view > div{
   align-self: center;
 }
 
@@ -62,7 +62,6 @@
 
 .month-edit-title{
   font-size: 18px;
-  margin-top: 20px;
 }
 
 .month-edit-icon{
@@ -136,3 +135,66 @@
   border-color: white;
   color: black;
 }
+
+.month-dialog-buttons{
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.add-month-button{
+  min-width: 50px;
+}
+
+.edit-calendar-main{
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 20px;
+  align-self: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-left: -40px;
+  align-content: flex-end;
+  justify-content: flex-start;
+}
+
+.edit-calendar-col{
+  margin-left: 40px;
+  align-self: flex-start;
+  margin-top: 20px;
+}
+
+.edit-calendar-col:nth-child(2){
+  min-width: 200px;
+}
+
+.holiday-entry{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.holiday-entry > div:nth-child(1){
+  display: flex;
+  flex-direction: row;
+}
+
+.holiday-entry > div:nth-child(1) > div:nth-child(2){
+  margin-left: 10px;
+  font-size: 0.8em;
+}
+
+.holiday-entry > div:nth-child(2){
+  font-size: 12px;
+}
+
+/* @media (orientation: portrait) {
+  .landing-content{
+    flex-direction: column;
+  }
+  .intro-text{
+    padding-right: 20px;
+  }
+} */

@@ -25,7 +25,7 @@ const ToolBar: React.FC = observer(() => {
           (<div className="fake-link tool-child" onClick={() => UserState.loginModalOpen = true}>Log In</div>)
       }
       <Modal
-        className="event-modal"
+        className="modal-wrapper"
         isOpen={UserState.loginModalOpen}
         onRequestClose={() => UserState.loginModalOpen = false}>
         <div className="login-modal">

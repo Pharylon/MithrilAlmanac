@@ -14,7 +14,7 @@ const DayDetailView = observer((props: { date: FantasyDate }) => {
   }
   const events = CalendarState.events.filter(x => datesAreEqual(props.date, x.fantasyDate));
   return (
-    <div className="day-detail">
+    <div className="standard-modal-inner">
       <h2>{`${monthName} ${getDayString(props.date.dayOfMonth)}, ${props.date.year}`}</h2>
       <div>
         {

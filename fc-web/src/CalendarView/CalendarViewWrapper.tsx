@@ -17,7 +17,6 @@ const CalendarViewWrapper = observer(() => {
   if (calendarId) {
     CalendarState.loadCalendar(calendarId);
   }
-  console.log("Wrapper", CalendarState.calendarLoadState);
   return (
     CalendarState.calendarLoadState === "Loaded" ? (
       <CalendarView/>

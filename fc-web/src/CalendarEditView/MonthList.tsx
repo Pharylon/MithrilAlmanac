@@ -8,7 +8,8 @@ import {
 import Month from "../Models/Month";
 import MonthEditCard from "./MonthEditCard";
 import { observer } from "mobx-react";
-import CalendarEditState from "../State/CalendarEditState";
+import EditCalendarState from "../State/EditCalendarState";
+import AddMonth from "./AddMonthButton";
 
 const DragAndDropExample = observer(() => {
   const grid = 3;
@@ -50,22 +51,23 @@ const DragAndDropExample = observer(() => {
     }
 
     const myItems: Month[] = reorder(
-      CalendarEditState.calendar.months,
+      EditCalendarState.calendar.months,
       result.source.index,
       result.destination.index,
     );
-    if (CalendarEditState.monthEditPosition){
-      const myMonth = CalendarEditState.calendar.months.find(x => x.position === CalendarEditState.monthEditPosition);
+    if (EditCalendarState.monthEditPosition){
+      const myMonth = EditCalendarState.calendar.months.find(x => x.position === EditCalendarState.monthEditPosition);
       if (myMonth){
         const newMonth = myItems.find(x => x.name === myMonth.name);
         if (newMonth){
-          CalendarEditState.monthEditPosition = newMonth.position;
+          EditCalendarState.monthEditPosition = newMonth.position;
         }
       }     
     }
-    CalendarEditState.calendar.months = myItems;
+    EditCalendarState.calendar.months = myItems;
   }
-  const myMonths = [...CalendarEditState.calendar.months];
+  const myMonths = [...EditCalendarState.calendar.months];
+  myMonths.sort((a, b) => a.position - b.position);
   return (
     <div className="month-edit-container">
       <div className="month-edit-title">Months</div>
@@ -99,6 +101,7 @@ const DragAndDropExample = observer(() => {
           )}
         </Droppable>
       </DragDropContext>
+      <AddMonth newPosition={myMonths.length ? (myMonths[myMonths.length - 1].position + 1) : 0}/>
     </div>
   );
 });

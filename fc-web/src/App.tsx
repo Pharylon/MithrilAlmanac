@@ -17,7 +17,7 @@ const App: React.FC = observer(() => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const myApp = document.getElementById("root");
+    const myApp = document.getElementById("app");
     if (myApp) {
       Modal.setAppElement(myApp);
       setLoaded(true);

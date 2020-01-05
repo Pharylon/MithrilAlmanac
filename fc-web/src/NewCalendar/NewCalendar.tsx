@@ -35,11 +35,11 @@ const NewCalendar = observer((props: {close: () => void}) => {
       <div>
         Let's start by giving your Calendar a name, and selecting a template.
         You'll be able to customize it later.</div>
-      <div className="input-combo">
+      <div className="input-combo bk">
         <label>Name</label>
         <input value={name} onChange={(e) => setName(e.target.value)} />
       </div>
-      <div className="input-combo">
+      <div className="input-combo bk">
         <label>Template</label>
         <select value={calendarId} onChange={(e) => setCalendar(e.target.value)}>
           {

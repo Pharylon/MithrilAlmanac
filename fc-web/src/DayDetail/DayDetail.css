@@ -1,4 +1,4 @@
-.day-detail{
+.standard-modal-inner{
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 40px;
@@ -6,20 +6,24 @@
   flex-direction: column;
 }
 
+
 @media only screen and (min-width: 600px) {
-  .day-detail{
+  .standard-modal-inner{
     min-width: 500px;
+  }
+  .standard-modal-inner.sm{
+    min-width: 300px;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  .day-detail{
+  .standard-modal-inner{
     width: 90vw;
   }
 }
 
 /* @media (orientation: portrait) {
-  .day-detail{
+  .standard-modal-inner{
     max-width: 90vw;
   }
 } */
@@ -50,7 +54,7 @@
   font-size: 10px;
 }
 
-.day-detail h2{
+.standard-modal-inner h2{
   color: rgb(13, 13, 139);
   align-self: center;
 }

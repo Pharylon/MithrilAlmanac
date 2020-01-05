@@ -50,7 +50,7 @@ const CalendarView = observer(() => {
           (<TimeLineView />)
       }
       <Modal
-        className="event-modal"
+        className="modal-wrapper"
         isOpen={!!CalendarState.selectedDay || !!CalendarState.calendarEditEvent}
         onRequestClose={() => onModalClose()}>
         <div>

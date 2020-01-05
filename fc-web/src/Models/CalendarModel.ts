@@ -1,14 +1,10 @@
 import Month from "./Month";
+import { Holiday } from "./FantasyDate";
 
 interface LeapYearRules{
   interval: number;
   unlessDivisions: number[];
   month: number;
-}
-
-interface Holiday{
-  name: string;
-  date: {month: number; dayOfMonth: number};
 }
 
 export interface CalendarTemplate {
