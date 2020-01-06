@@ -1,21 +1,22 @@
 import CalendarEvent from "../Models/CalendarEvent";
-import {CalendarModel} from "../Models/CalendarModel";
 import {container} from "./DbClient";
 import { SqlQuerySpec } from "@azure/cosmos";
 import { UserModel } from "../Models/UserModel";
 import uuid = require("uuid");
 import { Credentials } from "google-auth-library";
+import UserCache from "./UserCache";
 
 // tslint:disable-next-line:max-line-length
 export async function GetOrAddUserModelByGoogle(googleId: string, email: string, googleCredentials?: Credentials): Promise<UserModel> {
-  const user = await getUserFromGoogleId(googleId);
-  if (user){
-    return user;
+  if (UserCache.has(googleId)){
+    return UserCache.get(googleId);
   }
-  else{
-    const model = await CreateUser(googleId, email, googleCredentials);
-    return model;
+  let user = await getUserFromGoogleId(googleId);
+  if (!user){
+    user = await CreateUser(googleId, email, googleCredentials);
   }
+  UserCache.set(googleId, user, 60);
+  return user;
 }
 
 async function getUserFromGoogleId(googleId: string): Promise<UserModel | undefined>{

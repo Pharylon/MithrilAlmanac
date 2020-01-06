@@ -2,6 +2,7 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { VerifyTicket } from "../Security/TokenVerification";
 import { GetOrAddUserModelByGoogle, updateUser } from "../DataAccess/UserDb";
 import getOauth2Client from "../Security/OauthClient";
+import UserCache from "../DataAccess/UserCache";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     try {
@@ -38,6 +39,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
             //const result = await oauthClient.revokeCredentials();
             user.googleTokens = undefined;
             await updateUser(user);
+            UserCache.del(user.googleId);
             if (result.status === 200) {
                 context.res = {
                     // status: 200, /* Defaults to 200 */

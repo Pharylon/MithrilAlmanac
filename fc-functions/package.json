@@ -18,6 +18,7 @@
     "date-fns": "^2.8.1",
     "google-auth-library": "^5.7.0",
     "googleapis": "^46.0.0",
+    "node-cache": "^5.1.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
