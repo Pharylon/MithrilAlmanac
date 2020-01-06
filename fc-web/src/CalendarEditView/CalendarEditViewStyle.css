@@ -145,6 +145,7 @@
   align-self: flex-end;
   margin-top: 20px;
   justify-content: space-between;
+  width: 100%;
 }
 
 .add-month-button{

@@ -4,47 +4,54 @@ import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import { MoonPhase, MoonState } from "../Models/Moon";
 
-const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[]}) => {
+const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[] }) => {
   const events = CalendarState.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
-  function selectDay(){
+  function selectDay() {
     if (events.length === 0) {
-      if (CalendarState.canEditCalendar){
+      if (CalendarState.canEditCalendar) {
         CalendarState.addNewEvent(props.date);
-      }      
+      }
     }
-    else{
+    else {
       CalendarState.selectedDay = props.date;
     }
   }
-  function getHoliday(){
-    if (CalendarState.calendar.holidays){
+  function getHoliday() {
+    if (CalendarState.calendar.holidays) {
       return CalendarState.calendar.holidays.find(x => recurringDatesAreEqual(x.date, props.date));
     }
   }
   const holiday = getHoliday();
   const fullMoons = props.moonStates.filter(x => x.phase === MoonPhase.Full);
+  const newMoons = props.moonStates.filter(x => x.phase === MoonPhase.New);
   return (
     <div className={events.length === 0 && !holiday ? "day" : "day has-events"}
-        onClick={() => selectDay()}>
-        <div>{props.date.dayOfMonth}
+      onClick={() => selectDay()}>
+      <div>{props.date.dayOfMonth}
         {
-            fullMoons.map(moon => (
-              <div style={{backgroundColor: moon.color}} className="full-moon">
-
-              </div>
-            ))
-          }
-        </div>
-        <div className="days-events">
-          {
-            holiday && <div>{holiday.name}</div>
-          }
-          {
-            events.length > 1 && (<div>{`${events.length} Events`}</div>)
-          }
-          {events.map(x => (<div key={x.id}>{x.name}</div>))}
-        </div>
+          fullMoons.map((moon, i) => (
+            <div key={i} style={{ backgroundColor: moon.color }} className="full-moon">
+            </div>
+          ))
+        }
+        {
+          newMoons.map((moon, i) => (
+            <div key={i} className="new-moon">
+              <div style={{ backgroundColor: moon.color }}></div>
+            </div>
+          ))
+        }
       </div>
+      <div className="days-events">
+        {
+          holiday && <div>{holiday.name}</div>
+        }
+        {
+          events.length > 1 && (<div>{`${events.length} Events`}</div>)
+        }
+        {events.map(x => (<div key={x.id}>{x.name}</div>))}
+      </div>
+    </div>
   );
 });
 

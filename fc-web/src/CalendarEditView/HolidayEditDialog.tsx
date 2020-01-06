@@ -36,7 +36,7 @@ const HolidayEditDialog = observer((props: IHolidayEditDialog) => {
   }
   return (
     <div>
-      <h2>New Holiday</h2>
+      <h2>{props.holiday ? "Edit Holiday" : "New Holiday"}</h2>
       <div>
         <div className="input-combo">
           <label htmlFor="new-holiday-name">Name</label>

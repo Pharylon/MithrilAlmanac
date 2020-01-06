@@ -12,6 +12,7 @@ import ErrorState from "./State/ErrorState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import CalendarViewWrapper from "./CalendarView/CalendarViewWrapper";
+import "./Tooltip.css";
 
 const App: React.FC = observer(() => {
   const [loaded, setLoaded] = useState(false);

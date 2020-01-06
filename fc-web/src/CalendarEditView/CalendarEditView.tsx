@@ -9,7 +9,7 @@ import {SaveCalendar} from "../DataClients/CalendarEventDataClient";
 import DangerZone from "./DangerZone";
 import CalendarState from "../State/CalendarState";
 import HolidayView from "./HolidayEdit";
-import MoonEdit from "./MoonEdit";
+import MoonEdit from "./Moons/MoonEdit";
 
 const CalendarEditView: React.FC = observer(() => {
   const { calendarId } = useParams();
