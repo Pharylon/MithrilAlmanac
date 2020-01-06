@@ -1,5 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import { GetCalendar } from "../DataAccess/calendarDb";
+import { GetCalendar } from "../DataAccess/CalendarDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     const calendarId = req.query.id;

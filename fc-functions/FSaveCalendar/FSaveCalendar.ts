@@ -1,5 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import {SaveCalendar, GetCalendar } from "../DataAccess/calendarDb";
+import {SaveCalendar, GetCalendar } from "../DataAccess/CalendarDb";
 import { CalendarModel} from "../Models/CalendarModel";
 import * as uuid from "uuid/v1";
 import { VerifyTicket } from "../Security/TokenVerification";

@@ -9,6 +9,7 @@ interface IEditCalendarState {
   calendarLoadState: "Blank" | "Loaded" | "Loading" | "Error";
   updateMonthName: (position: number, newName: string) => void;
   monthEditPosition: number | undefined;
+  dayEditPosition: number | undefined;
 }
 
 
@@ -28,7 +29,7 @@ const EditCalendarState = observable<IEditCalendarState>({
     }
   },
   monthEditPosition: undefined,
-  
+  dayEditPosition: undefined,
 });
 
 

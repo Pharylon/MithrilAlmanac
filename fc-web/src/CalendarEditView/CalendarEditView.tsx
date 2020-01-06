@@ -10,6 +10,7 @@ import DangerZone from "./DangerZone";
 import CalendarState from "../State/CalendarState";
 import HolidayView from "./HolidayEdit";
 import MoonEdit from "./Moons/MoonEdit";
+import CalendarEditDaysOfWeek from "./Days/CalendarEditDays";
 
 const CalendarEditView: React.FC = observer(() => {
   const { calendarId } = useParams();
@@ -66,7 +67,10 @@ const CalendarEditView: React.FC = observer(() => {
         </div>
         <div className="edit-calendar-col">
           <HolidayView />
+        </div>
+        <div className="edit-calendar-col">
           <MoonEdit />
+          <CalendarEditDaysOfWeek/>
         </div>
       </div>
       <div>

@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { VerifyTicket } from "../Security/TokenVerification";
 import { GetOrAddUserModelByGoogle, AddCalendarToUser } from "../DataAccess/UserDb";
-import { GetCalendar } from "../DataAccess/calendarDb";
+import { GetCalendar } from "../DataAccess/CalendarDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     context.log("HTTP trigger function processed a request for JOIN CALENDAR.");

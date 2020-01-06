@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { VerifyTicket } from "../Security/TokenVerification";
 import { GetOrAddUserModelByGoogle, updateUser } from "../DataAccess/UserDb";
-import { DeleteCalendar } from "../DataAccess/calendarDb";
+import { DeleteCalendar } from "../DataAccess/CalendarDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     context.log("DELETE Calendar Triggered");

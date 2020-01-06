@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { VerifyTicket } from "../Security/TokenVerification";
 import { GetOrAddUserModelByGoogle } from "../DataAccess/UserDb";
-import { GetUserCalendars } from "../DataAccess/calendarDb";
+import { GetUserCalendars } from "../DataAccess/CalendarDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     const userToken = req.headers.authorization;

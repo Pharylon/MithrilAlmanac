@@ -4,7 +4,7 @@ import { SqlQuerySpec } from "@azure/cosmos";
 import { UserModel } from "../Models/UserModel";
 import uuid = require("uuid");
 import { Credentials } from "google-auth-library";
-import UserCache from "./UserCache";
+import {UserCache} from "./Caching";
 
 // tslint:disable-next-line:max-line-length
 export async function GetOrAddUserModelByGoogle(googleId: string, email: string, googleCredentials?: Credentials): Promise<UserModel> {

@@ -2,7 +2,7 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { VerifyTicket } from "../Security/TokenVerification";
 import { GetOrAddUserModelByGoogle, updateUser } from "../DataAccess/UserDb";
 import getOauth2Client from "../Security/OauthClient";
-import UserCache from "../DataAccess/UserCache";
+import {UserCache} from "../DataAccess/Caching";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     try {

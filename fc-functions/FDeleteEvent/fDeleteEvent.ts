@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { VerifyTicket } from "../Security/TokenVerification";
 import { GetOrAddUserModelByGoogle } from "../DataAccess/UserDb";
-import { GetCalendarEvent, GetCalendar, DeleteItem } from "../DataAccess/calendarDb";
+import { GetCalendarEvent, GetCalendar, DeleteEvent } from "../DataAccess/CalendarDb";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     context.log("Delete Event Triggered");
@@ -30,7 +30,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
             };
             return;
         }
-        await DeleteItem(event);
+        await DeleteEvent(event);
         context.res = {
             // status: 200, /* Defaults to 200 */
             body: "Success",

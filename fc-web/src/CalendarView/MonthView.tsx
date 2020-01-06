@@ -6,7 +6,7 @@ import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import { CheckIfLeapYear } from "../Models/CalendarModel";
 import { GetOffSetInfo } from "../Models/Month";
-import { MoonPhase, MoonState } from "../Models/Moon";
+import { MoonPhase, MoonState, GetMoonState } from "../Models/Moon";
 
 const MonthView = observer((props: { monthNumber: number, year: number }) => {
   const hasEvents = CalendarState.events.length === 0 || CalendarState.events
@@ -36,41 +36,15 @@ const MonthView = observer((props: { monthNumber: number, year: number }) => {
   // expectedNewMoons.set(10, 1);
   // expectedNewMoons.set(11, 30);
 
+  
+
   function getMoonStates(date: FantasyDate): MoonState[] {
-    function getMoonFullPercentage(cycles: number){
-      let myPct = cycles % 1;
-      if (myPct < .5){
-        myPct = 1 - myPct;
-      }
-      return myPct;
-    }
-
-
-    return CalendarState.calendar.moons.map(moon => {
-      const previousToDate = previousDays + (date.dayOfMonth - 1) - 25; //moon.cycleOffset;
-      const cyclesSinceFirstFullMoon = previousToDate / moon.daysToCycle;
-      const moonFullPercentage = getMoonFullPercentage(cyclesSinceFirstFullMoon);
-      const sliceSize = 1 / moon.daysToCycle;
-      const fullThreshold = 1 - (sliceSize / 2);
-      let phase = MoonPhase.None;
-      // if (date.month < 3){
-      //   console.log(date.month, date.dayOfMonth, moonFullPercentage);
-      // }
-      
-      if (moonFullPercentage > fullThreshold) {
-        // if (expectedNewMoons.has(date.month)){
-        //   console.log("Expected: ", expectedNewMoons.get(date.month), "Had: ", date.dayOfMonth, moonFullPercentage);
-        // }
-        phase = MoonPhase.Full;
-      }
-      else if (Math.abs(.5 - moonFullPercentage) < sliceSize / 2) {
-        phase = MoonPhase.New;
-      }
-      return {
-        ...moon,
-        phase,
-      };
+    const states = CalendarState.calendar.moons.map(moon => {
+      const previousToDate = previousDays + (date.dayOfMonth - 1) - moon.cycleOffset;
+      const state = GetMoonState(moon, previousToDate);
+      return state;
     });
+    return states;
   }
   return (
     <div className={"month" + (hasEvents ? "" : " no-events")}>

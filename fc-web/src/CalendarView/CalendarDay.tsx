@@ -36,8 +36,7 @@ const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[
         }
         {
           newMoons.map((moon, i) => (
-            <div key={i} className="new-moon">
-              <div style={{ backgroundColor: moon.color }}></div>
+            <div key={i} style={{ borderColor: moon.color}} className="new-moon">
             </div>
           ))
         }

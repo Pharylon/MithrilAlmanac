@@ -38,7 +38,20 @@ const GreyhawkCalendar: CalendarTemplate = {
   },
   resetWeekAtMonthStart: false,
   holidays: [],
-  moons: [],
+  moons: [
+    {
+      name: "Luna",
+      daysToCycle: 28,
+      cycleOffset: 17,
+      color: "#fafbd2",
+    },
+    {
+      name: "Celene",
+      daysToCycle: 91,
+      cycleOffset: 3,
+      color: "rgb(127, 255, 212)",
+    },
+  ],
 };
 
 export default GreyhawkCalendar;

@@ -1,0 +1,21 @@
+.days{
+  margin-top: 20px;
+}
+
+.edit-day-line{
+  display: flex;
+}
+
+.edit-day-line > div{
+  flex: 1;
+}
+
+.fa-cancel{
+  color: red;
+  margin: 0px 5px 0px 5px;
+}
+
+.fa-check{
+  color: green;
+  margin: 0px 5px 0px 5px;
+}

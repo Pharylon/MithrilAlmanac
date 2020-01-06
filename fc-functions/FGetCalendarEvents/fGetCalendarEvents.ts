@@ -1,5 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import {GetAllCalendarEvents} from "../DataAccess/calendarDb";
+import {GetAllCalendarEvents} from "../DataAccess/CalendarDb";
 import CalendarEvent from "../Models/CalendarEvent";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {

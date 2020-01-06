@@ -1,6 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import CalendarEvent from "../Models/CalendarEvent";
-import { UpdateEvent} from "../DataAccess/calendarDb";
+import { UpdateEvent} from "../DataAccess/CalendarDb";
 import * as uuid from "uuid/v1";
 import { VerifyTicket } from "../Security/TokenVerification";
 import { GetOrAddUserModelByGoogle } from "../DataAccess/UserDb";
