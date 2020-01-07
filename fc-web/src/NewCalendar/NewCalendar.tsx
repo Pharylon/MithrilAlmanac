@@ -27,7 +27,7 @@ const NewCalendar = observer((props: {close: () => void}) => {
     }
   }
   if (createdCalendarId){
-    return <Redirect to={`/calendar/${createdCalendarId}`} />;
+    return <Redirect to={`/calendar/${createdCalendarId}/edit`} />;
   }
   return (
     <div className="new-calendar-content">
