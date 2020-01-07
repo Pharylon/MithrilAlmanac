@@ -37,14 +37,16 @@ const CalendarDd: React.FC = observer(() => {
           UserState.calendars.map(x => (
             <div key={x.id} className="calendar-dd-item">
               <div>
-                <Link onClick={() => setIsOpen(false)} to={"/calendar/" + x.id}>
+                <Link className="toolbar-link"  onClick={() => setIsOpen(false)} to={"/calendar/" + x.id}>
                   <span className="calendar-dd-name hover-underline">{x.name}</span>
                 </Link>
               </div>
               <div className="calendar-edit-dd">
                 <div>
                   <Link 
-                    onClick={() => setIsOpen(false)} className="hover-underline"  to={`/calendar/${x.id}/edit`}>
+                    onClick={() => setIsOpen(false)} 
+                    className="hover-underline toolbar-link"  
+                    to={`/calendar/${x.id}/edit`}>
                       <FontAwesomeIcon icon={faEdit}/>
                     </Link>
                 </div>

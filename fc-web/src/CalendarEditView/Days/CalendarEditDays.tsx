@@ -9,7 +9,6 @@ import {
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
-import { addDays } from "date-fns";
 
 const CalendarEditDaysOfWeek = observer(() => {
   function AddDay() {

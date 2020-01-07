@@ -18,7 +18,7 @@ const CalendarToolbar = observer((props: { year: number }) => {
   }
   const myDisplay: CSSProperties = { display: CalendarState.viewType === "Calendar" ? "" : "none" };
   return (
-    <div className="year-header">
+    <div className={"year-header" + (CalendarState.calendarEditEvent ? " hide-portrait" : "")}>
       <div className="calendar-bar-left">
         <div className="calendar-select">
           <select
@@ -34,7 +34,8 @@ const CalendarToolbar = observer((props: { year: number }) => {
         </div>
       </div>
       <div className="calendar-bar-main">
-        <Link style={myDisplay} to={`/calendar/${CalendarState.calendar.id}/${props.year - 1}`}>
+        <Link 
+          style={myDisplay} to={`/calendar/${CalendarState.calendar.id}/${props.year - 1}`}>
           <div><FontAwesomeIcon className="calendar-toolbar-color ct-angle-icon" icon={faAngleLeft} /></div>
         </Link>
         {

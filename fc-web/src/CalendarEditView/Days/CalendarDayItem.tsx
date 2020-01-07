@@ -4,7 +4,6 @@ import EditCalendarState from "../../State/EditCalendarState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faCheckSquare, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
-import UserState from "../../State/UserState";
 import ErrorState from "../../State/ErrorState";
 
 const CalendarEditDay = observer((props: { dayIndex: number }) => {

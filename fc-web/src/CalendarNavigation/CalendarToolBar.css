@@ -150,3 +150,11 @@
 .share-button-input button{
   margin-right: 10px;
 }
+
+
+
+@media (orientation: portrait) {
+  .hide-portrait {
+    display: none !important;
+  }
+}

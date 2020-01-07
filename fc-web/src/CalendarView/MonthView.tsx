@@ -1,12 +1,13 @@
 import React from "react";
 import CalendarDay from "./CalendarDay";
-import { chunks } from "../Utility";
+import { chunks, getCalendarNumber } from "../Utility";
 import FantasyDate from "../Models/FantasyDate";
 import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import { CheckIfLeapYear } from "../Models/CalendarModel";
 import { GetOffSetInfo } from "../Models/Month";
 import { MoonState, GetMoonState } from "../Models/Moon";
+
 
 const MonthView = observer((props: { monthNumber: number, year: number }) => {
   const hasEvents = CalendarState.events.length === 0 || CalendarState.events
@@ -21,7 +22,7 @@ const MonthView = observer((props: { monthNumber: number, year: number }) => {
   const isLeapMonth = isLeapYear && CalendarState.calendar.leapYearRules.month === props.monthNumber;
   const numberOfDayBoxes = month.days + offSetDays + (isLeapMonth ? 1 : 0);
   const days = Array.from({ length: numberOfDayBoxes }, (v, i) => i + 1);
-  const weeks = chunks(days, CalendarState.calendar.daysOfWeek.length);  
+  const weeks = chunks(days, CalendarState.calendar.daysOfWeek.length);
 
   function getMoonStates(date: FantasyDate): MoonState[] {
     const states = CalendarState.calendar.moons.map(moon => {
@@ -40,7 +41,9 @@ const MonthView = observer((props: { monthNumber: number, year: number }) => {
             <div key={weekIndex} className="week">
               {week.map((x, i) => {
                 if (weekIndex === 0 && i < offSetDays) {
-                  return (<div key={i} className="day"></div>);
+                  return (<div
+                    key={i}
+                    className={"day " + getCalendarNumber(CalendarState.calendar.daysOfWeek.length)}></div>);
                 }
                 const fantasyDate: FantasyDate = {
                   year: props.year,
@@ -50,7 +53,7 @@ const MonthView = observer((props: { monthNumber: number, year: number }) => {
                 return <CalendarDay
                   key={i}
                   date={fantasyDate}
-                  moonStates={getMoonStates(fantasyDate)}/>;
+                  moonStates={getMoonStates(fantasyDate)} />;
               })}
             </div>
           ))

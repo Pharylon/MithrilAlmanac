@@ -67,17 +67,44 @@
 }
 
 .day{
-  width: 75px;
-  height: 75px;
+  /* width: 75px;
+  height: 75px; */
   cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
   .day{
     width: 50px;
     height: 50px;
   }
+} */
+
+@media (orientation: landscape) {
+  .day{
+    width: 75px;
+    height: 75px;
+  }
 }
+
+@media (orientation: portrait) {
+  .day.seven{
+    width: 12vw;
+    height: 12vw;
+  }
+  .day.eight{
+    width: 11vw;
+    height: 11vw;
+  }
+  .day.nine{
+    width: 11vw;
+    height: 11w;
+  }
+  .day.ten{
+    width: 9.5vw;
+    height: 9.5vw;
+  }
+}
+
 
 
 .hide{
@@ -153,6 +180,7 @@
   from {top:-300px; opacity:0}
   to {top:0; opacity:1}
 }
+
 
 
 .fake-link{
@@ -239,4 +267,11 @@
   position: relative;
   height: 30px;
   width: 30px;
+}
+
+.about{
+  padding: 10px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
 }

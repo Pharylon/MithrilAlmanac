@@ -22,3 +22,20 @@ export function clone<T>(object: T): T {
   const clonedOjb = JSON.parse(json) as T;
   return clonedOjb;
 }
+
+export function getCalendarNumber(num: number): string {
+  if (num <= 7){
+    return "seven";
+  }
+  if (num === 8){
+    return "eight";
+  }
+  if (num === 9){
+    return "nine";
+  }
+  if (num === 10){
+    return "ten";
+  }
+  return "seven";
+}
+

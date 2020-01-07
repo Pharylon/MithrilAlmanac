@@ -4,6 +4,7 @@ import logo from "../Images/MithrilAlmanacLogo.jpg";
 import { observer } from "mobx-react";
 import UserState from "../State/UserState";
 import CalendarState from "../State/CalendarState";
+import { Link } from "react-router-dom";
 
 const Landing: React.FC = observer(() => {
   function getStarted(){
@@ -37,6 +38,9 @@ const Landing: React.FC = observer(() => {
           <p className="fake-link get-started" onClick={() => getStarted()}>So let's get started!</p>
         </div>
       </div>
+        <div className="about fake-link">
+          <Link to="about">About</Link>
+        </div>
     </div>);
 });
 

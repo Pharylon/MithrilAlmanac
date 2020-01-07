@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import CalendarViewWrapper from "./CalendarView/CalendarViewWrapper";
 import "./Tooltip.css";
+import About from "./About";
 
 const App: React.FC = observer(() => {
   const [loaded, setLoaded] = useState(false);
@@ -49,6 +50,9 @@ const App: React.FC = observer(() => {
           </Route>
           <Route path="/authenticate">
             <Authenticate />
+          </Route>
+          <Route path="/about">
+            <About />
           </Route>
           <Route path="/">
             <Landing />

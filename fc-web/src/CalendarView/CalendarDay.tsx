@@ -3,8 +3,9 @@ import FantasyDate, { datesAreEqual, recurringDatesAreEqual } from "../Models/Fa
 import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import { MoonPhase, MoonState } from "../Models/Moon";
+import { getCalendarNumber } from "../Utility";
 
-const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[] }) => {
+const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[]}) => {
   const events = CalendarState.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
   function selectDay() {
     if (events.length === 0) {
@@ -24,8 +25,15 @@ const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[
   const holiday = getHoliday();
   const fullMoons = props.moonStates.filter(x => x.phase === MoonPhase.Full);
   const newMoons = props.moonStates.filter(x => x.phase === MoonPhase.New);
+  function getClass(){
+    let myClass = "day " + getCalendarNumber(CalendarState.calendar.daysOfWeek.length);
+    if (events.length){
+      myClass += " has-events";
+    }
+    return myClass;
+  }
   return (
-    <div className={events.length === 0 && !holiday ? "day" : "day has-events"}
+    <div className={getClass()}
       onClick={() => selectDay()}>
       <div>{props.date.dayOfMonth}
         {

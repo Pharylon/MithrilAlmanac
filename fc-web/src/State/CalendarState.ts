@@ -90,7 +90,6 @@ export class CalendarStore implements ICalendarState {
         if (newEvent.id){
           this.events = [...stillGoodEvents, newEvent];
         }        
-        console.log("New Event", newEvent, myEvent);
       }
       else{
         console.log("FAIL");
