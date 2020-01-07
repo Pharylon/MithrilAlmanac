@@ -4,7 +4,7 @@ import {CalendarModel} from "../Models/CalendarModel";
 import UserCalendarDto from "../Models/UserCalendarDto";
 import uuid = require("uuid");
 import { container } from "./DbClient";
-import { CalendarCache } from "./Caching";
+// import { CalendarCache } from "./Caching";
 
 
 
@@ -63,7 +63,7 @@ export async function SaveCalendar(model: CalendarModel): Promise<CalendarModel>
   dataObject.type = "calendar";
   const response = await container.items.upsert(dataObject);
   if (response.resource){
-    CalendarCache.set(model.id, response.resource, 300);
+    // CalendarCache.set(model.id, response.resource, 300);
     return response.resource as any;    
   }
   throw new Error("Something went wrong");
@@ -85,9 +85,9 @@ export async function DeleteEvent(event: CalendarEvent): Promise<void> {
 }
 
 export async function DeleteCalendar(id: string): Promise<void> {
-  if (CalendarCache.has(id)){
-    CalendarCache.del(id);
-  }
+  // if (CalendarCache.has(id)){
+  //   CalendarCache.del(id);
+  // }
   const query: SqlQuerySpec = {
     query: "SELECT * FROM root r WHERE r.id = @id",
     parameters: [
@@ -104,9 +104,9 @@ export async function DeleteCalendar(id: string): Promise<void> {
 
 
 export async function GetCalendar(id: string): Promise<CalendarModel> {
-  if (CalendarCache.has(id)){
-    return CalendarCache.get(id);
-  }
+  // if (CalendarCache.has(id)){
+  //   return CalendarCache.get(id);
+  // }
   const query: SqlQuerySpec = {
     query: "SELECT * FROM root r WHERE r.id = @id and r.type = @type",
     parameters: [
@@ -131,7 +131,7 @@ export async function GetCalendar(id: string): Promise<CalendarModel> {
       calendar.moons = [];
       await SaveCalendar(calendar as CalendarModel);
     }
-    CalendarCache.set(id, calendar, 300);
+    // CalendarCache.set(id, calendar, 300);
     return calendar;
   }
   return undefined;

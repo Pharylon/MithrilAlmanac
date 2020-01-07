@@ -58,7 +58,14 @@ const TorilCalendar: CalendarTemplate = {
       date: {month: 11, dayOfMonth: 31},
     },
   ],
-  moons: [],
+  moons: [
+    {
+      name: "Selûne",
+      daysToCycle: 30.4375,
+      cycleOffset: -0.5,
+      color: "#fafbd2",
+    },
+  ],
 };
 
 export default TorilCalendar;

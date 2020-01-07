@@ -4,19 +4,35 @@ import EditCalendarState from "../../State/EditCalendarState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faCheckSquare, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
+import UserState from "../../State/UserState";
+import ErrorState from "../../State/ErrorState";
 
 const CalendarEditDay = observer((props: { dayIndex: number }) => {
+  const [dayName, setDayName] = useState(EditCalendarState.calendar.daysOfWeek[props.dayIndex]);
   const [modalOpen, setModalOpen] = useState(false);
-  function updateDayOfTheWeek(newVal: string) {
-    EditCalendarState.calendar.daysOfWeek[props.dayIndex] = newVal;
+  function updateDayOfTheWeek() {
+    const duplicates = EditCalendarState.calendar.daysOfWeek.some((x, i) => x === dayName && i !== props.dayIndex);
+    if (duplicates){
+      console.log("DUP!");
+      ErrorState.errorMessage = "A day with that name already exists";
+    }
+    else{
+      EditCalendarState.calendar.daysOfWeek[props.dayIndex] = dayName;
+      EditCalendarState.dayEditPosition = undefined;
+    }    
   }
-  const dayVal = EditCalendarState.calendar.daysOfWeek[props.dayIndex];
+  function deleteDay(){
+    const newDays = [...EditCalendarState.calendar.daysOfWeek];
+    newDays.splice(props.dayIndex, 1);
+    EditCalendarState.calendar.daysOfWeek = newDays;
+    EditCalendarState.dayEditPosition = undefined;
+  }
   return (
     <div className="edit-day-line">
       {
         EditCalendarState.dayEditPosition !== props.dayIndex ?
-          (<div>{dayVal}</div>) :
-          (<input type="text" value={dayVal} onChange={(e) => updateDayOfTheWeek(e.target.value)} />)
+          (<div>{dayName}</div>) :
+          (<input type="text" value={dayName} onChange={(e) => setDayName(e.target.value)} />)
       }
       {
         EditCalendarState.dayEditPosition !== props.dayIndex ?
@@ -34,17 +50,17 @@ const CalendarEditDay = observer((props: { dayIndex: number }) => {
               <FontAwesomeIcon 
               className="fa-check"
                 icon={faCheckSquare} 
-                onClick={() => EditCalendarState.dayEditPosition = undefined} />
+                onClick={() => updateDayOfTheWeek()} />
             </div>
           )
       }
       {/* <input type="text" value={day} onChange={(e) => updateDayOfTheWeek(e.target.value, i)} /> */}
       <Modal className="modal-wrapper" isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
         <div className="standard-modal-inner danger-modal">
-          <div>{`Are you sure you want to delete ${dayVal}?`}</div>
-          <div>
-            <button>Delete</button>
-            <button>Never mind</button>
+          <div>{`Are you sure you want to delete ${dayName}?`}</div>
+          <div className="delete-day-buttons">
+            <button onClick={() => deleteDay()} className="danger-button">Delete</button>
+            <button onClick={() => setModalOpen(false)} className="blue-button">Never mind</button>
           </div>
         </div>
       </Modal>

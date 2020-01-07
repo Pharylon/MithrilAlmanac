@@ -4,18 +4,18 @@ import { SqlQuerySpec } from "@azure/cosmos";
 import { UserModel } from "../Models/UserModel";
 import uuid = require("uuid");
 import { Credentials } from "google-auth-library";
-import {UserCache} from "./Caching";
+// import {UserCache} from "./Caching";
 
 // tslint:disable-next-line:max-line-length
 export async function GetOrAddUserModelByGoogle(googleId: string, email: string, googleCredentials?: Credentials): Promise<UserModel> {
-  if (UserCache.has(googleId)){
-    return UserCache.get(googleId);
-  }
+  // if (UserCache.has(googleId)){
+  //   return UserCache.get(googleId);
+  // }
   let user = await getUserFromGoogleId(googleId);
   if (!user){
     user = await CreateUser(googleId, email, googleCredentials);
   }
-  UserCache.set(googleId, user, 60);
+  // UserCache.set(googleId, user, 60);
   return user;
 }
 
@@ -77,6 +77,7 @@ export async function AddCalendarToUser(googleId: string, calendarId: string, ow
     user.memberCalendars.push(calendarId);
   }
   await container.items.upsert(user);
+  // UserCache.set(googleId, user);
 }
 
 export async function UpdateEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {

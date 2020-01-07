@@ -1,5 +1,3 @@
-import FantasyDate from "./FantasyDate";
-
 export default interface Moon {
   name: string;
   daysToCycle: number;

@@ -65,12 +65,12 @@ const CalendarEditView: React.FC = observer(() => {
         <div className="edit-calendar-col">
           <MonthList />
         </div>
-        <div className="edit-calendar-col">
-          <HolidayView />
-        </div>
-        <div className="edit-calendar-col">
+        <div className="edit-calendar-col">          
           <MoonEdit />
           <CalendarEditDaysOfWeek/>
+        </div>
+        <div className="edit-calendar-col">
+          <HolidayView />
         </div>
       </div>
       <div>

@@ -6,7 +6,7 @@ import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import { CheckIfLeapYear } from "../Models/CalendarModel";
 import { GetOffSetInfo } from "../Models/Month";
-import { MoonPhase, MoonState, GetMoonState } from "../Models/Moon";
+import { MoonState, GetMoonState } from "../Models/Moon";
 
 const MonthView = observer((props: { monthNumber: number, year: number }) => {
   const hasEvents = CalendarState.events.length === 0 || CalendarState.events
@@ -21,22 +21,7 @@ const MonthView = observer((props: { monthNumber: number, year: number }) => {
   const isLeapMonth = isLeapYear && CalendarState.calendar.leapYearRules.month === props.monthNumber;
   const numberOfDayBoxes = month.days + offSetDays + (isLeapMonth ? 1 : 0);
   const days = Array.from({ length: numberOfDayBoxes }, (v, i) => i + 1);
-  const weeks = chunks(days, CalendarState.calendar.daysOfWeek.length);
-
-  // const expectedNewMoons = new Map<number, number>();
-  // expectedNewMoons.set(1, 10);
-  // expectedNewMoons.set(2, 9);
-  // expectedNewMoons.set(3, 9);
-  // expectedNewMoons.set(4, 8);
-  // expectedNewMoons.set(5, 7);
-  // expectedNewMoons.set(6, 5);
-  // expectedNewMoons.set(7, 5);
-  // expectedNewMoons.set(8, 3);
-  // expectedNewMoons.set(9, 2);
-  // expectedNewMoons.set(10, 1);
-  // expectedNewMoons.set(11, 30);
-
-  
+  const weeks = chunks(days, CalendarState.calendar.daysOfWeek.length);  
 
   function getMoonStates(date: FantasyDate): MoonState[] {
     const states = CalendarState.calendar.moons.map(moon => {
