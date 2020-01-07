@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { observer } from "mobx-react";
-import CalendarState from "../State/CalendarState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { DeleteCalendar } from "../DataClients/CalendarEventDataClient";
+import EditCalendarState from "../State/EditCalendarState";
 
 const DangerZone = observer(() => {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteButton, setSHowDeleteButton] = useState(false);
   async function deletePressed() {
-    await DeleteCalendar(CalendarState.calendar.id);
+    await DeleteCalendar(EditCalendarState.calendar.id);
     window.location.assign("/");
   }
   return (
@@ -20,7 +20,7 @@ const DangerZone = observer(() => {
         <div className="danger-modal">
           <div>
             {
-              `Are you really, really sure you want to delete the calendar ${CalendarState.calendar.name}???`
+              `Are you really, really sure you want to delete the calendar ${EditCalendarState.calendar.name}???`
             }
           </div>
           <div>THIS OPERATION CANNOT BE UNDONE!</div>
