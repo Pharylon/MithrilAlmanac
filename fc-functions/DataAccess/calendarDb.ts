@@ -47,6 +47,7 @@ export async function GetAllCalendarEvents(id: string): Promise<CalendarEvent[]>
 export async function UpdateEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {
   const dataObject = calendarEvent as any;
   dataObject.type = "calendarEvent";
+  dataObject.saveDate = (new Date()).getTime();
   const response = await container.items.upsert(dataObject);
   if (response.resource && response.resource.type === "calendarEvent" && response.resource.id === calendarEvent.id){
     const myEvent = response.resource as any;

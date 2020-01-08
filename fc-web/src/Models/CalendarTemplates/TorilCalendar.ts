@@ -57,6 +57,10 @@ const TorilCalendar: CalendarTemplate = {
       name: "Feast of the Moon",
       date: {month: 11, dayOfMonth: 31},
     },
+    {
+      name: "Shieldmeet",
+      date: {month: 9, dayOfMonth: 32},
+    },
   ],
   moons: [
     {

@@ -61,6 +61,7 @@ export async function CreateUser(googleId: string, email: string, googleCredenti
   };
   const dataObj = newUser as any;
   dataObj.type = "user";
+  dataObj.createDate = (new Date()).getTime();
   const response = await container.items.create(dataObj);
   if (response.resource){
     return response.resource;

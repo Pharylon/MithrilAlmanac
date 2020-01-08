@@ -67,13 +67,13 @@ const EditEvent: React.FC = observer(() => {
     }
     return "";
   }
-  function setFantasyDate2(date: FantasyDate){
+  function onDateHeaderChange(date: FantasyDate){
     console.log("SetFantasyDateWrapper", date);
     setFantasyDate(date);
   }
   return (
     <div className="standard-modal-inner">
-      <EditDateHeader date={fantasyDate} updateDate={setFantasyDate2} />
+      <EditDateHeader date={fantasyDate} updateDate={onDateHeaderChange} />
       <div className="edit-event-area">
         <div>
           <input style={{ fontSize: 18 }} type="string" value={name} onChange={(e) => setName(e.target.value)} />

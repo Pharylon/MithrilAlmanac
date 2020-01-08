@@ -58,7 +58,6 @@ const CalendarEditDaysOfWeek = observer(() => {
     EditCalendarState.calendar.daysOfWeek = myItems;
   }
   const myDays = [...EditCalendarState.calendar.daysOfWeek];
-  console.log("MyDays", myDays);
   return (
     <div className="days">
       <h3 className="edit-title">Days of the Week</h3>

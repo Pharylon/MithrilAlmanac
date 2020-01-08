@@ -202,3 +202,20 @@
     padding-right: 20px;
   }
 } */
+
+.holidays{
+  margin-top: 20px;
+}
+
+
+.leap-year-edit{
+  display: flex;
+}
+
+.leap-year-edit > div:first-child{
+  margin-right: 10px;
+}
+
+.leap-year-edit > div:nth-child(2){
+  cursor: pointer;
+}

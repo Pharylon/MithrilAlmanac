@@ -11,6 +11,7 @@ import CalendarState from "../State/CalendarState";
 import HolidayView from "./HolidayEdit";
 import MoonEdit from "./Moons/MoonEdit";
 import CalendarEditDaysOfWeek from "./Days/CalendarEditDays";
+import LeapYearEdit from "./LeapYearEdit";
 
 const CalendarEditView: React.FC = observer(() => {
   const { calendarId } = useParams();
@@ -70,6 +71,7 @@ const CalendarEditView: React.FC = observer(() => {
           <CalendarEditDaysOfWeek/>
         </div>
         <div className="edit-calendar-col">
+          <LeapYearEdit/>
           <HolidayView />
         </div>
       </div>

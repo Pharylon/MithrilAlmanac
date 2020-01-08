@@ -29,6 +29,14 @@ const FantasyDateSelector = observer((props: {date: FantasyDate, updateDate: (da
         year: yearValue,
       });
     }
+    else{
+      setDayValue(0);
+      props.updateDate({
+        month: monthValue,
+        dayOfMonth: 0,
+        year: yearValue,
+      });
+    }
   }
   function updateYear(newValue: string){
     const updatedYear = parseInt(newValue, 10);

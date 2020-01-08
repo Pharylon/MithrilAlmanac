@@ -27,7 +27,7 @@ const HolidayView: React.FC = observer(() => {
     }
   });
   return (
-    <div>
+    <div className="holidays">
       <h3 className="edit-title">Holidays</h3>
       <div className="gray-box">
         {
