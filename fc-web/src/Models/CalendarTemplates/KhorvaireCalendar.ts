@@ -34,30 +34,14 @@ const EberronCalendar: CalendarTemplate = {
   },
   resetWeekAtMonthStart: true,
   holidays: [
-    // {
-    //   name: "Crystalfall",
-    //   date: {month: 2, dayOfMonth: 9},
-    // },
-    // {
-    //   name: "The Day of Mourning",
-    //   date: {month: 9, dayOfMonth: 20},
-    // },
-    // {
-    //   name: "Sun's Blessing",
-    //   date: {month: 3, dayOfMonth: 15},
-    // },
-    // {
-    //   name: "Aureon's Crown",
-    //   date: {month: 5, dayOfMonth: 26},
-    // },
-    // {
-    //   name: "Brightblade",
-    //   date: {month: 6, dayOfMonth: 12},
-    // },
-    // {
-    //   name: "The Race of Eight Winds",
-    //   date: {month: 9, dayOfMonth: 32},
-    // },
+    {
+      name: "The Day of Mourning",
+      date: {month: 9, dayOfMonth: 20},
+    },
+    {
+      name: "Thronehold",
+      date: {month: 10, dayOfMonth: 11},
+    },
   ],
   moons: [],
 };
