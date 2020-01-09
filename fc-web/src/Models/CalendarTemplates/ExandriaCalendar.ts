@@ -39,6 +39,7 @@ const ExandriaCalendar: CalendarTemplate = {
     },
   ],
   moons: [],
+  offSetDays: 0,
 };
 
 export default ExandriaCalendar;

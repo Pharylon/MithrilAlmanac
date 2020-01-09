@@ -16,6 +16,7 @@ export interface CalendarTemplate {
   resetWeekAtMonthStart: boolean;
   holidays: Holiday[];
   moons: Moon[];
+  offSetDays: number;
 }
 
 
@@ -40,6 +41,7 @@ export const blankModel: CalendarModel = {
   holidays: [],
   shareId: "",
   moons: [],
+  offSetDays: 0,
 };
 
 
@@ -57,8 +59,9 @@ export function CheckIfLeapYear(year: number, calendar: CalendarModel): boolean{
 }
 
 export function GetDaysBeforeYear(calendar: CalendarModel, year: number){
-  const prevYears = year > 0 ? Array.from(Array(year).keys()) : [0];
-  const totalDaysInYear = calendar.months.reduce((total, currMonth) => {
+  const offset = calendar.offSetDays || 0;
+  const prevYears = year > 1 ? Array.from(Array(year - 1).keys()).map(x => x + 1) : [];
+  const totalDaysInYear = offset + calendar.months.reduce((total, currMonth) => {
     return total + currMonth.days;
   }, 0);
   const daysBeforeYear = prevYears.reduce((totalDays, yearNum) => {

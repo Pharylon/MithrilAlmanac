@@ -70,6 +70,7 @@ const TorilCalendar: CalendarTemplate = {
       color: "#fafbd2",
     },
   ],
+  offSetDays: 0,
 };
 
 export default TorilCalendar;

@@ -52,6 +52,7 @@ const GreyhawkCalendar: CalendarTemplate = {
       color: "rgb(127, 255, 212)",
     },
   ],
+  offSetDays: 0,
 };
 
 export default GreyhawkCalendar;

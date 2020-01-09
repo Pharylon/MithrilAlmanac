@@ -12,6 +12,7 @@ import HolidayView from "./HolidayEdit";
 import MoonEdit from "./Moons/MoonEdit";
 import CalendarEditDaysOfWeek from "./Days/CalendarEditDays";
 import LeapYearEdit from "./LeapYearEdit";
+import EditMisc from "./CalendarEditMisc";
 
 const CalendarEditView: React.FC = observer(() => {
   const { calendarId } = useParams();
@@ -69,6 +70,7 @@ const CalendarEditView: React.FC = observer(() => {
         <div className="edit-calendar-col">          
           <MoonEdit />
           <CalendarEditDaysOfWeek/>
+          <EditMisc/>
         </div>
         <div className="edit-calendar-col">
           <LeapYearEdit/>

@@ -7,6 +7,7 @@ import CalendarState from "../State/CalendarState";
 import { CheckIfLeapYear } from "../Models/CalendarModel";
 import { GetOffSetInfo } from "../Models/Month";
 import { MoonState, GetMoonState } from "../Models/Moon";
+import EditCalendarState from "../State/EditCalendarState";
 
 
 const MonthView = observer((props: { monthNumber: number, year: number }) => {
@@ -15,6 +16,7 @@ const MonthView = observer((props: { monthNumber: number, year: number }) => {
   const isLeapYear = CheckIfLeapYear(props.year, CalendarState.calendar);
 
   const { offSetDays, previousDays } = GetOffSetInfo(CalendarState.calendar, props.monthNumber, props.year);
+  // console.log("Offset", offSetDays, props.year, props.monthNumber);
   const month = CalendarState.calendar.months.find(x => x.position === props.monthNumber);
   if (!month) {
     return (<React.Fragment></React.Fragment>);

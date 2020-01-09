@@ -49,6 +49,7 @@ const EarthCalendar: CalendarTemplate = {
       cycleOffset: 26,
     },
   ],
+  offSetDays: 1,
 };
 
 export default EarthCalendar;
