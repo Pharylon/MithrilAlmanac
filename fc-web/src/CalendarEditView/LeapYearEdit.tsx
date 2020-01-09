@@ -7,7 +7,6 @@ import Tooltip from "rc-tooltip";
 
 const LeapYearEdit: React.FC = observer(() => {
   const rules = EditCalendarState.calendar.leapYearRules;
-  console.log("RUles", rules);
   const [editMode, setEditMode] = useState(false);
   const [interval, setInterval] = useState("");
   const [month, setMonth] = useState(rules.month);

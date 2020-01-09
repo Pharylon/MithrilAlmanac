@@ -7,7 +7,6 @@ import CalendarState from "../State/CalendarState";
 import { CheckIfLeapYear } from "../Models/CalendarModel";
 import { GetOffSetInfo } from "../Models/Month";
 import { MoonState, GetMoonState } from "../Models/Moon";
-import EditCalendarState from "../State/EditCalendarState";
 
 
 const MonthView = observer((props: { monthNumber: number, year: number }) => {

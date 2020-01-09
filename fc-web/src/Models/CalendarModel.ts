@@ -61,10 +61,10 @@ export function CheckIfLeapYear(year: number, calendar: CalendarModel): boolean{
 export function GetDaysBeforeYear(calendar: CalendarModel, year: number){
   const offset = calendar.offSetDays || 0;
   const prevYears = year > 1 ? Array.from(Array(year - 1).keys()).map(x => x + 1) : [];
-  const totalDaysInYear = offset + calendar.months.reduce((total, currMonth) => {
+  const totalDaysInYear = calendar.months.reduce((total, currMonth) => {
     return total + currMonth.days;
   }, 0);
-  const daysBeforeYear = prevYears.reduce((totalDays, yearNum) => {
+  const daysBeforeYear = offset + prevYears.reduce((totalDays, yearNum) => {
     const isLeapYear = CheckIfLeapYear(yearNum, calendar);
     return totalDays + totalDaysInYear + (isLeapYear ? 1 : 0);
   }, 0);

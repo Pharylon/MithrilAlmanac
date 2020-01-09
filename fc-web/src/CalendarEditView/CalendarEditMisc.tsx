@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 import EditCalendarState from "../State/EditCalendarState";
 import Tooltip from "rc-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 const EditMisc: React.FC = observer(() => {
   // const [editMode, setEditMode] = useState(false);
-  const [offSet, setOffset] = useState(EditCalendarState.calendar.offSetDays);
   const toolTip = (
     <div>
       <div>The number of days to offset the first day of Year 1.</div>

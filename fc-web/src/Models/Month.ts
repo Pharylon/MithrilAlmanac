@@ -14,7 +14,6 @@ export interface OffSetInfo{
 
 export function GetOffSetInfo(calendar: CalendarModel, monthNumber: number, year: number): OffSetInfo {
   const daysBeforeYear = GetDaysBeforeYear(calendar, year);
-  console.log("DaysBeforeYear", daysBeforeYear);
   const yearOffSetDays = daysBeforeYear % calendar.daysOfWeek.length;
 
   const isLeapYear = CheckIfLeapYear(year, calendar);
