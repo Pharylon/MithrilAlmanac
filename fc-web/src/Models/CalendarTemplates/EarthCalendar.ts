@@ -53,3 +53,4 @@ const EarthCalendar: CalendarTemplate = {
 };
 
 export default EarthCalendar;
+

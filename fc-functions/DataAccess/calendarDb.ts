@@ -132,6 +132,10 @@ export async function GetCalendar(id: string): Promise<CalendarModel> {
       calendar.moons = [];
       await SaveCalendar(calendar as CalendarModel);
     }
+    if (typeof(calendar.offSetDays) === "undefined"){
+      calendar.offSetDays = 0;
+      await SaveCalendar(calendar as CalendarModel);
+    }
     // CalendarCache.set(id, calendar, 300);
     return calendar;
   }
