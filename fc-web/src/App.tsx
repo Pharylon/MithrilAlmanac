@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { observer } from "mobx-react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Landing from "./Landing/Landing";
 import ToolBar from "./ToolBar/ToolBar";
 import UserState from "./State/UserState";
@@ -14,9 +14,11 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import CalendarViewWrapper from "./CalendarView/CalendarViewWrapper";
 import "./Tooltip.css";
 import About from "./About";
+import { getInternetExplorerVersion } from "./Utility";
 
 const App: React.FC = observer(() => {
   const [loaded, setLoaded] = useState(false);
+  const [calendarRedirect, setCalendarRedirect] = useState("");
 
   useEffect(() => {
     const myApp = document.getElementById("app");
@@ -32,6 +34,33 @@ const App: React.FC = observer(() => {
       UserState.authenticateUser(accessToken);      
     }
   }, []);
+
+  useEffect(() => {
+    const lastCalendar = localStorage.getItem("LastCalendar");
+    if (lastCalendar){
+      setCalendarRedirect(lastCalendar);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (navigator.userAgent.match(/SamsungBrowser/i)){
+      alert("The Samsung Internet browser does not work with this site. " +
+      "Supported browsers are Firefox, Chrome, Edge, and Safari. Sorry!");
+    }
+    else if (getInternetExplorerVersion() > 0){
+      alert("Internet Explorer does not work with this site. " +
+      "Supported browsers are Firefox, Chrome, Edge, and Safari. Sorry!!");
+    }
+  }, []);
+
+  function getDefaultReturn(){
+    if (calendarRedirect){
+      return <Redirect to={"/calendar/" + calendarRedirect} />;
+    }
+    else{
+      return <Landing/>;
+    }
+  }
 
 
   return (
@@ -54,8 +83,11 @@ const App: React.FC = observer(() => {
           <Route path="/about">
             <About />
           </Route>
+          <Route path="/home">
+            <Landing/>
+          </Route>
           <Route path="/">
-            <Landing />
+            {getDefaultReturn()}
           </Route>
         </Switch>
       </Router>
