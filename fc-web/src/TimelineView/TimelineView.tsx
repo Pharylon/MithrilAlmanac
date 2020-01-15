@@ -60,7 +60,7 @@ const TimeLineView: React.FC = observer(() => {
       {
         CalendarState.canEditCalendar && (
           <div>
-            <button onClick={addNewEvent} className="save-button">Add New Date</button>
+            <button onClick={addNewEvent} className="blue-button">Add New Date</button>
           </div>
         )
       }

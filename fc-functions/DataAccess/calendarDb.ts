@@ -4,9 +4,6 @@ import {CalendarModel} from "../Models/CalendarModel";
 import UserCalendarDto from "../Models/UserCalendarDto";
 import uuid = require("uuid");
 import { container } from "./DbClient";
-// import { CalendarCache } from "./Caching";
-
-
 
 export async function GetCalendarEvent(id: string): Promise<CalendarEvent | undefined> {
   const query: SqlQuerySpec = {
@@ -134,6 +131,14 @@ export async function GetCalendar(id: string): Promise<CalendarModel> {
     }
     if (typeof(calendar.offSetDays) === "undefined"){
       calendar.offSetDays = 0;
+      await SaveCalendar(calendar as CalendarModel);
+    }
+    if (!calendar.currentDate && resources[0].currentYear){
+      calendar.currentDate = {
+        year: resources[0].currentYear,
+        month: 1,
+        dayOfMonth: 1,
+      };
       await SaveCalendar(calendar as CalendarModel);
     }
     // CalendarCache.set(id, calendar, 300);

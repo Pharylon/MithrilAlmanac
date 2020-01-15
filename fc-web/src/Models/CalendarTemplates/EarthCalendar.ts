@@ -1,7 +1,13 @@
 import {CalendarTemplate} from "../CalendarModel";
 
+const now = new Date();
+
 const EarthCalendar: CalendarTemplate = {
-  currentYear: new Date().getFullYear(),
+  currentDate: {
+    year: now.getFullYear(),
+    dayOfMonth: now.getDate(),
+    month: now.getMonth() + 1,
+  },
   daysOfWeek: [
     "Sunday",
     "Monday",

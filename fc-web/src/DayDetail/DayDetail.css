@@ -178,6 +178,12 @@
   color: rgb(13, 13, 139);
 }
 
+.calendar-edit-input-combo .edit-event-date-combo label{
+  color: white;
+}
+
+
+
 .edit-date-cancel{
   margin-left: 10px;
   font-size: 10px;

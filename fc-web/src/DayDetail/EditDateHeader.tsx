@@ -32,6 +32,7 @@ const EditDateHeader = observer((props: {date: FantasyDate, updateDate: (date: F
           :
           (
             <FantasyDateSelector 
+              months={CalendarState.calendar.months}
               updateDate={props.updateDate}
               date={props.date} />
           )

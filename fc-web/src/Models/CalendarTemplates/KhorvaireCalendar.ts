@@ -3,7 +3,11 @@ import {CalendarTemplate} from "../CalendarModel";
 /* cSpell:disable */
 
 const EberronCalendar: CalendarTemplate = {
-  currentYear: 998,
+  currentDate: {
+    dayOfMonth: 1,
+    month: 1,
+    year: 998,
+  },
   daysOfWeek: [
     "Sul",
     "Mol",

@@ -72,7 +72,6 @@ const UserState = observable<IUserState>({
           UserState.reset();
         }
         else {
-          console.log("Got refresh token", newToken);
           UserState.setAccessToken(newToken);
         }
       }

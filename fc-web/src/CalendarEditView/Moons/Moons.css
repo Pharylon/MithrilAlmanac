@@ -32,3 +32,19 @@
   margin-left: 10px;
   align-self: center;
 }
+
+.moon-color-example{
+  background-color: gray;
+  max-width: 100px;
+  padding: 5px 10px 5px 10px;
+  position: relative;
+
+}
+
+.color-picker-wrapper > div {
+  position: absolute;
+}
+
+.color-picker-wrapper > div  > div{
+  position: absolute;
+}

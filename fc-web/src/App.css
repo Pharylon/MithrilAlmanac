@@ -2,7 +2,6 @@
 .App {
   display: flex;
   flex-direction: column;
-  /* background-image: url("./background.jpg"); */
 }
 
 
@@ -43,15 +42,15 @@
   align-content: center;
   margin-bottom: 20px;
   border-collapse: collapse;
-  background-color: rgb(26, 47, 73);
+  background-color: rgb(67, 104, 150);
   color: white;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
   border: 1px solid black;
 }
 
 .month.no-events{
-  background-color: rgba(35, 35, 61, 0.822);
+  background-color: rgba(96, 123, 155, 0.6);
 }
 
 .month-name{
@@ -70,6 +69,8 @@
   /* width: 75px;
   height: 75px; */
   cursor: pointer;
+  margin-left: 1px;
+  margin-bottom: 1px;
 }
 
 /* @media only screen and (max-width: 600px) {
@@ -112,9 +113,17 @@
 }
 
 .day.has-events{
-  background-color: rgb(41, 71, 109);
+  background-color: rgb(186, 236, 252);
+  color: black;
   overflow: hidden;
+}
 
+.day.current-day{
+  background-color: rgb(145, 243, 161);
+}
+
+.day.current-day div{
+  color: black;
 }
 
 .days-events{
@@ -201,7 +210,7 @@
 
 .save-button{
   border: 1px solid black;
-  background-color: rgb(30, 150, 230);
+  background-color: rgb(155, 247, 137);
   font-size: 1.5em;
   margin-top: 10px;
   margin-bottom: 10px;

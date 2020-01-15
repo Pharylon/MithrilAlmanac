@@ -5,7 +5,7 @@ import { useParams, Redirect } from "react-router-dom";
 import MonthList from "./MonthList";
 import "./CalendarEditViewStyle.css";
 import CalendarNumDays from "./CalendarNumDaysTooltip";
-import {SaveCalendar} from "../DataClients/CalendarEventDataClient";
+import { SaveCalendar } from "../DataClients/CalendarEventDataClient";
 import DangerZone from "./DangerZone";
 import CalendarState from "../State/CalendarState";
 import HolidayView from "./HolidayEdit";
@@ -13,12 +13,14 @@ import MoonEdit from "./Moons/MoonEdit";
 import CalendarEditDaysOfWeek from "./Days/CalendarEditDays";
 import LeapYearEdit from "./LeapYearEdit";
 import EditMisc from "./CalendarEditMisc";
+import FantasyDate from "../Models/FantasyDate";
+import FantasyDateSelector from "../DayDetail/FantasyDateSelector";
 
 const CalendarEditView: React.FC = observer(() => {
   const { calendarId } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [showDanger, setShowDanger] = useState(false);
-  if (redirect){
+  if (redirect) {
     return (<Redirect to={`/calendar/${calendarId}`} />);
   }
   if (calendarId) {
@@ -27,13 +29,12 @@ const CalendarEditView: React.FC = observer(() => {
   function setCalendarName(newValue: string) {
     EditCalendarState.calendar.name = newValue;
   }
-  function setCurrentYear(newValue: string) {
-    const currentYear = parseInt(newValue, 10);
-    if (currentYear) {
-      EditCalendarState.calendar.currentYear = currentYear;
+  function setCurrentDate(newValue: FantasyDate) {
+    if (newValue) {
+      EditCalendarState.calendar.currentDate = newValue;
     }
   }
-  async function save(){
+  async function save() {
     await SaveCalendar(EditCalendarState.calendar);
     setRedirect(true);
     CalendarState.reset();
@@ -52,13 +53,11 @@ const CalendarEditView: React.FC = observer(() => {
         </div>
       </div>
       <div className="calendar-edit-input-combo">
-        <label htmlFor="calendar-name">Current Year</label>
-        <input className="input-standard"
-          type="number"
-          min="0"
-          step="1"
-          value={EditCalendarState.calendar.currentYear}
-          onChange={(e) => setCurrentYear(e.target.value)} />
+        <label htmlFor="calendar-name">Current Date</label>
+        <FantasyDateSelector
+          date={EditCalendarState.calendar.currentDate}
+          months={EditCalendarState.calendar.months}
+          updateDate={setCurrentDate} />
       </div>
       <div>
         <CalendarNumDays totalDaysInYear={totalDaysInYear} />
@@ -67,28 +66,48 @@ const CalendarEditView: React.FC = observer(() => {
         <div className="edit-calendar-col">
           <MonthList />
         </div>
-        <div className="edit-calendar-col">          
+        <div className="edit-calendar-col">
           <MoonEdit />
-          <CalendarEditDaysOfWeek/>
-          <EditMisc/>
+          <CalendarEditDaysOfWeek />
+          <EditMisc />
         </div>
         <div className="edit-calendar-col">
-          <LeapYearEdit/>
+          <LeapYearEdit />
           <HolidayView />
         </div>
+        <div className="edit-calendar-col calendar-save-col">
+          <div>
+            <div>
+              <button className="save-button" onClick={() => save()}>Save Changes</button>
+            </div>
+            <div>
+              <input type="checkbox" checked={showDanger} onChange={(e) => setShowDanger(!showDanger)} />
+              <span>Show Danger Zone</span>
+            </div>
+            {
+              showDanger && (
+                <DangerZone />
+              )
+            }
+          </div>
+        </div>
       </div>
-      <div>
-        <button className="save-button" onClick={() => save()}>Save</button>
-      </div>
-      <div>
-        <input type="checkbox" checked={showDanger} onChange={(e) => setShowDanger(!showDanger)} />
-        <span>Show Danger Zone</span>
-      </div>
-      {
-        showDanger && (
-          <DangerZone/>
-        )
-      }
+      <div className="calendar-save-bottom">
+          <div>
+            <div>
+              <button className="save-button" onClick={() => save()}>Save Changes</button>
+            </div>
+            <div>
+              <input type="checkbox" checked={showDanger} onChange={(e) => setShowDanger(!showDanger)} />
+              <span>Show Danger Zone</span>
+            </div>
+            {
+              showDanger && (
+                <DangerZone />
+              )
+            }
+          </div>
+        </div>
     </div>
   );
 });

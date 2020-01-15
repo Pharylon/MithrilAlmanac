@@ -3,7 +3,11 @@ import {CalendarTemplate} from "../CalendarModel";
 /* cSpell:disable */
 
 const GreyhawkCalendar: CalendarTemplate = {
-  currentYear: 567,
+  currentDate: {
+    dayOfMonth: 1,
+    month: 1,
+    year: 567,
+  },
   daysOfWeek: [
     "Starday",
     "Sunday",

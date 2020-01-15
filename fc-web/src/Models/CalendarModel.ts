@@ -1,5 +1,5 @@
 import Month from "./Month";
-import { Holiday } from "./FantasyDate";
+import FantasyDate, { Holiday } from "./FantasyDate";
 import Moon from "./Moon";
 
 interface LeapYearRules{
@@ -12,7 +12,7 @@ export interface CalendarTemplate {
   months: Month[];
   daysOfWeek: string[];
   leapYearRules: LeapYearRules;
-  currentYear: number;
+  currentDate: FantasyDate;
   resetWeekAtMonthStart: boolean;
   holidays: Holiday[];
   moons: Moon[];
@@ -29,7 +29,7 @@ export interface CalendarModel extends CalendarTemplate {
 export const blankModel: CalendarModel = {
   name: "",
   id: "__BLANK__",
-  currentYear: -1,
+  currentDate: {dayOfMonth: 0, year: 0, month: 0},
   months: [],
   daysOfWeek: [],
   leapYearRules: {

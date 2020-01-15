@@ -27,6 +27,9 @@ const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[
   const newMoons = props.moonStates.filter(x => x.phase === MoonPhase.New);
   function getClass(){
     let myClass = "day " + getCalendarNumber(CalendarState.calendar.daysOfWeek.length);
+    if (datesAreEqual(CalendarState.calendar.currentDate, props.date)){
+      myClass += " current-day";
+    }
     if (events.length){
       myClass += " has-events";
     }
@@ -35,7 +38,7 @@ const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[
   return (
     <div className={getClass()}
       onClick={() => selectDay()}>
-      <div>{props.date.dayOfMonth}
+      <div className="day-of-month">{props.date.dayOfMonth}
         {
           fullMoons.map((moon, i) => (
             <div key={i} style={{ backgroundColor: moon.color }} className="full-moon">
@@ -50,6 +53,11 @@ const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[
         }
       </div>
       <div className="days-events">
+        {
+          datesAreEqual(CalendarState.calendar.currentDate, props.date) && (
+            <div>Current Date</div>
+          )
+        }
         {
           holiday && <div>{holiday.name}</div>
         }

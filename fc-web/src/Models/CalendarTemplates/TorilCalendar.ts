@@ -3,7 +3,11 @@ import {CalendarTemplate} from "../CalendarModel";
 /* cSpell:disable */
 
 const TorilCalendar: CalendarTemplate = {
-  currentYear: 1491,
+  currentDate: {
+    dayOfMonth: 1,
+    month: 1,
+    year: 1491,
+  },
   daysOfWeek: [
     "FirstDay",
     "SecondDay",

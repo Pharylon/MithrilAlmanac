@@ -6,6 +6,7 @@ import { format, parseISO } from "date-fns";
 import { DeleteEvent } from "../DataClients/CalendarEventDataClient";
 import EditDateHeader from "./EditDateHeader";
 import FantasyDate from "../Models/FantasyDate";
+import UserState from "../State/UserState";
 
 const EditEvent: React.FC = observer(() => {
   if (!CalendarState.calendarEditEvent) {
@@ -28,7 +29,7 @@ const EditEvent: React.FC = observer(() => {
       };
       await CalendarState.updateEvent(updateEvent);
       CalendarState.calendarEditEvent = undefined;
-      if (CalendarState.selectedDay && CalendarState.selectedDay !== fantasyDate){
+      if (CalendarState.selectedDay && CalendarState.selectedDay !== fantasyDate) {
         CalendarState.selectedDay = fantasyDate;
       }
     }
@@ -69,7 +70,7 @@ const EditEvent: React.FC = observer(() => {
     }
     return "";
   }
-  function onDateHeaderChange(date: FantasyDate){
+  function onDateHeaderChange(date: FantasyDate) {
     console.log("SetFantasyDateWrapper", date);
     setFantasyDate(date);
   }
@@ -91,10 +92,16 @@ const EditEvent: React.FC = observer(() => {
             value={getRealDateValue()}
             onChange={(e) => onRealDateChange(e.target.value)} />
         </div>
-        <div className="hidden-line">
-          <div><input id="hidden" type="checkbox" checked={hidden} onChange={() => setHidden(!hidden)} /></div>
-          <label htmlFor="hidden">Hidden</label>
-        </div>
+        {
+          (!CalendarState.calendarEditEvent.createUser ||
+          ( UserState.userModel &&
+            CalendarState.calendarEditEvent.createUser === UserState.userModel.id)) &&
+          (<div className="hidden-line">
+            <div><input id="hidden" type="checkbox" checked={hidden} onChange={() => setHidden(!hidden)} /></div>
+            <label htmlFor="hidden">Hidden</label>
+          </div>)
+        }
+
         <div className="edit-event-buttons">
           <button onClick={() => deleteEvent()}>Delete</button>
           <button onClick={() => saveEvent()}>Save</button>

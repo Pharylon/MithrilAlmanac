@@ -3,7 +3,11 @@ import {CalendarTemplate} from "../CalendarModel";
 /* cSpell:disable */
 
 const ExandriaCalendar: CalendarTemplate = {
-  currentYear: 836,
+  currentDate: {
+    dayOfMonth: 1,
+    month: 1,
+    year: 836,
+  },
   daysOfWeek: [
     "Miresen",
     "Grissen",

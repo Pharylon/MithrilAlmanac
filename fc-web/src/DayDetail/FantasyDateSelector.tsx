@@ -1,12 +1,18 @@
-import React, { useState } from "react";
-import { observer } from "mobx-react";
-import CalendarState from "../State/CalendarState";
+import React, { useState, useEffect } from "react";
 import FantasyDate from "../Models/FantasyDate";
+import Month from "../Models/Month";
 
-const FantasyDateSelector = observer((props: {date: FantasyDate, updateDate: (date: FantasyDate) => void}) => {
+const FantasyDateSelector = (props: {date: FantasyDate, months: Month[], updateDate: (date: FantasyDate) => void}) => {
   const [monthValue, setMonthValue] = useState(props.date.month);
   const [dayValue, setDayValue] = useState(props.date.dayOfMonth);
   const [yearValue, setYearValue] = useState(props.date.year);
+
+  useEffect(() => {
+    setMonthValue(props.date.month);
+    setDayValue(props.date.dayOfMonth);
+    setYearValue(props.date.year);
+  }, [props.date.month, props.date.dayOfMonth, props.date.year]);
+
   function updateMonth(newValue: string){
     const updatePosition = parseInt(newValue, 10);
     if (updatePosition && updatePosition > 0){
@@ -21,7 +27,6 @@ const FantasyDateSelector = observer((props: {date: FantasyDate, updateDate: (da
   function updateDay(newValue: string){
     const updatedDay = parseInt(newValue, 10);
     if (updatedDay && updatedDay > 0){
-      console.log("DayValue", updatedDay);
       setDayValue(updatedDay);
       props.updateDate({
         month: monthValue,
@@ -54,7 +59,7 @@ const FantasyDateSelector = observer((props: {date: FantasyDate, updateDate: (da
       <div className="edit-event-date-combo">
         <label>Month</label>
         <select value={monthValue} onChange={(e) => updateMonth(e.target.value)}>
-          {CalendarState.calendar.months.map(x => 
+          {props.months.map(x => 
             (<option key={x.position} value={x.position}>{x.name}</option>),
           )}
         </select>
@@ -69,6 +74,6 @@ const FantasyDateSelector = observer((props: {date: FantasyDate, updateDate: (da
       </div>
     </div>
   );
-});
+};
 
 export default FantasyDateSelector;

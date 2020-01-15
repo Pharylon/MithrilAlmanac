@@ -16,7 +16,7 @@ const CalendarView = observer(() => {
   const { year } = useParams();
   function getYear(): number {
     if (!year) {
-      return CalendarState.calendar.currentYear;
+      return CalendarState.calendar.currentDate.year;
     }
     return parseInt(year, 10);
   }

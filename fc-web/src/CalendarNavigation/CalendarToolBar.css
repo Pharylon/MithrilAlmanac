@@ -4,19 +4,19 @@
   top: 34px;
   display: flex;
   justify-content: center;
-  color: rgb(0, 17, 90);
-  background-color: white;
+  color: rgb(255, 255, 255);
+  background-color: rgb(75, 75, 75, 0.9);
   padding: 0px 10px 0px 10px;
   flex-wrap: wrap;
   z-index: 100;
 }
 
 .calendar-toolbar-color{
-  color: rgb(0, 17, 90);
+  color: rgb(255, 255, 255);
 }
 
 .calendar-toolbar-color a{
-  color: rgb(0, 17, 90);
+  color: rgb(255, 255, 255);
 }
 
 .calendar-bar-main{
@@ -24,7 +24,7 @@
 }
 
 .calendar-year-link{
-  color: rgb(0, 17, 90);
+  color: rgb(255, 255, 255);
   margin-left: 20px;
   margin-right: 20px;
 }
