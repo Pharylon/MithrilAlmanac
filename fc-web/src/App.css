@@ -286,3 +286,13 @@
   bottom: 0px;
   right: 0px;
 }
+
+.new-banner{
+  width: 100%;
+  min-height: 100px;
+  background-color: rgba(49, 45, 85, 0.945);
+  bottom: 0;
+  position: fixed;
+  color: white;
+  padding: 5px 20px 5px 20px;
+}

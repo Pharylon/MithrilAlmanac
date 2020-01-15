@@ -15,6 +15,7 @@ import CalendarViewWrapper from "./CalendarView/CalendarViewWrapper";
 import "./Tooltip.css";
 import About from "./About";
 import { getInternetExplorerVersion } from "./Utility";
+import UpdateBanner from "./Updates/UpdateBanner";
 
 const App: React.FC = observer(() => {
   const [loaded, setLoaded] = useState(false);
@@ -108,6 +109,7 @@ const App: React.FC = observer(() => {
           </Modal>
         )
       }
+      <UpdateBanner/>
     </div>
   );
 });
