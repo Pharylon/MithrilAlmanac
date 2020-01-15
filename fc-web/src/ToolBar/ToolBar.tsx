@@ -17,7 +17,7 @@ const ToolBar: React.FC = observer(() => {
       <Link to="/home"><div><img className="small-logo" src={ColoredSquares} alt="small logo" /></div></Link>
       {/* <div className="title">The Mithril Almanac</div> */}
       {
-        UserState.userName ?
+        UserState.userModel ?
           (<div className="right-toolbar">
             <CalendarDd />
             <UserToolbar />

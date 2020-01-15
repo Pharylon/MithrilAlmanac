@@ -1,6 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import CalendarEvent from "../Models/CalendarEvent";
-import { UpdateEvent} from "../DataAccess/CalendarDb";
+import { UpdateEvent, GetCalendarEvent} from "../DataAccess/CalendarDb";
 import * as uuid from "uuid/v1";
 import { VerifyTicket } from "../Security/TokenVerification";
 import { GetOrAddUserModelByGoogle } from "../DataAccess/UserDb";
@@ -27,7 +27,28 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
         description: req.body.description,
         realDate: req.body.realDate,
         fantasyDate: req.body.fantasyDate,
+        hidden: req.body.hidden,
+        createUser: req.body.createUser,
     };
+    if (req.body.id){
+        const existing = await GetCalendarEvent(req.body.id);
+        if (existing){
+            if (existing.createUser && existing.createUser !== newEvent.createUser){
+                context.res = {
+                    status: 400,
+                    body: "You may not alter the CreateUser of the calendar event",
+                };
+                return;
+            }
+            if (newEvent.hidden !== existing.hidden && existing.createUser && existing.createUser !== user.id){
+                context.res = {
+                    status: 400,
+                    body: "You may not change the visibility of this event",
+                };
+                return;
+            }
+        }        
+    }
     if (!calendars.includes(newEvent.calendarId)){
         context.res = {
             status: 401, /* Defaults to 200 */

@@ -95,7 +95,7 @@ const LeapYearEdit: React.FC = observer(() => {
                 <input type="number" id="lyi" value={interval} onChange={(e) => setInterval(e.target.value)} />
               </div>
               <div className="input-combo">
-                <label htmlFor="lym">Leap Year Interval</label>
+                <label htmlFor="lym">Leap Year Month</label>
                 <select value={month} onChange={(e) => setMonth(parseInt(e.target.value, 10))}>
                 {
                   EditCalendarState.calendar.months.map((m) => (

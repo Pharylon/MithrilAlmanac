@@ -10,11 +10,12 @@ const UserToolbar: React.FC = observer(() => {
     UserState.logOut();
     setShowLogout(false);
   }
+  const userName = UserState.userModel ? UserState.userModel.userName : "";
   return (
     <div className="user-toolbar tool-child" onMouseLeave={() => setShowLogout(false)}>
       <div onClick={() => setShowLogout(!showLogout)}>
         <FontAwesomeIcon icon={faUser} />
-        <span className="user-toolbar-user-name">&nbsp;{UserState.userName}</span>
+        <span className="user-toolbar-user-name">&nbsp;{userName}</span>
       </div>
       <div style={{display: showLogout ? "" : "none"}} className="logout">
           <div onClick={() => logOut()} className="fake-link">Logout</div>

@@ -32,7 +32,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
     if (calendarId) {
         context.res = {
             // status: 200, /* Defaults to 200 */
-            body: "Success",
+        body: "Success",
         };
     }
     else {

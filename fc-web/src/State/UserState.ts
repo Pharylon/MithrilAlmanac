@@ -5,18 +5,14 @@ import { UserModel } from "../Models/UserModel";
 import { GetRefreshedToken } from "../DataClients/AuthenticationDataClient";
 import { JoinPendingCalendars } from "../CalenderJoinHelper";
 import CalendarState from "./CalendarState";
-
-interface CalendarId {
-  id: string;
-  name: string;
-}
+import UserCalendarDto from "../Models/UserCalendarDto";
 
 interface IUserState {
   loginModalOpen: boolean;
   getAccessToken: () => string | null;
   setAccessToken: (token: string) => void;
-  userName: string;
-  calendars: CalendarId[];
+  userModel: UserModel | undefined;
+  calendars: UserCalendarDto[];
   updateCalendars: (disableJoinPending?: boolean) => Promise<void>;
   timeout: () => void;
   logOut: () => void;
@@ -29,7 +25,7 @@ const UserState = observable<IUserState>({
   loginModalOpen: false,
   getAccessToken: () => localStorage.getItem("accessToken"),
   setAccessToken: (token: string) => localStorage.setItem("accessToken", token),
-  userName: "",
+  userModel: undefined,
   calendars: [],
   updateCalendars: async (disableJoinPending?: boolean) => {
     const token = UserState.getAccessToken();
@@ -43,24 +39,22 @@ const UserState = observable<IUserState>({
       }
       const joinPending = await JoinPendingCalendars();
       //Prevent any nasty recursion.
-      if (!disableJoinPending) {
-        if (joinPending) {
-          UserState.updateCalendars(true);
-        }
+      if (!disableJoinPending && joinPending) {
+        UserState.updateCalendars(true);
       }
     }
   },
   timeout: () => {
-    UserState.userName = "";
+    UserState.userModel = undefined;
     UserState.calendars = [];
     localStorage.removeItem("accessToken");
   },
   reset: () => {
-    UserState.userName = "";
+    UserState.userModel = undefined;
     UserState.calendars = [];
   },
   logOut: async () => {
-    UserState.userName = "";
+    UserState.userModel = undefined;
     UserState.calendars = [];
     localStorage.removeItem("accessToken");
     const result = await get("LogOut");
@@ -93,7 +87,7 @@ const UserState = observable<IUserState>({
     if (response.success) {
       const userModel = response.value as UserModel;
       UserState.setAccessToken(token);
-      UserState.userName = userModel.userName;
+      UserState.userModel = userModel;
       UserState.updateCalendars();
     }
   },
@@ -103,7 +97,7 @@ const UserState = observable<IUserState>({
 //const tokenRefreshInterval = 1000 * 5; //five seconds 
 const tokenRefreshInterval = 1000 * 60 * 5; //five minutes 
 window.setInterval(() => {
-  if (!UserState.userName) {
+  if (!UserState.userModel) {
     return;
   }
   if (!document.hidden) {
@@ -123,7 +117,7 @@ window.addEventListener("focus", (event) => {
   if (!minutesUntilExpiry || minutesUntilExpiry < 0) {
     UserState.reset();
   }
-  else if (minutesUntilExpiry && minutesUntilExpiry < 45 && UserState.userName) {
+  else if (minutesUntilExpiry && minutesUntilExpiry < 45 && UserState.userModel) {
     UserState.refreshToken();
   }
 

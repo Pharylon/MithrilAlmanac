@@ -6,7 +6,7 @@ export default async function JoinCalendarHelper(calendarId: string){
   if (urlParams.has("joinId")){
     const joinId = urlParams.get("joinId");
     if (joinId){
-      if (UserState.userName){
+      if (UserState.userModel){
         joinCalendar(joinId, calendarId);
       }
       else{

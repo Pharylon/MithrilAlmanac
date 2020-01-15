@@ -15,6 +15,7 @@ const EditEvent: React.FC = observer(() => {
   const [description, setDescription] = useState(CalendarState.calendarEditEvent.description);
   const [realDate, setRealDate] = useState<Date | undefined>(CalendarState.calendarEditEvent.realDate || new Date());
   const [fantasyDate, setFantasyDate] = useState(CalendarState.calendarEditEvent.fantasyDate);
+  const [hidden, setHidden] = useState(CalendarState.calendarEditEvent.hidden);
   async function saveEvent() {
     if (CalendarState.calendarEditEvent) {
       const updateEvent: CalendarEvent = {
@@ -23,6 +24,7 @@ const EditEvent: React.FC = observer(() => {
         description,
         realDate,
         fantasyDate,
+        hidden,
       };
       await CalendarState.updateEvent(updateEvent);
       CalendarState.calendarEditEvent = undefined;
@@ -88,6 +90,10 @@ const EditEvent: React.FC = observer(() => {
             type="date"
             value={getRealDateValue()}
             onChange={(e) => onRealDateChange(e.target.value)} />
+        </div>
+        <div className="hidden-line">
+          <div><input id="hidden" type="checkbox" checked={hidden} onChange={() => setHidden(!hidden)} /></div>
+          <label htmlFor="hidden">Hidden</label>
         </div>
         <div className="edit-event-buttons">
           <button onClick={() => deleteEvent()}>Delete</button>

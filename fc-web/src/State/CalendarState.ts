@@ -56,16 +56,18 @@ export class CalendarStore implements ICalendarState {
   }
 
   @computed get canEditCalendar(): boolean{
-    return !!UserState.userName && UserState.calendars.some(x => x.id === this.calendar.id);
+    return !!UserState.userModel && UserState.calendars.some(x => x.id === this.calendar.id);
   }
 
   @action.bound
   public async addNewEvent(date: FantasyDate){
-    if (!UserState.userName){
+    if (!UserState.userModel){
       ErrorState.errorMessage = "You must be logged in to add an event to a calendar";
+      return;
     }
     if (!this.canEditCalendar){
       ErrorState.errorMessage = "You do not have permission to add events to this to this calendar";
+      return;
     }
     const newEvent: CalendarEvent = {
       calendarId: this.calendar.id,
@@ -74,6 +76,8 @@ export class CalendarStore implements ICalendarState {
       description: "",
       realDate: undefined,
       id: uuid(),
+      createUser: UserState.userModel.id,
+      hidden: false,
     };
     this.calendarEditEvent = newEvent;
   }

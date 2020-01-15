@@ -7,4 +7,8 @@ export default interface CalendarEvent {
   description: string;
   realDate: Date | undefined;
   fantasyDate: FantasyDate;
+  hidden: boolean;
+  createUser: string;
 }
+
+

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Landing.css";
 import logo from "../Images/MithrilAlmanacLogo.jpg";
 import { observer } from "mobx-react";
 import UserState from "../State/UserState";
 import CalendarState from "../State/CalendarState";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Landing: React.FC = observer(() => {
   function getStarted(){
-    if (!UserState.userName){
+    if (!UserState.userModel){
       UserState.loginModalOpen = true;
     }
     else{

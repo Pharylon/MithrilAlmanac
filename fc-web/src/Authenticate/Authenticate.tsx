@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 const Authenticate = observer(() => {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
-  if (UserState.userName){
+  if (UserState.userModel){
     return <Redirect to="/" />;
   }
   if (code) {

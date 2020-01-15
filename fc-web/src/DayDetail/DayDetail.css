@@ -108,6 +108,25 @@
   border: 1px solid gray;
 }
 
+.hidden-line{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+
+.hidden-line > div:first-child{
+  display: flex;
+  margin-right: 5px;
+  min-width: 20px;
+}
+
+.hidden-line > div:first-child> input{
+  margin-left: 0;
+  padding-left: 0;
+  margin-top: 6px;
+  color: black;
+}
+
 .edit-event-buttons{
   display: flex;
   justify-content: space-between;
