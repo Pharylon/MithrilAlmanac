@@ -35,6 +35,9 @@ const UpdateBanner = () => {
         .filter(x => x.version > lastSeen)
         .map(x => x.items)
         .reduce((prev, curr) => ([...prev, ...curr]));
+      if (items.length > 10){
+        items.splice(10);
+      }
       return {
         version: currentVersion,
         items,
@@ -51,17 +54,23 @@ const UpdateBanner = () => {
   }
   return (
     <div className="new-banner">
-      <div>{`Welcome to version ${updateInfo.version} 
-        of the Mithril Almanac! New features in this release include:`}</div>
-      <ul>
-        {
-          updateInfo.items.map(x => (<li key={x}>{x}</li>))
-        }
-      </ul>
-      <button
-        onClick={() => closeBanner()}
-        style={{ fontSize: "1.5em" }}
-        className="blue-button">Got it, thanks!</button>
+      <div>
+        <div>{`Welcome to version ${updateInfo.version} 
+          of the Mithril Almanac! New features in this release include:`}</div>
+        <ul>
+          {
+            updateInfo.items.map(x => (<li key={x}>{x}</li>))
+          }
+        </ul>
+        <div>If you've spotted a bug or would like to request a feature, please do so on&nbsp;
+          <a className="link" href="https://github.com/Pharylon/MithrilAlmanac/issues">our Github page!</a>
+          
+        </div>
+        <button
+          onClick={() => closeBanner()}
+          style={{ fontSize: "1.5em" }}
+          className="blue-button">Got it, thanks!</button>
+      </div>
     </div>
   );
 };

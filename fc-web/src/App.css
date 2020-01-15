@@ -294,5 +294,12 @@
   bottom: 0;
   position: fixed;
   color: white;
-  padding: 5px 20px 5px 20px;
+}
+
+.new-banner > div{
+  margin: 5px 20px 5px 20px;
+}
+
+.new-banner a{
+  color: white;
 }
