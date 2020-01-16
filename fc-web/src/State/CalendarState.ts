@@ -48,6 +48,7 @@ export class CalendarStore implements ICalendarState {
       }
       this.calendar = calendar;
       this.calendarLoadState = "Loaded";
+      localStorage.setItem("LastCalendar", id);
       const events = await GetCalendarEvents(calendar.id);
       this.events = events;
     }
