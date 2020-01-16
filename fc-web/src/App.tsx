@@ -99,7 +99,7 @@ const App: React.FC = observer(() => {
       {
         loaded && (
           <Modal
-            className="error-modal"
+            className="modal-wrapper"
             isOpen={!!ErrorState.errorMessage}
             onRequestClose={() => ErrorState.errorMessage = ""}>
             <div className="error-modal">

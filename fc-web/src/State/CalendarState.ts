@@ -61,11 +61,13 @@ export class CalendarStore implements ICalendarState {
   @action.bound
   public async addNewEvent(date: FantasyDate){
     if (!UserState.userModel){
-      ErrorState.errorMessage = "You must be logged in to add an event to a calendar";
+      this.selectedDay = undefined;
+      ErrorState.errorMessage = "You must be logged in to add an event to a calendar.";
       return;
     }
     if (!this.canEditCalendar){
-      ErrorState.errorMessage = "You do not have permission to add events to this to this calendar";
+      this.selectedDay = undefined;
+      ErrorState.errorMessage = "You do not have permission to add events to this to this calendar.";
       return;
     }
     const newEvent: CalendarEvent = {

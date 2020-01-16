@@ -9,9 +9,7 @@ const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[
   const events = CalendarState.events.filter(x => datesAreEqual(x.fantasyDate, props.date));
   function selectDay() {
     if (events.length === 0) {
-      if (CalendarState.canEditCalendar) {
-        CalendarState.addNewEvent(props.date);
-      }
+      CalendarState.addNewEvent(props.date);
     }
     else {
       CalendarState.selectedDay = props.date;

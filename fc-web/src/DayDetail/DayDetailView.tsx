@@ -26,11 +26,9 @@ const DayDetailView = observer((props: { date: FantasyDate }) => {
         }
       </div>
       {
-        CalendarState.canEditCalendar && (
-          <button onClick={() => CalendarState.addNewEvent(props.date)} className="add-event-button">
-            <span>Add New Event</span>
-          </button>
-        )
+        <button onClick={() => CalendarState.addNewEvent(props.date)} className="add-event-button">
+          <span>Add New Event</span>
+        </button>
       }
     </div>
   );

@@ -4,6 +4,8 @@ import CalendarState from "../State/CalendarState";
 import "./timeline.css";
 import TimeLineEvent from "./TimeLineEvent";
 import { GetDaysBetweenDates } from "../Models/CalendarModel";
+import ErrorState from "../State/ErrorState";
+import UserState from "../State/UserState";
 
 const TimeLineView: React.FC = observer(() => {
   const events = [...CalendarState.events];
@@ -19,12 +21,21 @@ const TimeLineView: React.FC = observer(() => {
     }
   });
   function addNewEvent() {
-    CalendarState.addNewEvent(CalendarState.calendar.currentDate);
+    if (!UserState.userModel){
+      ErrorState.errorMessage = "You must log in to edit this calendar.";
+    }
+    else if (!CalendarState.canEditCalendar){
+      ErrorState.errorMessage = "You do not have permission to edit this calendar. " + 
+        "Ask someone to send you a \"Share\" link.";
+    }
+    else{
+      CalendarState.addNewEvent(CalendarState.calendar.currentDate);
+    }
   }
   const maxSpacing = 200;
-  function getTimeLineEventSpacing(daysBetween: number){
+  function getTimeLineEventSpacing(daysBetween: number) {
     const spacing = daysBetween * 5;
-    if (spacing > maxSpacing){
+    if (spacing > maxSpacing) {
       return maxSpacing;
     }
     return spacing;
@@ -40,10 +51,10 @@ const TimeLineView: React.FC = observer(() => {
           }
           const spacing = getTimeLineEventSpacing(daysBetween);
           return (
-            <div  key={x.id} className="timeline-event-wrapper">
+            <div key={x.id} className="timeline-event-wrapper">
               <TimeLineEvent event={x} />
-              <div 
-                style={{height: spacing}}
+              <div
+                style={{ height: spacing }}
                 className={`timeline-connector ${spacing === maxSpacing ? "dashed" : "solid"}`}>
                 <div></div>
                 <div></div>
@@ -58,13 +69,9 @@ const TimeLineView: React.FC = observer(() => {
             style={{ marginTop: 100, fontWeight: "bold" }}
             className="timeline-event">You haven't added any events yet!</div>)
       }
-      {
-        CalendarState.canEditCalendar && (
-          <div className="add-event-timeline">
-            <button onClick={addNewEvent} className="blue-button bg">Add New Event</button>
-          </div>
-        )
-      }
+      <div className="add-event-timeline">
+        <button onClick={addNewEvent} className="blue-button bg">Add New Event</button>
+      </div>
     </div>
   );
 });
