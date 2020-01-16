@@ -19,6 +19,12 @@ const ReleaseNotes: Release[] = [
       "Set day of the week that 1/1/0001 started on (date offset)",
     ],
   },
+  {
+    version: 0.6,
+    items: [
+      "Improved Timeline view",
+    ],
+  },
 ];
 
 export default ReleaseNotes;

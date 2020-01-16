@@ -46,7 +46,7 @@ const CalendarDd: React.FC = observer(() => {
                   <Link 
                     onClick={() => setIsOpen(false)} 
                     className="hover-underline toolbar-link"  
-                    to={`/calendar/${x.id}/edit`}>
+                    to={`/edit/${x.id}`}>
                       <FontAwesomeIcon icon={faEdit}/>
                     </Link>
                 </div>

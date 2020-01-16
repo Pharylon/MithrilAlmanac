@@ -56,7 +56,7 @@ const CalendarEditView: React.FC = observer(() => {
         <label htmlFor="calendar-name">Current Date</label>
         <FantasyDateSelector
           date={EditCalendarState.calendar.currentDate}
-          months={EditCalendarState.calendar.months}
+          calendarModel={EditCalendarState.calendar}
           updateDate={setCurrentDate} />
       </div>
       <div>

@@ -1,0 +1,98 @@
+Date : 2020-01-15 17:06:24
+Directory : c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions
+Total : 56 files,  2205 codes, 62 comments, 197 blanks, all 2464 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| TypeScript |         36 |      1,356 |         62 |        179 |      1,597 |
+| JSON       |         20 |        849 |          0 |         18 |        867 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                        | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                           |         56 |      2,205 |         62 |        197 |      2,464 |
+| DataAccess                                                                                                  |          7 |        249 |         18 |         35 |        302 |
+| FAuthenticateUser                                                                                           |          2 |         46 |          0 |          8 |         54 |
+| FConsentPage                                                                                                |          2 |         41 |          0 |          6 |         47 |
+| FDeleteCalendar                                                                                             |          2 |         64 |          1 |          4 |         69 |
+| FDeleteEvent                                                                                                |          2 |         65 |          1 |          5 |         71 |
+| FGetCalendar                                                                                                |          2 |         35 |          0 |          5 |         40 |
+| FGetCalendarEvents                                                                                          |          2 |         38 |          0 |          7 |         45 |
+| FGetToken                                                                                                   |          2 |         86 |         10 |         11 |        107 |
+| FGetUserCalendars                                                                                           |          2 |         58 |          0 |          5 |         63 |
+| FLogOut                                                                                                     |          2 |         70 |         15 |          4 |         89 |
+| FSaveCalendar                                                                                               |          2 |         67 |          1 |          5 |         73 |
+| FTest                                                                                                       |          2 |         29 |          3 |          5 |         37 |
+| FUpdateEvent                                                                                                |          2 |        105 |          0 |          6 |        111 |
+| JoinCalendar                                                                                                |          2 |         58 |          1 |          4 |         63 |
+| Models                                                                                                      |         13 |        524 |          8 |         64 |        596 |
+| Models\CalendarTemplates                                                                                    |          6 |        303 |          5 |         24 |        332 |
+| Security                                                                                                    |          3 |         93 |          4 |         17 |        114 |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                    | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\DataAccess\Caching.ts                         | TypeScript |          0 |          3 |          4 |          7 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\DataAccess\CreateTime.ts                      | TypeScript |          2 |          0 |          2 |          4 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\DataAccess\DbClient.ts                        | TypeScript |          6 |          0 |          3 |          9 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\DataAccess\Month.ts                           | TypeScript |          5 |          0 |          2 |          7 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\DataAccess\TestModel.ts                       | TypeScript |         10 |          0 |          2 |         12 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\DataAccess\UserDb.ts                          | TypeScript |         83 |          7 |          8 |         98 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\DataAccess\calendarDb.ts                      | TypeScript |        143 |          8 |         14 |        165 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FAuthenticateUser\FAuthenticateUser.ts        | TypeScript |         25 |          0 |          7 |         32 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FAuthenticateUser\function.json               | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FConsentPage\fConsentPage.ts                  | TypeScript |         20 |          0 |          5 |         25 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FConsentPage\function.json                    | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FDeleteCalendar\fDeleteCalendar.ts            | TypeScript |         43 |          1 |          3 |         47 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FDeleteCalendar\function.json                 | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FDeleteEvent\fDeleteEvent.ts                  | TypeScript |         44 |          1 |          4 |         49 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FDeleteEvent\function.json                    | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FGetCalendarEvents\fGetCalendarEvents.ts      | TypeScript |         17 |          0 |          6 |         23 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FGetCalendarEvents\function.json              | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FGetCalendar\FGetCalendar.ts                  | TypeScript |         14 |          0 |          4 |         18 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FGetCalendar\function.json                    | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FGetToken\fGetToken.ts                        | TypeScript |         65 |         10 |         10 |         85 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FGetToken\function.json                       | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FGetUserCalendars\fGetUserCalendars.ts        | TypeScript |         37 |          0 |          4 |         41 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FGetUserCalendars\function.json               | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FLogOut\fLogOut.ts                            | TypeScript |         49 |         15 |          4 |         68 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FLogOut\function.json                         | JSON       |         21 |          0 |          0 |         21 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FSaveCalendar\FSaveCalendar.ts                | TypeScript |         46 |          1 |          4 |         51 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FSaveCalendar\function.json                   | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FTest\function.json                           | JSON       |         20 |          0 |          1 |         21 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FTest\index.ts                                | TypeScript |          9 |          3 |          4 |         16 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FUpdateEvent\fUpdateEvent.ts                  | TypeScript |         84 |          0 |          5 |         89 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\FUpdateEvent\function.json                    | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\JoinCalendar\fJoinCalendar.ts                 | TypeScript |         37 |          1 |          3 |         41 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\JoinCalendar\function.json                    | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\CalendarEvent.ts                       | TypeScript |         11 |          0 |          4 |         15 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\CalendarModel.ts                       | TypeScript |         64 |          0 |          9 |         73 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\CalendarTemplates\EarthCalendar.ts     | TypeScript |         58 |          0 |          5 |         63 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\CalendarTemplates\ExandriaCalendar.ts  | TypeScript |         45 |          1 |          4 |         50 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\CalendarTemplates\GreyhawkCalendar.ts  | TypeScript |         58 |          1 |          4 |         63 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\CalendarTemplates\KhorvaireCalendar.ts | TypeScript |         50 |          1 |          4 |         55 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\CalendarTemplates\TorilCalendar.ts     | TypeScript |         76 |          1 |          4 |         81 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\CalendarTemplates\index.ts             | TypeScript |         16 |          1 |          3 |         20 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\FantasyDate.ts                         | TypeScript |         49 |          0 |         10 |         59 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\Month.ts                               | TypeScript |         30 |          0 |          6 |         36 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\Moon.ts                                | TypeScript |         51 |          3 |          7 |         61 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\UserCalendarDto.ts                     | TypeScript |          4 |          0 |          1 |          5 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Models\UserModel.ts                           | TypeScript |         12 |          0 |          3 |         15 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Security\GetUser.ts                           | TypeScript |         19 |          0 |          2 |         21 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Security\OauthClient.ts                       | TypeScript |         10 |          0 |          5 |         15 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\Security\TokenVerification.ts                 | TypeScript |         64 |          4 |         10 |         78 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\host.json                                     | JSON       |          3 |          0 |          1 |          4 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\local.settings.json                           | JSON       |         15 |          0 |          1 |         16 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\package-lock.json                             | JSON       |        516 |          0 |          1 |        517 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\package.json                                  | JSON       |         28 |          0 |          1 |         29 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\proxies.json                                  | JSON       |          4 |          0 |          1 |          5 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\test.json                                     | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\zshuford\source\repos\FantasyCalendarTs\fc-functions\tsconfig.json                                 | JSON       |         10 |          0 |          1 |         11 |
+| Total                                                                                                       |            |      2,205 |         62 |        197 |      2,464 |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

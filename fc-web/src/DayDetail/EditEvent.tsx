@@ -4,9 +4,8 @@ import CalendarState from "../State/CalendarState";
 import CalendarEvent from "../Models/CalendarEvent";
 import { format, parseISO } from "date-fns";
 import { DeleteEvent } from "../DataClients/CalendarEventDataClient";
-import EditDateHeader from "./EditDateHeader";
-import FantasyDate from "../Models/FantasyDate";
 import UserState from "../State/UserState";
+import FantasyDateSelector from "./FantasyDateSelector";
 
 const EditEvent: React.FC = observer(() => {
   if (!CalendarState.calendarEditEvent) {
@@ -14,7 +13,7 @@ const EditEvent: React.FC = observer(() => {
   }
   const [name, setName] = useState(CalendarState.calendarEditEvent.name);
   const [description, setDescription] = useState(CalendarState.calendarEditEvent.description);
-  const [realDate, setRealDate] = useState<Date | undefined>(CalendarState.calendarEditEvent.realDate || new Date());
+  const [realDate, setRealDate] = useState<Date | undefined>(CalendarState.calendarEditEvent.realDate);
   const [fantasyDate, setFantasyDate] = useState(CalendarState.calendarEditEvent.fantasyDate);
   const [hidden, setHidden] = useState(CalendarState.calendarEditEvent.hidden);
   async function saveEvent() {
@@ -70,13 +69,14 @@ const EditEvent: React.FC = observer(() => {
     }
     return "";
   }
-  function onDateHeaderChange(date: FantasyDate) {
-    console.log("SetFantasyDateWrapper", date);
-    setFantasyDate(date);
-  }
   return (
     <div className="standard-modal-inner">
-      <EditDateHeader date={fantasyDate} updateDate={onDateHeaderChange} />
+      <div className="event-edit-date">
+        <FantasyDateSelector
+          calendarModel={CalendarState.calendar}
+          updateDate={setFantasyDate}
+          date={fantasyDate} />
+      </div>
       <div className="edit-event-area">
         <div>
           <input style={{ fontSize: 18 }} type="string" value={name} onChange={(e) => setName(e.target.value)} />
@@ -86,7 +86,7 @@ const EditEvent: React.FC = observer(() => {
           onKeyDown={(e) => textAreaKeyDown(e)}
           onChange={(e) => setDescription(e.target.value)} />
         <div className="real-world-date-line">
-          <div>Real&nbsp;World&nbsp;Date:&nbsp;</div>
+          <div>Real World Date:&nbsp;</div>
           <input
             type="date"
             value={getRealDateValue()}
@@ -94,8 +94,8 @@ const EditEvent: React.FC = observer(() => {
         </div>
         {
           (!CalendarState.calendarEditEvent.createUser ||
-          ( UserState.userModel &&
-            CalendarState.calendarEditEvent.createUser === UserState.userModel.id)) &&
+            (UserState.userModel &&
+              CalendarState.calendarEditEvent.createUser === UserState.userModel.id)) &&
           (<div className="hidden-line">
             <div><input id="hidden" type="checkbox" checked={hidden} onChange={() => setHidden(!hidden)} /></div>
             <label htmlFor="hidden">Hidden</label>

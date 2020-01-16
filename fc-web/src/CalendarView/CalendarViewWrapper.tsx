@@ -3,9 +3,10 @@ import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import { Redirect, useParams } from "react-router-dom";
 import CalendarView from "./CalendarView";
+import { ViewType } from "./CalendarViewType";
 
 
-const CalendarViewWrapper = observer(() => {
+const CalendarViewWrapper = observer((props: {viewType: ViewType}) => {
   if (CalendarState.calendarLoadState === "Error") {
     console.log("Redirecting due to error");
     return <Redirect to={"/"} />;
@@ -19,7 +20,7 @@ const CalendarViewWrapper = observer(() => {
   }
   return (
     CalendarState.calendarLoadState === "Loaded" ? (
-      <CalendarView/>
+      <CalendarView viewType={props.viewType}/>
     ) :
     (
       <div>No Calendar Found...</div>

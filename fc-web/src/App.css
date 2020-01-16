@@ -218,9 +218,18 @@
 
 .blue-button{
   border: 1px solid black;
-  background-color: rgb(30, 150, 230);
+  background-color: rgb(87, 188, 255);
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.blue-button.bg{
+  border: 1px solid black;
+  background-color: rgb(87, 188, 255);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 .danger-button{
@@ -290,7 +299,7 @@
 .new-banner{
   width: 100%;
   min-height: 100px;
-  background-color: rgba(49, 45, 85, 0.945);
+  background-color: rgba(49, 45, 85, 0.9);
   bottom: 0;
   position: fixed;
   color: white;

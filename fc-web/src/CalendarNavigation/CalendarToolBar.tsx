@@ -1,32 +1,38 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useState } from "react";
 import { observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import CalendarState from "../State/CalendarState";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./CalendarToolBar.css";
 import ShareDialog from "./ShareDialog";
+import { ViewType } from "../CalendarView/CalendarViewType";
 
-const CalendarToolbar = observer((props: { year: number }) => {
-  function updateViewType(newValue: string) {
-    if (newValue === "Calendar") {
-      CalendarState.viewType = "Calendar";
+const CalendarToolbar = observer((props: { year: number, viewType: ViewType }) => {
+  const [viewType, setViewType] = useState(props.viewType);
+  if (viewType !== props.viewType){
+    if (viewType === ViewType.Calendar){
+      return <Redirect to={`/calendar/${CalendarState.calendar.id}` }/>;
     }
-    else {
-      CalendarState.viewType = "Timeline";
+    if (viewType === ViewType.Timeline){
+      return <Redirect to={`/timeline/${CalendarState.calendar.id}` }/>;
     }
   }
-  const myDisplay: CSSProperties = { display: CalendarState.viewType === "Calendar" ? "" : "none" };
+  function updateViewType(newValue: string) {
+    const newViewType = newValue as ViewType;
+    setViewType(newViewType);
+  }
+  const myDisplay: CSSProperties = { display: props.viewType === ViewType.Calendar ? "" : "none" };
   return (
     <div className={"year-header" + (CalendarState.calendarEditEvent ? " hide-portrait" : "")}>
       <div className="calendar-bar-left">
         <div className="calendar-select">
           <select
-            value={CalendarState.viewType}
+            value={props.viewType}
             className="view-picker"
             onChange={(e) => updateViewType(e.target.value)}>
-            <option value="Calendar">Calendar View</option>
-            <option value="Timeline">Timeline View</option>
+            <option value={ViewType.Calendar}>Calendar View</option>
+            <option value={ViewType.Timeline}>Timeline View</option>
           </select>
         </div>
         <div className="share-div share-left">
@@ -41,7 +47,7 @@ const CalendarToolbar = observer((props: { year: number }) => {
         {
           CalendarState.canEditCalendar ? (
             <div className="calendar-year-link ct-small-portrait calendar-toolbar-color">
-              <Link to={`/calendar/${CalendarState.calendar.id}/edit`}>
+              <Link to={`/edit/${CalendarState.calendar.id}`}>
                 {CalendarState.calendar.name}
               </Link>
             </div>

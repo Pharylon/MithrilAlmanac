@@ -19,7 +19,6 @@ interface ICalendarState {
   updateEvent: (props: CalendarEvent) => Promise<void>;
   updateMonthName: (position: number, newName: string) => void;
   reset: () => void;
-  viewType: "Calendar" | "Timeline";
   setSelectedDay: (date: FantasyDate) => void;
   canEditCalendar: boolean;
   createCalendarIsOpen: boolean;
@@ -31,7 +30,6 @@ export class CalendarStore implements ICalendarState {
   @observable selectedDay: undefined | FantasyDate;
   @observable events: CalendarEvent[] = [];
   @observable calendarEditEvent: CalendarEvent | undefined;
-  @observable viewType: "Calendar" | "Timeline" = "Calendar";
   @observable createCalendarIsOpen = false;
 
   @action.bound

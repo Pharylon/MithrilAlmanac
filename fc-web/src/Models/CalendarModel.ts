@@ -70,3 +70,4 @@ export function GetDaysBeforeYear(calendar: CalendarModel, year: number){
   }, 0);
   return daysBeforeYear;
 }
+

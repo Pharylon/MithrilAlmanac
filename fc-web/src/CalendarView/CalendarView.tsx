@@ -10,9 +10,10 @@ import TimeLineView from "../TimelineView/TimelineView";
 import JoinCalendarHelper from "../CalenderJoinHelper";
 import EditEvent from "../DayDetail/EditEvent";
 import "./CalendarView.css";
+import { ViewType } from "./CalendarViewType";
 
 
-const CalendarView = observer(() => {
+const CalendarView = observer((props: {viewType: ViewType}) => {
   const { year } = useParams();
   function getYear(): number {
     if (!year) {
@@ -28,9 +29,9 @@ const CalendarView = observer(() => {
   JoinCalendarHelper(CalendarState.calendar.id);
   return (
     <div className="calendar" id="calendar">
-      <CalendarToolbar year={currentYear} />
+      <CalendarToolbar year={currentYear} viewType={props.viewType} />
       {
-        CalendarState.viewType === "Calendar" ?
+        props.viewType === ViewType.Calendar ?
           (<div className="calendar-months">
             {
               CalendarState.calendar.months.map((x) =>

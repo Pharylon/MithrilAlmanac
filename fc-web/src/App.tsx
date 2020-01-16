@@ -16,6 +16,7 @@ import "./Tooltip.css";
 import About from "./About";
 import { getInternetExplorerVersion } from "./Utility";
 import UpdateBanner from "./Updates/UpdateBanner";
+import { ViewType } from "./CalendarView/CalendarViewType";
 
 const App: React.FC = observer(() => {
   const [loaded, setLoaded] = useState(false);
@@ -69,14 +70,17 @@ const App: React.FC = observer(() => {
       <Router>
         <ToolBar />
         <Switch>
-          <Route path="/calendar/:calendarId/edit">
+          <Route path="/edit/:calendarId">
             <CalendarEditView />
           </Route>
           <Route path="/calendar/:calendarId/:year">
-            <CalendarViewWrapper />
+            <CalendarViewWrapper viewType={ViewType.Calendar} />
           </Route>
           <Route path="/calendar/:calendarId/">
-            <CalendarViewWrapper />
+            <CalendarViewWrapper viewType={ViewType.Calendar} />
+          </Route>
+          <Route path="/timeline/:calendarId/">
+            <CalendarViewWrapper viewType={ViewType.Timeline} />
           </Route>
           <Route path="/authenticate">
             <Authenticate />

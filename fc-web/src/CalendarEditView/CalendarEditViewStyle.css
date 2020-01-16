@@ -1,35 +1,13 @@
-.calendar{
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-image: url("../Images/background/clock.svg");
-  background-size: cover;
-}
 
-
-/* 
-@media screen and (min-width: 1921px) and (orientation: landscape) {
-  .calendar {
-    background-image: url("../Images/background/bg_3000x2121_dark.jpg");
+@media screen and (orientation: landscape) {
+  .calendar{
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url("../Images/background/clock.svg");
+    background-size: 90%;
+    background-position: center;
   }
 }
-
-@media screen and (min-width: 3001px) and (orientation: landscape) {
-  .calendar {
-    background-image: url("../Images/background/bg_5508x3894_dark.jpg");
-  }
-}
-
-@media screen and (min-height: 1358) and (orientation: portrait) {
-  .calendar {
-    background-image: url("../Images/background/bg_3000x2121_dark.jpg");
-  }
-}
-
-@media screen and (min-height: 2122) and (orientation: portrait) {
-  .calendar {
-    background-image: url("../Images/background/bg_5508x3894_dark.jpg");
-  }
-} */
 
 .calendar-edit-view{
   display: flex;

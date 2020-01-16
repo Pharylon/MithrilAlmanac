@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReleaseNotes, { Release } from "./ReleaseNotes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const UpdateBanner = () => {
   const [updateInfo, setUpdateInfo] = useState<Release>({ version: 0, items: [] });
@@ -55,8 +57,13 @@ const UpdateBanner = () => {
   return (
     <div className="new-banner">
       <div>
-        <div>{`Welcome to version ${updateInfo.version} 
+        <div style={{display: "flex", flexDirection: "row"}}>
+          <div>{`Welcome to version ${updateInfo.version} 
           of the Mithril Almanac! New features in this release include:`}</div>
+          <div onClick={() => closeBanner()} style={{marginLeft: "auto", cursor: "pointer"}}>
+            <FontAwesomeIcon icon={faTimes} />
+          </div>
+        </div>
         <ul>
           {
             updateInfo.items.map(x => (<li key={x}>{x}</li>))
