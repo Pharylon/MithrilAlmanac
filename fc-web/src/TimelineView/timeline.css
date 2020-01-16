@@ -7,6 +7,7 @@
 
 .timeline-events > div{
   align-self: center;
+  cursor: pointer;
 }
 
 .timeline-events > div:first-child{

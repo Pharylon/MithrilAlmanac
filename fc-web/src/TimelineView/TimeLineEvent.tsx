@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import "./timeline.css";
@@ -9,6 +9,7 @@ import CalendarEvent from "../Models/CalendarEvent";
 import { format } from "date-fns";
 
 const TimeLineEvent = observer((props: { event: CalendarEvent }) => {
+  const [showDesc, setShowDesc] = useState(false);
   function getDateString(date: FantasyDate) {
     const dayNum = getDayString(date.dayOfMonth);
     const month = CalendarState.calendar.months.find(x => x.position === date.month);
@@ -17,25 +18,17 @@ const TimeLineEvent = observer((props: { event: CalendarEvent }) => {
     }
     return "Date Unknown";
   }
-  function getRealDate(): string {
-    try {
-      if (props.event.realDate) {
-        return format(props.event.realDate, "MMM do yyyy");
-      }
-      return "";
-    }
-    catch (e) {
-      console.log("Real Date error", e);
-      return "";
-    }
+  function editEvent(e: React.MouseEvent<HTMLDivElement, MouseEvent>){
+    e.stopPropagation();
+    e.preventDefault();
+    CalendarState.calendarEditEvent = props.event;
   }
-
   return (
-    <div className="timeline-event">
+    <div className="timeline-event" onClick={() => setShowDesc(!showDesc)}>
       <div className="timeline-event-header">
         <div className="timeline-event-name-edit">
           <h4>{props.event.name}</h4>
-          <div onClick={() => CalendarState.calendarEditEvent = props.event}>
+          <div onClick={(e) => editEvent(e)}>
             {
               CalendarState.canEditCalendar && (
                 <FontAwesomeIcon icon={faEdit} />
@@ -43,13 +36,21 @@ const TimeLineEvent = observer((props: { event: CalendarEvent }) => {
             }
           </div>
         </div>
-        <div className="timeline-date">{getDateString(props.event.fantasyDate)}</div>
-        <div className="timeline-date">{getRealDate()}</div>
+        <div className="timeline-date">
+          <div>{getDateString(props.event.fantasyDate)}</div>
+          {
+            showDesc && (<div>{props.event.realDate ? format(props.event.realDate, "MMM do yyyy") : ""}</div>)
+          }
+        </div>
       </div>
 
-      <div className="timeline-view-event-name">
-        <div>{props.event.description}</div>
-      </div>
+      {
+        showDesc && (
+          <div className="timeline-view-event-name">
+            <div>{props.event.description}</div>
+          </div>
+        )
+      }
     </div>
   );
 });
