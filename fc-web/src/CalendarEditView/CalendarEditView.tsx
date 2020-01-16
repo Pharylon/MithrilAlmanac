@@ -19,7 +19,6 @@ import FantasyDateSelector from "../DayDetail/FantasyDateSelector";
 const CalendarEditView: React.FC = observer(() => {
   const { calendarId } = useParams();
   const [redirect, setRedirect] = useState(false);
-  const [showDanger, setShowDanger] = useState(false);
   if (redirect) {
     return (<Redirect to={`/calendar/${calendarId}`} />);
   }
@@ -81,14 +80,8 @@ const CalendarEditView: React.FC = observer(() => {
               <button className="save-button" onClick={() => save()}>Save Changes</button>
             </div>
             <div>
-              <input type="checkbox" checked={showDanger} onChange={(e) => setShowDanger(!showDanger)} />
-              <span>Show Danger Zone</span>
+              <DangerZone />
             </div>
-            {
-              showDanger && (
-                <DangerZone />
-              )
-            }
           </div>
         </div>
       </div>
@@ -98,14 +91,8 @@ const CalendarEditView: React.FC = observer(() => {
               <button className="save-button" onClick={() => save()}>Save Changes</button>
             </div>
             <div>
-              <input type="checkbox" checked={showDanger} onChange={(e) => setShowDanger(!showDanger)} />
-              <span>Show Danger Zone</span>
+              <DangerZone />
             </div>
-            {
-              showDanger && (
-                <DangerZone />
-              )
-            }
           </div>
         </div>
     </div>
