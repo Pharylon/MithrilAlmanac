@@ -1,4 +1,4 @@
-import Month from "./Month";
+import Month, { GetDaysInMonth } from "./Month";
 import FantasyDate, { Holiday } from "./FantasyDate";
 import Moon from "./Moon";
 
@@ -71,3 +71,91 @@ export function GetDaysBeforeYear(calendar: CalendarModel, year: number){
   return daysBeforeYear;
 }
 
+function sortDates(dates: FantasyDate[]){
+  const newArray = [...dates];
+  newArray.sort((a, b) => {
+    if (a.year !== b.year) {
+      return a.year - b.year;
+    }
+    else if (a.month !== b.month) {
+      return a.month - b.month;
+    }
+    else {
+      return a.dayOfMonth - b.dayOfMonth;
+    }
+  });
+  return newArray;
+}
+
+function getDaysInYearAfterDate(date: FantasyDate, calendar: CalendarModel){
+  const lastMonth = calendar.months.reduce((prev, curr) => curr.position > prev.position ? curr : prev);
+  const lastDayOfTheYear: FantasyDate = {
+    year: date.year,
+    month: lastMonth.position,
+    dayOfMonth: lastMonth.days,
+  };
+  const daysRemainingNoLeap = GetDaysBetweenDates(calendar, date, lastDayOfTheYear);
+  if (CheckIfLeapYear(date.year, calendar)){
+    if (calendar.leapYearRules.month < date.month){
+      return daysRemainingNoLeap + 1; 
+    }
+    else if (calendar.leapYearRules.month === date.month){
+      const leapMonth = calendar.months.find(x => x.position === calendar.leapYearRules.month) as Month;
+      if (date.dayOfMonth <= leapMonth.days){
+        return daysRemainingNoLeap + 1;
+      }
+    }
+  }
+  return daysRemainingNoLeap;
+}
+
+function getDaysInYearBeforeDate(date: FantasyDate, calendar: CalendarModel){
+  const firstDayOfTheYear: FantasyDate = {
+    year: date.year,
+    month: 1,
+    dayOfMonth: 1,
+  };
+  const daysRemainingNoLeap = GetDaysBetweenDates(calendar, date, firstDayOfTheYear);
+  if (calendar.leapYearRules.month < date.month && CheckIfLeapYear(date.year, calendar)){
+    return daysRemainingNoLeap + 1;
+  }
+  return daysRemainingNoLeap;
+}
+
+export function GetDaysBetweenDates(calendar: CalendarModel, d1: FantasyDate, d2: FantasyDate): number{
+  const [firstDate, secondDate] = sortDates([d1, d2]);
+  if (firstDate.year === secondDate.year && firstDate.month === secondDate.month){
+    return secondDate.dayOfMonth - firstDate.dayOfMonth;
+  }
+  else if (firstDate.year === secondDate.year) {
+    const firstMonth = calendar.months.find(x => x.position === firstDate.month);
+    if (!firstMonth){
+      console.log("Couldn't find month for a date. Something went wrong!", calendar, d1, d2);
+      return 0;
+    }
+    const remainingDaysInMonth = firstMonth.days - firstDate.dayOfMonth + 1;
+    const daysInMonthsBetween = calendar.months
+      .filter(x => x.position < secondDate.month && x.position > firstDate.month)
+      .reduce((prev, curr) => {
+        const daysInMonth = GetDaysInMonth(calendar, curr.position, firstDate.year);
+        return prev + daysInMonth;
+      }, 0);
+    const total = remainingDaysInMonth + daysInMonthsBetween + secondDate.dayOfMonth - 1;
+    return total;
+  }
+  else{
+    let totalDays = 0;
+    totalDays += getDaysInYearAfterDate(firstDate, calendar);
+    totalDays += getDaysInYearBeforeDate(secondDate, calendar);
+    const totalDaysInYear = calendar.months.reduce((total, currMonth) => {
+      return total + currMonth.days;
+    }, 0);
+    for (let year = firstDate.year + 1; year < secondDate.year; year++){
+      totalDays += totalDaysInYear;
+      if (CheckIfLeapYear(year, calendar)){
+        totalDays += 1;
+      }
+    }
+    return totalDays;
+  }
+}

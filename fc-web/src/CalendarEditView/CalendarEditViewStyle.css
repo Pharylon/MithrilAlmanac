@@ -9,6 +9,10 @@
   }
 }
 
+.calendar {
+  min-height: calc(100vh - 34px);
+}
+
 .calendar-edit-view{
   display: flex;
   flex-direction: column;

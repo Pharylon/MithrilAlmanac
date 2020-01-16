@@ -2,18 +2,21 @@
   display: flex;
   flex-direction: column;
   align-content: center;
+  height: 100%;
 }
 
 .timeline-events > div{
   align-self: center;
 }
 
+.timeline-events > div:first-child{
+  margin-top: 20px;
+}
+
 .timeline-event{
-  border: 4px solid gray;
+  border: 4px solid rgb(29, 94, 179);
   border-radius: 3px;
   width: 400px;
-  margin-bottom: 20px;
-  margin-top: 10px;
   background-color: rgba(255, 255, 255, 0.95);
   padding: 5px 10px 5px 10px;
   -webkit-box-shadow: 4px 7px 5px 0px rgba(0,0,0,0.75);
@@ -55,5 +58,22 @@
     margin-right: 30px;
     margin-bottom: 15px;
   }
+}
+
+.timeline-connector{
+  display: flex;
+}
+
+.timeline-connector > div{
+  flex: 1;
+}
+
+.timeline-connector.solid > div:first-child{
+  border-right: 5px solid rgb(29, 94, 179);
+}
+
+
+.timeline-connector.dashed > div:first-child{
+  border-right: 5px dotted rgb(29, 94, 179);
 }
 

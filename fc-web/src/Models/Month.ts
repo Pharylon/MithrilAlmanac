@@ -33,3 +33,14 @@ export function GetOffSetInfo(calendar: CalendarModel, monthNumber: number, year
     previousDays: previousDays + daysBeforeYear,
   };
 }
+
+export function GetDaysInMonth(calendar: CalendarModel, monthPosition: number, year: number): number {
+  const month = calendar.months.find(x => x.position === monthPosition);
+  if (!month){
+    return 0;
+  }
+  if (calendar.leapYearRules.month === monthPosition && CheckIfLeapYear(year, calendar)){
+    return month.days + 1;
+  }
+  return month.days;
+}

@@ -17,9 +17,9 @@ const TimeLineEvent = observer((props: { event: CalendarEvent }) => {
     }
     return "Date Unknown";
   }
-  function getRealDate(): string{
+  function getRealDate(): string {
     try {
-      if (props.event.realDate){
+      if (props.event.realDate) {
         return format(props.event.realDate, "MMM do yyyy");
       }
       return "";
@@ -29,7 +29,7 @@ const TimeLineEvent = observer((props: { event: CalendarEvent }) => {
       return "";
     }
   }
-  
+
   return (
     <div className="timeline-event">
       <div className="timeline-event-header">
@@ -46,7 +46,7 @@ const TimeLineEvent = observer((props: { event: CalendarEvent }) => {
         <div className="timeline-date">{getDateString(props.event.fantasyDate)}</div>
         <div className="timeline-date">{getRealDate()}</div>
       </div>
-      
+
       <div className="timeline-view-event-name">
         <div>{props.event.description}</div>
       </div>

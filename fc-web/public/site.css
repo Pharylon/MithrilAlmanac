@@ -1,7 +1,9 @@
 
+
 .App {
   display: flex;
   flex-direction: column;
+  height: 100%;
   /* background-image: url("./background.jpg"); */
 }
 
