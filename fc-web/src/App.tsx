@@ -16,7 +16,8 @@ import "./Tooltip.css";
 import About from "./About";
 import { getInternetExplorerVersion } from "./Utility";
 import UpdateBanner from "./Updates/UpdateBanner";
-import { ViewType } from "./CalendarView/CalendarViewType";
+import { ViewType } from "./State/CalendarViewType";
+import DefaultView from "./CalendarView/DefaultView";
 
 const App: React.FC = observer(() => {
   const [loaded, setLoaded] = useState(false);
@@ -57,7 +58,7 @@ const App: React.FC = observer(() => {
 
   function getDefaultReturn(){
     if (calendarRedirect){
-      return <Redirect to={"/calendar/" + calendarRedirect} />;
+      return <Redirect to={"/defaultView/" + calendarRedirect} />;
     }
     else{
       return <Landing/>;
@@ -81,6 +82,12 @@ const App: React.FC = observer(() => {
           </Route>
           <Route path="/timeline/:calendarId/">
             <CalendarViewWrapper viewType={ViewType.Timeline} />
+          </Route>
+          <Route path="/condensed/:calendarId/">
+            <CalendarViewWrapper viewType={ViewType.Condensed} />
+          </Route>
+          <Route path="/defaultView/:calendarId/">
+            <DefaultView />
           </Route>
           <Route path="/authenticate">
             <Authenticate />

@@ -37,7 +37,7 @@ const CalendarDd: React.FC = observer(() => {
           UserState.calendars.map(x => (
             <div key={x.id} className="calendar-dd-item">
               <div>
-                <Link className="toolbar-link"  onClick={() => setIsOpen(false)} to={"/calendar/" + x.id}>
+                <Link className="toolbar-link"  onClick={() => setIsOpen(false)} to={"/defaultView/" + x.id}>
                   <span className="calendar-dd-name hover-underline">{x.name}</span>
                 </Link>
               </div>

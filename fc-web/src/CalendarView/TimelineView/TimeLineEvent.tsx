@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
-import CalendarState from "../State/CalendarState";
+import CalendarState from "../../State/CalendarState";
 import "./timeline.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import FantasyDate from "../Models/FantasyDate";
-import CalendarEvent from "../Models/CalendarEvent";
+import FantasyDate from "../../Models/FantasyDate";
+import CalendarEvent from "../../Models/CalendarEvent";
 import { format } from "date-fns";
 
 const TimeLineEvent = observer((props: { event: CalendarEvent }) => {

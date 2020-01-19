@@ -6,7 +6,7 @@ import CalendarState from "../State/CalendarState";
 import { Link, Redirect } from "react-router-dom";
 import "./CalendarToolBar.css";
 import ShareDialog from "./ShareDialog";
-import { ViewType } from "../CalendarView/CalendarViewType";
+import { ViewType } from "../State/CalendarViewType";
 
 const CalendarToolbar = observer((props: { year: number, viewType: ViewType }) => {
   const [viewType, setViewType] = useState(props.viewType);
@@ -16,6 +16,9 @@ const CalendarToolbar = observer((props: { year: number, viewType: ViewType }) =
     }
     if (viewType === ViewType.Timeline){
       return <Redirect to={`/timeline/${CalendarState.calendar.id}` }/>;
+    }
+    if (viewType === ViewType.Condensed){
+      return <Redirect to={`/condensed/${CalendarState.calendar.id}` }/>;
     }
   }
   function updateViewType(newValue: string) {
@@ -33,6 +36,7 @@ const CalendarToolbar = observer((props: { year: number, viewType: ViewType }) =
             onChange={(e) => updateViewType(e.target.value)}>
             <option value={ViewType.Calendar}>Calendar View</option>
             <option value={ViewType.Timeline}>Timeline View</option>
+            <option value={ViewType.Condensed}>Condensed View</option>
           </select>
         </div>
         <div className="share-div share-left">

@@ -1,6 +1,7 @@
 import Month, { GetDaysInMonth } from "./Month";
 import FantasyDate, { Holiday } from "./FantasyDate";
 import Moon from "./Moon";
+import { ViewType } from "../State/CalendarViewType";
 
 interface LeapYearRules{
   interval: number;
@@ -24,6 +25,7 @@ export interface CalendarModel extends CalendarTemplate {
   id: string;
   name: string;
   shareId: string;
+  defaultView: ViewType;
 }
 
 export const blankModel: CalendarModel = {
@@ -42,6 +44,7 @@ export const blankModel: CalendarModel = {
   shareId: "",
   moons: [],
   offSetDays: 0,
+  defaultView: ViewType.Calendar,
 };
 
 

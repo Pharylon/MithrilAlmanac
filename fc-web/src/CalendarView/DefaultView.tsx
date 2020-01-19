@@ -1,12 +1,11 @@
 import React from "react";
 import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
-import { Redirect, useParams } from "react-router-dom";
-import CalendarView from "./CalendarView";
+import { useParams, Redirect } from "react-router-dom";
+import CalendarViewWrapper from "./CalendarViewWrapper";
 import { ViewType } from "../State/CalendarViewType";
 
-
-const CalendarViewWrapper = observer((props: {viewType: ViewType}) => {
+const DefaultView: React.FC = observer(() => {
   if (CalendarState.calendarLoadState === "Error") {
     console.log("Redirecting due to error");
     return <Redirect to={"/"} />;
@@ -20,7 +19,7 @@ const CalendarViewWrapper = observer((props: {viewType: ViewType}) => {
   }
   return (
     CalendarState.calendarLoadState === "Loaded" ? (
-      <CalendarView viewType={props.viewType}/>
+      <CalendarViewWrapper viewType={CalendarState.calendar.defaultView || ViewType.Calendar}/>
     ) :
     (
       <div>Hang on while we load your calendar...</div>
@@ -28,4 +27,4 @@ const CalendarViewWrapper = observer((props: {viewType: ViewType}) => {
   );
 });
 
-export default CalendarViewWrapper;
+export default DefaultView;

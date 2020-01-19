@@ -6,6 +6,7 @@ import {SaveCalendar} from "../DataClients/CalendarEventDataClient";
 import { Redirect } from "react-router-dom";
 import UserState from "../State/UserState";
 import { CalendarModel } from "../Models/CalendarModel";
+import { ViewType } from "../State/CalendarViewType";
 
 const NewCalendar = observer((props: {close: () => void}) => {
   const [name, setName] = useState("My Calendar");
@@ -19,6 +20,7 @@ const NewCalendar = observer((props: {close: () => void}) => {
         name,
         id: "",
         shareId: "",
+        defaultView: ViewType.Calendar,
       };
       const savedCalendarId = await SaveCalendar(dto);
       UserState.updateCalendars();

@@ -35,7 +35,7 @@ const MonthView = observer((props: { monthNumber: number, year: number }) => {
   }
   return (
     <div className={"month" + (hasEvents ? "" : " no-events")}>
-      <div className="month-name">{month.name + (hasEvents ? "" : " (no events)")}</div>
+      <div className="month-name">{month.name + (hasEvents ? " " : " (no events) ") + props.year}</div>
       <div>
         {
           weeks.map((week, weekIndex) => (

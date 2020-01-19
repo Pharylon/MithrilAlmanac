@@ -35,6 +35,7 @@ export class CalendarStore implements ICalendarState {
   @action.bound
   public async loadCalendar(id: string){
     if (id !== this.calendar.id) {
+      this.events = [];
       this.calendarLoadState = "Loading";
       const calendar = await GetCalendar(id);
       if (!calendar) {
@@ -62,7 +63,7 @@ export class CalendarStore implements ICalendarState {
   public async addNewEvent(date: FantasyDate){
     if (!UserState.userModel){
       this.selectedDay = undefined;
-      ErrorState.errorMessage = "You must be logged in to add an event to a calendar.";
+      UserState.loginModalOpen = true;
       return;
     }
     if (!this.canEditCalendar){

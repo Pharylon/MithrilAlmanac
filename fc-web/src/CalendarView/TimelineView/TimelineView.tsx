@@ -1,28 +1,18 @@
 import React from "react";
 import { observer } from "mobx-react";
-import CalendarState from "../State/CalendarState";
+import CalendarState from "../../State/CalendarState";
 import "./timeline.css";
 import TimeLineEvent from "./TimeLineEvent";
-import { GetDaysBetweenDates } from "../Models/CalendarModel";
-import ErrorState from "../State/ErrorState";
-import UserState from "../State/UserState";
+import { GetDaysBetweenDates } from "../../Models/CalendarModel";
+import ErrorState from "../../State/ErrorState";
+import UserState from "../../State/UserState";
+import { sortEvents } from "../../Models/CalendarEvent";
 
 const TimeLineView: React.FC = observer(() => {
-  const events = [...CalendarState.events];
-  events.sort((a, b) => {
-    if (a.fantasyDate.year !== b.fantasyDate.year) {
-      return a.fantasyDate.year - b.fantasyDate.year;
-    }
-    else if (a.fantasyDate.month !== b.fantasyDate.month) {
-      return a.fantasyDate.month - b.fantasyDate.month;
-    }
-    else {
-      return a.fantasyDate.dayOfMonth - b.fantasyDate.dayOfMonth;
-    }
-  });
+  const events = sortEvents(CalendarState.events);
   function addNewEvent() {
     if (!UserState.userModel){
-      ErrorState.errorMessage = "You must log in to edit this calendar.";
+      UserState.loginModalOpen = true;
     }
     else if (!CalendarState.canEditCalendar){
       ErrorState.errorMessage = "You do not have permission to edit this calendar. " + 

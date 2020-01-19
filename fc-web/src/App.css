@@ -35,7 +35,7 @@
   align-content: center;
   margin-bottom: 20px;
   border-collapse: collapse;
-  background-color: rgb(67, 104, 150);
+  background-color: rgba(67, 104, 150, 0.95);
   color: white;
   padding-left: 15px;
   padding-right: 15px;
@@ -43,7 +43,7 @@
 }
 
 .month.no-events{
-  background-color: rgba(96, 123, 155, 0.6);
+  background-color: rgba(96, 123, 155, 0.8);
 }
 
 .month-name{

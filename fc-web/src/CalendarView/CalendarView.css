@@ -16,3 +16,15 @@
   display: inline-block;
   margin-left: 5px;
 }
+
+.condensed-bottom{
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+.condensed-bottom > div{
+  align-self: center;
+}

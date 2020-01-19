@@ -6,14 +6,15 @@ import Modal from "react-modal";
 import DayDetailView from "../DayDetail/DayDetailView";
 import { useParams } from "react-router-dom";
 import CalendarToolbar from "../CalendarNavigation/CalendarToolBar";
-import TimeLineView from "../TimelineView/TimelineView";
+import TimeLineView from "./TimelineView/TimelineView";
 import JoinCalendarHelper from "../CalenderJoinHelper";
 import EditEvent from "../DayDetail/EditEvent";
 import "./CalendarView.css";
-import { ViewType } from "./CalendarViewType";
+import { ViewType } from "../State/CalendarViewType";
+import CondensedView from "./CondensedView/CondensedView";
 
 
-const CalendarView = observer((props: {viewType: ViewType}) => {
+const CalendarView = observer((props: { viewType: ViewType }) => {
   const { year } = useParams();
   function getYear(): number {
     if (!year) {
@@ -30,20 +31,26 @@ const CalendarView = observer((props: {viewType: ViewType}) => {
   return (
     <div className="calendar" id="calendar">
       <CalendarToolbar year={currentYear} viewType={props.viewType} />
-      {
-        props.viewType === ViewType.Calendar ?
-          (<div className="calendar-months">
-            {
-              CalendarState.calendar.months.map((x) =>
-                <MonthView 
-                  year={currentYear} 
-                  key={x.position} 
-                  monthNumber={x.position} />,
-              )
+      <div className="calendar-body">
+        {
+          (() => {
+            switch (props.viewType) {
+              case ViewType.Timeline: return (<TimeLineView />);
+              case ViewType.Condensed: return (<CondensedView/>);
+              case ViewType.Calendar: return (<div className="calendar-months">
+                {
+                  CalendarState.calendar.months.map((x) =>
+                    <MonthView
+                      year={currentYear}
+                      key={x.position}
+                      monthNumber={x.position} />,
+                  )
+                }
+              </div>);
             }
-          </div>) :
-          (<TimeLineView />)
-      }
+          })()
+        }
+      </div>
       <Modal
         className="modal-wrapper"
         isOpen={!!CalendarState.selectedDay || !!CalendarState.calendarEditEvent}
@@ -51,9 +58,9 @@ const CalendarView = observer((props: {viewType: ViewType}) => {
         <div>
           {
             CalendarState.selectedDay && !CalendarState.calendarEditEvent &&
-              (
-                <DayDetailView date={CalendarState.selectedDay} />
-              )
+            (
+              <DayDetailView date={CalendarState.selectedDay} />
+            )
           }
           {
             CalendarState.calendarEditEvent && (

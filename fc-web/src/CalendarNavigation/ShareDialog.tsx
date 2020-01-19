@@ -6,7 +6,7 @@ import CalendarState from "../State/CalendarState";
 import ShareLink from "./ShareLink";
 
 const ShareDialog = observer((props: { id: string }) => {
-  const viewLink = `${window.location.protocol}//${window.location.host}/calendar/${CalendarState.calendar.id}`;
+  const viewLink = `${window.location.protocol}//${window.location.host}/defaultView/${CalendarState.calendar.id}`;
   const editLink = viewLink + "?joinId=" + CalendarState.calendar.shareId;
   const [showOptions, setShowOptions] = useState(false);
   let timeout: number | undefined;
