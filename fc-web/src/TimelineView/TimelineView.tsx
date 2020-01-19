@@ -22,7 +22,7 @@ const TimeLineView: React.FC = observer(() => {
   });
   function addNewEvent() {
     if (!UserState.userModel){
-      ErrorState.errorMessage = "You must log in to edit this calendar.";
+      UserState.loginModalOpen = true;
     }
     else if (!CalendarState.canEditCalendar){
       ErrorState.errorMessage = "You do not have permission to edit this calendar. " + 
