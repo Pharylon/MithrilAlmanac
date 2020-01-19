@@ -62,7 +62,7 @@ export class CalendarStore implements ICalendarState {
   public async addNewEvent(date: FantasyDate){
     if (!UserState.userModel){
       this.selectedDay = undefined;
-      ErrorState.errorMessage = "You must be logged in to add an event to a calendar.";
+      UserState.loginModalOpen = true;
       return;
     }
     if (!this.canEditCalendar){

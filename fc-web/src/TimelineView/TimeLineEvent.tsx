@@ -47,7 +47,11 @@ const TimeLineEvent = observer((props: { event: CalendarEvent }) => {
       {
         showDesc && (
           <div className="timeline-view-event-name">
-            <div>{props.event.description}</div>
+            <div>
+              {props.event.description.split("\n").map((x, i) => (
+                <div style={{  marginBottom: 10 }} key={i}>{x}</div>
+                ))}
+            </div>
           </div>
         )
       }
