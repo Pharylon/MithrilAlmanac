@@ -10,7 +10,7 @@ import TimeLineView from "./TimelineView/TimelineView";
 import JoinCalendarHelper from "../CalenderJoinHelper";
 import EditEvent from "../DayDetail/EditEvent";
 import "./CalendarView.css";
-import { ViewType } from "../State/CalendarViewType";
+import { ViewType } from "../Models/CalendarViewType";
 import CondensedView from "./CondensedView/CondensedView";
 
 

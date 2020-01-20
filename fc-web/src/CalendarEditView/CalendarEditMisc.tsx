@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 import EditCalendarState from "../State/EditCalendarState";
 import Tooltip from "rc-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import UserState from "../State/UserState";
-import { ViewType } from "../State/CalendarViewType";
+import { ViewType } from "../Models/CalendarViewType";
 
 const EditMisc: React.FC = observer(() => {
   // const [editMode, setEditMode] = useState(false);

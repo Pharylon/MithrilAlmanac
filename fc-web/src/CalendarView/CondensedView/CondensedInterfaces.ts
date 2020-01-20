@@ -1,4 +1,5 @@
 import CalendarEvent from "../../Models/CalendarEvent";
+import Month from "../../Models/Month";
 
 export interface MonthEvents {
   month: number;
@@ -6,12 +7,12 @@ export interface MonthEvents {
   isMonthEvent: true;
 }
 
-export interface EventFiller {
-  months: string[];
+export interface EventMonthFiller {
+  months: Month[];
   days: number;
   isMonthEvent: false;
 }
 
-type CondensedElement = EventFiller | MonthEvents;
+type CondensedElement = EventMonthFiller | MonthEvents;
 
 export default CondensedElement;

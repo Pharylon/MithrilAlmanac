@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import { Redirect, useParams } from "react-router-dom";
 import CalendarView from "./CalendarView";
-import { ViewType } from "../State/CalendarViewType";
+import { ViewType } from "../Models/CalendarViewType";
 
 
 const CalendarViewWrapper = observer((props: {viewType: ViewType}) => {

@@ -1,15 +1,11 @@
 import React, { Fragment } from "react";
 import { observer } from "mobx-react";
 import CalendarState from "../../State/CalendarState";
-import CondensedElement, { MonthEvents, EventFiller } from "./CondensedInterfaces";
+import CondensedElement, { MonthEvents, EventMonthFiller } from "./CondensedInterfaces";
 import CondensedViewElement from "./CondensedViewBlock";
 
 const CondensedViewYear = observer((props: { year: number, final: boolean, first: boolean }) => {
   const yearEvents = CalendarState.events.filter(x => x.fantasyDate.year === props.year);
-  // const myMonths = CalendarState.calendar.months.map(m => ({
-  //   position: m.position,
-  //   events: yearEvents.filter(x => x.fantasyDate.month === m.position),
-  // }));
   const condensedViewObjects = CalendarState.calendar.months.reduce<CondensedElement[]>((acc, m) => {
     const monthEvents = yearEvents.filter(x => x.fantasyDate.month === m.position);
     if (monthEvents.length) {
@@ -22,14 +18,14 @@ const CondensedViewYear = observer((props: { year: number, final: boolean, first
     }
     else {
       if (acc.length && !acc[acc.length - 1].isMonthEvent) {
-        const filler = acc[acc.length - 1] as EventFiller;
-        filler.months.push(m.name);
+        const filler = acc[acc.length - 1] as EventMonthFiller;
+        filler.months.push(m);
         filler.days += m.days;
         return acc;
       }
       else {
-        const myObj: EventFiller = {
-          months: [m.name],
+        const myObj: EventMonthFiller = {
+          months: [m],
           days: m.days,
           isMonthEvent: false,
         };

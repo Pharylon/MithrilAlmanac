@@ -16,7 +16,7 @@ import "./Tooltip.css";
 import About from "./About";
 import { getInternetExplorerVersion } from "./Utility";
 import UpdateBanner from "./Updates/UpdateBanner";
-import { ViewType } from "./State/CalendarViewType";
+import { ViewType } from "./Models/CalendarViewType";
 import DefaultView from "./CalendarView/DefaultView";
 
 const App: React.FC = observer(() => {

@@ -7,34 +7,48 @@ import { getCalendarNumber } from "../../Utility";
 import { NumbersToWords } from "../../Utility/NumbersToWords";
 
 const CondensedViewElement = observer((props: { obj: CondensedElement, year: number }) => {
-  return (
-    <Fragment>
-      {
-        props.obj.isMonthEvent ?
-          (
-            <MonthView
-              year={props.year}
-              monthNumber={props.obj.month} />
-          ) : (
-            <div className="month no-events">
-              <div>{`${NumbersToWords(props.obj.months.length)} month(s) with no events`}</div>
+  if (props.obj.isMonthEvent) {
+    return (<Fragment><MonthView
+      year={props.year}
+      monthNumber={props.obj.month} /></Fragment>);
+  }
+  else if (props.obj.months.length === 1) {
+    return (<Fragment><MonthView
+      year={props.year}
+      monthNumber={props.obj.months[0].position} /></Fragment>);
+  }
+  else {
+    return (<Fragment>
+      <div className="month no-events">
+        <div className="condensed-placeholder">
+          {
+            props.obj.months.length === CalendarState.calendar.months.length ? (
               <div>
-                {
-                  props.obj.months.map((x, i) => <div key={i}>{`${x} ${props.year}`}</div>)
-                }
+                <div>{`No events in ${props.year}`}</div>
               </div>
-              <div className="week">
-                {
-                  CalendarState.calendar.daysOfWeek.map(x => (
-                    <div key={x} className={"day " + getCalendarNumber(CalendarState.calendar.daysOfWeek.length)}></div>
-                  ))
-                }
-              </div>
-            </div>
-          )
-      }
-    </Fragment>
-  );
+            ) : (
+                <div>
+                  <div>{`${NumbersToWords(props.obj.months.length)} months with no events in ${props.year}`}</div>
+                  <div>
+                    {`from ${props.obj.months[0].name} to ${props.obj.months[props.obj.months.length - 1].name}`}
+                  </div>
+                </div>
+              )
+          }
+        </div>
+        <div className="week">
+          {
+            CalendarState.calendar.daysOfWeek.map(x => (
+              <div
+                key={x}
+                style={{ height: 1 }}
+                className={"day-width " + getCalendarNumber(CalendarState.calendar.daysOfWeek.length)}></div>
+            ))
+          }
+        </div>
+      </div>
+    </Fragment>);
+  }
 });
 
 export default CondensedViewElement;

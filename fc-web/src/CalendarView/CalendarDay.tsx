@@ -24,7 +24,7 @@ const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[
   const fullMoons = props.moonStates.filter(x => x.phase === MoonPhase.Full);
   const newMoons = props.moonStates.filter(x => x.phase === MoonPhase.New);
   function getClass(){
-    let myClass = "day " + getCalendarNumber(CalendarState.calendar.daysOfWeek.length);
+    let myClass = "day day-width " + getCalendarNumber(CalendarState.calendar.daysOfWeek.length);
     if (datesAreEqual(CalendarState.calendar.currentDate, props.date)){
       myClass += " current-day";
     }

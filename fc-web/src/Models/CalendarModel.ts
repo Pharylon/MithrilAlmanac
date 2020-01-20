@@ -1,7 +1,7 @@
 import Month, { GetDaysInMonth } from "./Month";
 import FantasyDate, { Holiday } from "./FantasyDate";
 import Moon from "./Moon";
-import { ViewType } from "../State/CalendarViewType";
+import { ViewType } from "./CalendarViewType";
 
 interface LeapYearRules{
   interval: number;

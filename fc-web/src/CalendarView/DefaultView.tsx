@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import CalendarState from "../State/CalendarState";
 import { useParams, Redirect } from "react-router-dom";
 import CalendarViewWrapper from "./CalendarViewWrapper";
-import { ViewType } from "../State/CalendarViewType";
+import { ViewType } from "../Models/CalendarViewType";
 
 const DefaultView: React.FC = observer(() => {
   if (CalendarState.calendarLoadState === "Error") {

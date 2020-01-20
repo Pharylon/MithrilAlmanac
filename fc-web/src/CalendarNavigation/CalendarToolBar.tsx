@@ -6,7 +6,7 @@ import CalendarState from "../State/CalendarState";
 import { Link, Redirect } from "react-router-dom";
 import "./CalendarToolBar.css";
 import ShareDialog from "./ShareDialog";
-import { ViewType } from "../State/CalendarViewType";
+import { ViewType } from "../Models/CalendarViewType";
 
 const CalendarToolbar = observer((props: { year: number, viewType: ViewType }) => {
   const [viewType, setViewType] = useState(props.viewType);

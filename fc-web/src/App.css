@@ -74,26 +74,26 @@
 } */
 
 @media (orientation: landscape) {
-  .day{
+  .day-width{
     width: 75px;
     height: 75px;
   }
 }
 
 @media (orientation: portrait) {
-  .day.seven{
+  .day-width.seven{
     width: 12vw;
     height: 12vw;
   }
-  .day.eight{
+  .day-width.eight{
     width: 11vw;
     height: 11vw;
   }
-  .day.nine{
+  .day-width.nine{
     width: 11vw;
-    height: 11w;
+    height: 11vw;
   }
-  .day.ten{
+  .day-width.ten{
     width: 9.5vw;
     height: 9.5vw;
   }
@@ -308,4 +308,15 @@
 
 .new-banner a{
   color: white;
+}
+
+.condensed-placeholder{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.condensed-placeholder > div{
+  align-self: center;
 }
