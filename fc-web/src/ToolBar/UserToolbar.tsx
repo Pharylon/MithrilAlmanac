@@ -3,7 +3,6 @@ import { observer } from "mobx-react";
 import UserState from "../State/UserState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 const UserToolbar: React.FC = observer(() => {
   const [showLogout, setShowLogout] = useState(false);
