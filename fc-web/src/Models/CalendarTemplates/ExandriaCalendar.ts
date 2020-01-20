@@ -1,4 +1,4 @@
-import {CalendarTemplate} from "../CalendarModel";
+import { CalendarTemplate } from "../CalendarModel";
 
 /* cSpell:disable */
 
@@ -18,17 +18,17 @@ const ExandriaCalendar: CalendarTemplate = {
     "Da'leysen",
   ],
   months: [
-    {name: "Horisal", days: 29, position: 1},
-    {name: "Misuthar", days: 30, position: 2},
-    {name: "Dualahei", days: 30, position: 3},
-    {name: "Thunsheer", days: 31, position: 4},
-    {name: "Unndilar", days: 28, position: 5},
-    {name: "Brussendar", days: 31, position: 6},
-    {name: "Sydenstar", days: 32, position: 7},
-    {name: "Fessuran", days: 29, position: 8},
-    {name: "Quen'pillar ", days: 27, position: 9},
-    {name: "Cuersaar", days: 29, position: 10},
-    {name: "Duscar", days: 32, position: 11},
+    { name: "Horisal", days: 29, position: 1 },
+    { name: "Misuthar", days: 30, position: 2 },
+    { name: "Dualahei", days: 30, position: 3 },
+    { name: "Thunsheer", days: 31, position: 4 },
+    { name: "Unndilar", days: 28, position: 5 },
+    { name: "Brussendar", days: 31, position: 6 },
+    { name: "Sydenstar", days: 32, position: 7 },
+    { name: "Fessuran", days: 29, position: 8 },
+    { name: "Quen'pillar ", days: 27, position: 9 },
+    { name: "Cuersaar", days: 29, position: 10 },
+    { name: "Duscar", days: 32, position: 11 },
   ],
   leapYearRules: {
     month: 0,
@@ -39,10 +39,23 @@ const ExandriaCalendar: CalendarTemplate = {
   holidays: [
     {
       name: "New Dawn",
-      date: {month: 1, dayOfMonth: 1},
+      date: { month: 1, dayOfMonth: 1 },
     },
   ],
-  moons: [],
+  moons: [
+    {
+      name: "Catha",
+      daysToCycle: 33,
+      color: "yellow",
+      cycleOffset: 1,
+    },
+    {
+      name: "Ruidus",
+      daysToCycle: 328,
+      color: "#a22700",
+      cycleOffset: 2,
+    },
+  ],
   offSetDays: 0,
 };
 

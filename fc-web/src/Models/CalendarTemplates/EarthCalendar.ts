@@ -52,7 +52,7 @@ const EarthCalendar: CalendarTemplate = {
       name: "The Moon",
       daysToCycle: 29.531,
       color: "#fcf9b1",
-      cycleOffset: 26,
+      cycleOffset: 15,
     },
   ],
   offSetDays: 1,

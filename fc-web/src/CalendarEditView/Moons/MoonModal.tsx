@@ -19,13 +19,15 @@ const MoonModal = (props: IMoonModal) => {
   const toolTip = (
     <div>
       <div>The number of days until the first full moon in Year 1 of your calendar.</div>
-      <div>For instance, in the real world, the first full moon</div>
-      <div>in Year 1 was on January 26, so you would enter "26" here.</div>
+      <div>Please note that real, exact moon periods require knowing the orbit of</div>
+      <div>the body, and the simplified model I use assumes a perfectly round orbit.</div>
+      <div>If you tried to model the real world's moon phases you would find</div>
+      <div>they're not quite exact over hundreds of years.</div>
     </div>
   );
   function save(){
     const daysToCycle = parseFloat(days);
-    const cycleOffset = parseInt(offSet, 10);
+    const cycleOffset = parseInt(offSet, 10) || 1;
     if (daysToCycle && cycleOffset){
       const newModel: Moon = {
         ...props.moon,
@@ -57,7 +59,7 @@ const MoonModal = (props: IMoonModal) => {
         <label htmlFor="moon-offset">
           <span>Offset Days&nbsp;</span>
           <Tooltip placement="left" trigger={"click"} overlay={toolTip}>
-            <FontAwesomeIcon style={{fontSize: "0.8em"}} icon={faInfoCircle} />
+            <span><FontAwesomeIcon style={{fontSize: "0.8em"}} icon={faInfoCircle} /></span>
           </Tooltip>
           
         </label>

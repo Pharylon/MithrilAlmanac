@@ -312,3 +312,7 @@
 .condensed-placeholder > div{
   align-self: center;
 }
+
+.link-blue{
+  color: blue;
+}

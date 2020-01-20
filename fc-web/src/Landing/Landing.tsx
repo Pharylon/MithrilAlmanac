@@ -35,7 +35,17 @@ const Landing: React.FC = observer(() => {
             the events in your campaign. Start a new Calendar, and start adding events. Share it with your group.
             Create a calendar for <em>your</em> world. Cool, right?
           </p>
-          <p className="fake-link get-started" onClick={() => getStarted()}>So let's get started!</p>
+          <p>To get started you can either</p>
+          <div className="get-started-options">
+            <div className="fake-link get-started" onClick={() => getStarted()}>Create your own calendar</div>
+            <div style={{fontWeight: "bold"}}> - or - </div>
+            <div>
+              <Link className="link-blue" to="/defaultView/9eac6100-3249-11ea-b9c2-1962484b0b41">
+                <div>Check out the sample Calendar based on Critical Role</div>
+              </Link>
+            </div>
+          </div>
+          <p ></p>
         </div>
       </div>
         <div className="about fake-link">

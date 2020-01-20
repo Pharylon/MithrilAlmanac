@@ -87,3 +87,12 @@
   height: 40px;
   width: 40px;
 }
+
+.get-started-options{
+  font-size: 1.2em;
+  margin-left: 10px;
+}
+
+.get-started-options > div{
+  margin-bottom: 5px;
+}
