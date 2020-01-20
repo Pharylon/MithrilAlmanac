@@ -52,6 +52,14 @@
   width: 100%;
 }
 
+.calendar-dd-item > div:first-child{
+  margin-right: 20px;
+}
+
+.calendar-dd-item > div:nth-child(2){
+  margin-right: 10px;
+}
+
 .calendar-dd-name{
   white-space: nowrap;
 }
@@ -84,8 +92,32 @@
   color: white;
 }
 
+.toolbar-link:hover{
+  text-decoration: underline;
+}
+
 @media only screen and (max-width: 600px) {
   .user-toolbar-user-name{
     display: none;
   }
 }
+
+.right-toolbar{
+  display: flex;
+}
+
+.right-toolbar > div{
+  margin-right: 20px;
+}
+
+/* @media only screen and (max-width: 600px) {
+  .about-toolbar-text{
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  .about-toolbar-icon{
+    display: none;
+  }
+} */

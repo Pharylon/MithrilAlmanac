@@ -13,8 +13,8 @@ const CondensedView: React.FC = observer(() => {
     <div>
       <div className="calendar-months">
         {
-          years.map(year => (
-            <CondensedViewYear year={year} key={year} final={year === finalYear} first={year === years[0]} />
+          years.map((year, i) => (
+            <CondensedViewYear year={year} key={i} final={year === finalYear} first={year === years[0]} />
           ))
         }
       </div>

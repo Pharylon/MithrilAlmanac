@@ -19,6 +19,13 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
             return;
         }
         const user = await GetOrAddUserModelByGoogle(validatedToken.userId, validatedToken.payload.email);
+        if (!user){
+            context.res = {
+                status: 401, /* Defaults to 200 */
+                body: "Could not get user model",
+            };    
+            return;
+        }
         if (user.googleTokens && user.googleTokens.accessToken) {
             const oauthClient = getOauth2Client();
             oauthClient.setCredentials({

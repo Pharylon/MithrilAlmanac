@@ -25,6 +25,13 @@ const ReleaseNotes: Release[] = [
       "Improved Timeline view",
     ],
   },
+  {
+    version: 0.7,
+    items: [
+      "Try out the new \"Condensed View\" to still see the calendar, but remove unnecessary months",
+      "Set your calendar's default view type in the Calendar Edit screen!",
+    ],
+  },
 ];
 
 export default ReleaseNotes;

@@ -21,6 +21,13 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
 
         if (tokens.access_token) {
             const userModel = await GetOrAddUserModelByGoogle(ticket.userId, ticket.payload.email, tokens);
+            if (!userModel){
+                context.res = {
+                    status: 401,
+                    body: "Could not get user model from code",
+                };
+                return;
+            }
             const existingToken = userModel.googleTokens ? userModel.googleTokens.refreshToken : "";
             userModel.googleTokens = {
                 refreshToken: tokens.refresh_token || existingToken,
@@ -53,6 +60,13 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
     else if (token) {
         const verifiedTicket = await VerifyTicket(req.headers.authorization);
         const user = await GetOrAddUserModelByGoogle(verifiedTicket.userId, verifiedTicket.payload.email);
+        if (!user){
+            context.res = {
+                status: 401,
+                body: "Could not get user model from token",
+            };
+            return;
+        }
         oauth2Client.setCredentials({
             refresh_token: user.googleTokens.refreshToken,
         });

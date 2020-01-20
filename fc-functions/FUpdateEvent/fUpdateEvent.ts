@@ -2,23 +2,17 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import CalendarEvent from "../Models/CalendarEvent";
 import { UpdateEvent, GetCalendarEvent} from "../DataAccess/CalendarDb";
 import * as uuid from "uuid/v1";
-import { VerifyTicket } from "../Security/TokenVerification";
-import { GetOrAddUserModelByGoogle } from "../DataAccess/UserDb";
+import { GetUser } from "../Security/GetUser";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
-    const userToken = req.headers.authorization;
-    const validatedToken = await VerifyTicket(userToken);
-    if (!validatedToken || !validatedToken.userId){
+    const user = await GetUser(req.headers.authorization);
+    if (!user){
         context.res = {
             status: 401, /* Defaults to 200 */
-            body: JSON.stringify({message: "Could not validate your credentials. Please make sure you are logged in."}),
-            headers: {
-                "content-type": "application/json; charset=utf-16le",
-            },
-        };
+            body: "Could not authenticate user",
+        };    
         return;
     }
-    const user = await GetOrAddUserModelByGoogle(validatedToken.userId, validatedToken.payload.email);
     const calendars = [...user.ownedCalendars, ...user.memberCalendars];
     const newEvent: CalendarEvent = {
         id: req.body.id ? req.body.id : uuid(),

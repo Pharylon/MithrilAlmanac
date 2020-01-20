@@ -19,26 +19,34 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
     }
     const user = await GetOrAddUserModelByGoogle(validateUser.userId, validateUser.payload.email);
     const calendarId = (req.query.id || (req.body && req.body.id));
-    if (!user.ownedCalendars.includes(calendarId)){
-        context.res = {
-            status: 403,
-            body: "You do not have permission to delete that calendar",
-        };
-        return;
-    }
-    await DeleteCalendar(calendarId);
-    user.ownedCalendars = user.ownedCalendars.filter(x => x !== calendarId);
-    await updateUser(user);
-    if (calendarId) {
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-        body: "Success",
-        };
+    if (user){
+        if (!user.ownedCalendars.includes(calendarId)){
+            context.res = {
+                status: 403,
+                body: "You do not have permission to delete that calendar",
+            };
+            return;
+        }
+        await DeleteCalendar(calendarId);
+        user.ownedCalendars = user.ownedCalendars.filter(x => x !== calendarId);
+        await updateUser(user);
+        if (calendarId) {
+            context.res = {
+                // status: 200, /* Defaults to 200 */
+            body: "Success",
+            };
+        }
+        else {
+            context.res = {
+                status: 400,
+                body: "Missing Calendar ID",
+            };
+        }
     }
     else {
         context.res = {
             status: 400,
-            body: "Missing Calendar ID",
+            body: "Could not authenticate user",
         };
     }
 };

@@ -30,8 +30,7 @@ const CalendarDd: React.FC = observer(() => {
     <div 
       onMouseLeave={() => onMouseLeave()} onMouseEnter={() => onMouseEnter()}
       className="calendar-dd-wrap tool-child">
-      <div style={{ fontWeight: isOpen && !CalendarState.createCalendarIsOpen ? "bold" : "normal" }}
-        onClick={() => setIsOpen(true)}>Calendars</div>
+      <div onClick={() => setIsOpen(true)}>Calendars</div>
       <div style={{ display: isOpen && !CalendarState.createCalendarIsOpen ? "" : "none" }} className="calendar-dd">
         {
           UserState.calendars.map(x => (

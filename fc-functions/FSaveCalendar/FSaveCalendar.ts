@@ -19,6 +19,16 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
         return;
     }
     const user = await GetOrAddUserModelByGoogle(validateUser.userId, validateUser.payload.email);
+    if (!user){
+        context.res = {
+            // status: 200, /* Defaults to 200 */
+            body: JSON.stringify({message: "Could not authenticate user"}),
+            headers: {
+                "content-type": "application/json; charset=utf-16le",
+            },
+        };
+        return;
+    }
     const myCalendar = req.body as CalendarModel;
     if (myCalendar.id){
         const userOwnedCalendars = [...user.memberCalendars, ...user.ownedCalendars];

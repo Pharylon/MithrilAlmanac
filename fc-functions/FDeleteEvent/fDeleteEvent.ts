@@ -1,23 +1,17 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import { VerifyTicket } from "../Security/TokenVerification";
-import { GetOrAddUserModelByGoogle } from "../DataAccess/UserDb";
 import { GetCalendarEvent, GetCalendar, DeleteEvent } from "../DataAccess/CalendarDb";
+import { GetUser } from "../Security/GetUser";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     context.log("Delete Event Triggered");
-    const userToken = req.headers.authorization;
-    const validateUser = await VerifyTicket(userToken);
-    if (!validateUser || !validateUser.userId) {
+    const user = await GetUser(req.headers.authorization);
+    if (!user){
         context.res = {
             status: 401, /* Defaults to 200 */
-            body: JSON.stringify({ message: "Could not validate token" }),
-            headers: {
-                "content-type": "application/json; charset=utf-16le",
-            },
-        };
+            body: "Could not authenticate user",
+        };    
         return;
     }
-    const user = await GetOrAddUserModelByGoogle(validateUser.userId, validateUser.payload.email);
     const eventId = (req.query.id || (req.body && req.body.id));
     if (eventId) {
         const event = await GetCalendarEvent(eventId);

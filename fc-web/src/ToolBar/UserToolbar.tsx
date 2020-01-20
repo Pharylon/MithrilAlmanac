@@ -3,10 +3,11 @@ import { observer } from "mobx-react";
 import UserState from "../State/UserState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const UserToolbar: React.FC = observer(() => {
   const [showLogout, setShowLogout] = useState(false);
-  function logOut(){
+  function logOut() {
     UserState.logOut();
     setShowLogout(false);
   }
@@ -17,9 +18,9 @@ const UserToolbar: React.FC = observer(() => {
         <FontAwesomeIcon icon={faUser} />
         <span className="user-toolbar-user-name">&nbsp;{userName}</span>
       </div>
-      <div style={{display: showLogout ? "" : "none"}} className="logout">
-          <div onClick={() => logOut()} className="fake-link">Logout</div>
-        </div>
+      <div style={{ display: showLogout ? "" : "none" }} className="logout">
+        <div onClick={() => logOut()} className="fake-link">Logout</div>
+      </div>
     </div>
   );
 });

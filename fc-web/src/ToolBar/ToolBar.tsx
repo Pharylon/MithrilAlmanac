@@ -8,6 +8,7 @@ import "./ToolBar.css";
 import CalendarDd from "./CalendarDD";
 import { Link } from "react-router-dom";
 import UserToolbar from "./UserToolbar";
+import About from "./AboutToolbarLink";
 
 const ToolBar: React.FC = observer(() => {
   useEffect(() => Modal.setAppElement("#app"), []);
@@ -19,10 +20,14 @@ const ToolBar: React.FC = observer(() => {
       {
         UserState.userModel ?
           (<div className="right-toolbar">
-            <CalendarDd />
+            <CalendarDd />                       
             <UserToolbar />
+            <About />
           </div>) :
-          (<div className="fake-link tool-child" onClick={() => UserState.loginModalOpen = true}>Log In</div>)
+          (<div className="right-toolbar">
+            <About />
+            <div className="fake-link tool-child" onClick={() => UserState.loginModalOpen = true}>Log In</div>
+          </div>)
       }
       <Modal
         className="modal-wrapper"
