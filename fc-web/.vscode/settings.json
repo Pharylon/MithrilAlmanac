@@ -14,5 +14,8 @@
     "statusBarItem.hoverBackground": "#65a1c8",
     "statusBar.foreground": "#e7e7e7"
   },
-  "peacock.color": "#4289b8"
+  "peacock.color": "#4289b8",
+  "cSpell.words": [
+    "gtag"
+  ]
 }
