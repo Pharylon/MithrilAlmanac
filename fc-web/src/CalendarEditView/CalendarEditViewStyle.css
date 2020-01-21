@@ -256,3 +256,12 @@
     display: none;
   }
 }
+
+
+.days-header{
+  display: flex;
+}
+
+.days-header > div{
+  align-self: center;
+}

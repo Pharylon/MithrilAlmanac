@@ -60,7 +60,9 @@ const CalendarEditDaysOfWeek = observer(() => {
   const myDays = [...EditCalendarState.calendar.daysOfWeek];
   return (
     <div className="days">
+      <div className="days-header">
       <h3 className="edit-title">Days of the Week</h3>
+      </div>
       <div className="gray-box">
         <DragDropContext
           onDragEnd={(e) => onDragEnd(e)}

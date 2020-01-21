@@ -10,6 +10,7 @@ interface IEditCalendarState {
   updateMonthName: (position: number, newName: string) => void;
   monthEditPosition: number | undefined;
   dayEditPosition: number | undefined;
+  showDayTooltip: boolean;
 }
 
 
@@ -30,6 +31,7 @@ const EditCalendarState = observable<IEditCalendarState>({
   },
   monthEditPosition: undefined,
   dayEditPosition: undefined,
+  showDayTooltip: true,
 });
 
 

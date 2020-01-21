@@ -36,7 +36,8 @@ function getMoonStateInternal(moon: Moon, previousDays: number): MoonState {
   if (moonFullPercentage > fullThreshold) {
     phase = MoonPhase.Full;
   }
-  else if (Math.abs(.5 - moonFullPercentage) < sliceSize / 2) {
+  else if (Math.abs(.50001 - moonFullPercentage) <= sliceSize / 2) {
+    console.log("New " + moon.name, previousDays, moonFullPercentage);
     phase = MoonPhase.New;
   }
   return {
