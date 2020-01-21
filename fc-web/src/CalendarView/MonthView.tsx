@@ -44,7 +44,7 @@ const MonthView = observer((props: { monthNumber: number, year: number }) => {
                 if (weekIndex === 0 && i < offSetDays) {
                   return (<div
                     key={i}
-                    className={"day " + getCalendarNumber(CalendarState.calendar.daysOfWeek.length)}></div>);
+                    className={"day-width " + getCalendarNumber(CalendarState.calendar.daysOfWeek.length)}></div>);
                 }
                 const fantasyDate: FantasyDate = {
                   year: props.year,
