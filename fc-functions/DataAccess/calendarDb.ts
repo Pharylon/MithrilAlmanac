@@ -4,6 +4,7 @@ import {CalendarModel} from "../Models/CalendarModel";
 import UserCalendarDto from "../Models/UserCalendarDto";
 import uuid = require("uuid");
 import { container } from "./DbClient";
+import { Certificate } from "crypto";
 
 export async function GetCalendarEvent(id: string): Promise<CalendarEvent | undefined> {
   const query: SqlQuerySpec = {
@@ -161,4 +162,39 @@ export async function GetUserCalendars(ids: string[]): Promise<UserCalendarDto[]
   const {resources} = await container.items.query(query).fetchAll();
   const myObjects = resources as UserCalendarDto[];
   return myObjects;
+}
+
+export async function GetAllCalendarNames(): Promise<UserCalendarDto[]> {
+  const query: SqlQuerySpec = {
+    query: "SELECT c.id, c.name FROM c where c.type = 'calendar'",
+  };
+  const {resources} = await container.items.query(query).fetchAll();
+  const myObjects = resources as UserCalendarDto[];
+  return myObjects;
+}
+
+
+export async function GetCalendarEventCounts(): Promise<Array<{id: string, count: number}>>{
+  const query: SqlQuerySpec = {
+    query: "SELECT r.calendarId, Count(1) FROM root r WHERE r.type = 'calendarEvent' group by r.calendarId"};
+  const {resources} = await container.items.query(query).fetchAll();
+  const items = resources.map(x => ({
+    id: x.calendarId,
+    count: x.$1,
+  }));
+  return items;
+}
+
+export async function GetCalendarCounts(): Promise<Array<{id: string, name: string, count: number}>>{
+  const allCalendars = await GetAllCalendarNames();
+  const eventCounts = await GetCalendarEventCounts();
+  const results = allCalendars.map(calendar => {
+    const eventCount = eventCounts.find(cEvent => calendar.id === cEvent.id);
+    return {
+      id: calendar.id,
+      name: calendar.name,
+      count: eventCount ? eventCount.count : 0,
+    };
+  });
+  return results;
 }
