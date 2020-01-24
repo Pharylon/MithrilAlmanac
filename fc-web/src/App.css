@@ -64,14 +64,14 @@
   }
 } */
 
-@media (orientation: landscape) {
+@media (orientation: landscape) and (min-width: 650px)  {
   .day-width{
     width: 75px;
     height: 75px;
   }
 }
 
-@media (orientation: portrait) {
+@media (orientation: portrait), (max-width: 650px) {
   .day-width.seven{
     width: 12vw;
     height: 12vw;

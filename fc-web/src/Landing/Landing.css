@@ -16,7 +16,7 @@
 }
 
 
-@media (orientation: portrait) {
+@media (orientation: portrait), (max-width: 650px) {
   .landing-content{
     flex-direction: column;
   }
@@ -25,7 +25,7 @@
   }
 }
 
-@media (orientation: landscape) {
+@media (orientation: landscape) and (min-width: 650px)  {
   .intro-text{
     margin-left: 20px;
     margin-top: -10px;

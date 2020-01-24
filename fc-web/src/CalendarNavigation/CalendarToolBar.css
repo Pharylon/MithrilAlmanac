@@ -87,7 +87,7 @@
   padding-top: 4px;
 }
 
-@media (orientation: portrait) {
+@media (orientation: portrait), (max-width: 650px) {
   .year-header{
     flex-direction: column-reverse;
     align-content: center;
@@ -115,7 +115,7 @@
 
 
 
-@media (orientation: landscape) {
+@media (orientation: landscape) and (min-width: 650px)  {
   .share-left{
     display: none;
   }
@@ -154,7 +154,7 @@
 
 
 
-@media (orientation: portrait) {
+@media (orientation: portrait), (max-width: 650px) {
   .hide-portrait {
     display: none !important;
   }

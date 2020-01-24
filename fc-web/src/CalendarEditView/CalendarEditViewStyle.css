@@ -1,5 +1,5 @@
 
-@media screen and (orientation: landscape) {
+@media screen and (orientation: landscape) and (min-width: 650px)  {
   .calendar{
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -245,13 +245,13 @@
 
 
 
-@media (orientation: portrait) {
+@media (orientation: portrait), (max-width: 650px) {
   .calendar-save-col{
     display: none;
   }
 }
 
-@media (orientation: landscape) {
+@media (orientation: landscape) and (min-width: 650px)  {
   .calendar-save-bottom{
     display: none;
   }
