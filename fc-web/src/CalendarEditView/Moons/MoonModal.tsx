@@ -3,7 +3,7 @@ import Moon from "../../Models/Moon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "rc-tooltip";
-import ColorPicker from "./ColorPicker";
+import MoonColorPicker from "./MoonColorPicker";
 
 interface IMoonModal{
   moon?: Moon;
@@ -66,7 +66,7 @@ const MoonModal = (props: IMoonModal) => {
         <label style={{display: "none"}} htmlFor="moon-offset">Days until first new year in Year 1</label>
         <input id="moon-offset" type="number" value={offSet} onChange={(e) => setOffset(e.target.value)} />
       </div>
-      <ColorPicker color={color} onChange={setColor} />
+      <MoonColorPicker color={color} onChange={setColor} />
       <div className="month-dialog-buttons">
         <button className="blue-button" onClick={() => save()}>Done</button>
         {

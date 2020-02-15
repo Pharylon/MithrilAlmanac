@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 import UserState from "../State/UserState";
 import { CalendarModel } from "../Models/CalendarModel";
 import { ViewType } from "../Models/CalendarViewType";
+import { defaultColorOptions } from "../Models/CalendarColorOptions";
 
 const NewCalendar = observer((props: {close: () => void}) => {
   const [name, setName] = useState("My Calendar");
@@ -21,6 +22,7 @@ const NewCalendar = observer((props: {close: () => void}) => {
         id: "",
         shareId: "",
         defaultView: ViewType.Calendar,
+        colorOptions: defaultColorOptions,
       };
       const savedCalendarId = await SaveCalendar(dto);
       UserState.updateCalendars();

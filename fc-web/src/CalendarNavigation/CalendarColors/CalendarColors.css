@@ -1,0 +1,17 @@
+.calendar-color-line{
+  display: flex;
+}
+
+.calendar-color-title{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.calendar-color-title > div{
+  align-self: center;
+}
+
+.calendar-color-title > div:first-child{
+  margin-right: 10px;
+}
+

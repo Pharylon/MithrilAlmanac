@@ -1,4 +1,4 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import CalendarDay from "./CalendarDay";
 import { chunks, getCalendarNumber } from "../Utility";
 import FantasyDate from "../Models/FantasyDate";
@@ -34,7 +34,9 @@ const MonthView = observer((props: { monthNumber: number, year: number }) => {
     return states;
   }
   return (
-    <div className={"month" + (hasEvents ? "" : " no-events")}>
+    <div 
+      style={{backgroundColor: CalendarState.calendar.colorOptions.defaultMonthColor}} 
+      className={"month" + (hasEvents ? "" : " no-events")}>
       <div className="month-name">{month.name + (hasEvents ? " " : " (no events) ") + props.year}</div>
       <div>
         {

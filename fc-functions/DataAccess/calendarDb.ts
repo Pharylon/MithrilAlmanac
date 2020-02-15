@@ -5,6 +5,7 @@ import UserCalendarDto from "../Models/UserCalendarDto";
 import uuid = require("uuid");
 import { container } from "./DbClient";
 import { Certificate } from "crypto";
+import { defaultColorOptions } from "../Models/CalendarColorOptions";
 
 export async function GetCalendarEvent(id: string): Promise<CalendarEvent | undefined> {
   const query: SqlQuerySpec = {
@@ -141,6 +142,9 @@ export async function GetCalendar(id: string): Promise<CalendarModel> {
         dayOfMonth: 1,
       };
       await SaveCalendar(calendar as CalendarModel);
+    }
+    if (!calendar.colorOptions) {
+      calendar.colorOptions = defaultColorOptions;
     }
     // CalendarCache.set(id, calendar, 300);
     return calendar;

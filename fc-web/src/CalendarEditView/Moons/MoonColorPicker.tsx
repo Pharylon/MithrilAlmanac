@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 
-const ColorPicker = (props: {color: string, onChange: (color: string) => void}) => {
+const MoonColorPicker = (props: {color: string, onChange: (color: string) => void}) => {
   const node = useRef<HTMLDivElement>(null);
   const [showColorPicker, setShowColorPicker] = useState(false);
   function handleClick(e: any){
@@ -33,4 +33,4 @@ const ColorPicker = (props: {color: string, onChange: (color: string) => void}) 
   );
 };
 
-export default ColorPicker;
+export default MoonColorPicker;

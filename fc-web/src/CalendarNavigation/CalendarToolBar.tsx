@@ -7,9 +7,13 @@ import { Link, Redirect } from "react-router-dom";
 import "./CalendarToolBar.css";
 import ShareDialog from "./ShareDialog";
 import { ViewType } from "../Models/CalendarViewType";
+import Modal from "react-modal";
+import CalendarColor from "./CalendarColors/CalendarColors";
+
 
 const CalendarToolbar = observer((props: { year: number, viewType: ViewType }) => {
   const [viewType, setViewType] = useState(props.viewType);
+  const [showCalendarColors, setShowCalendarColors] = useState(true);
   if (viewType !== props.viewType){
     if (viewType === ViewType.Calendar){
       return <Redirect to={`/calendar/${CalendarState.calendar.id}` }/>;
@@ -70,8 +74,19 @@ const CalendarToolbar = observer((props: { year: number, viewType: ViewType }) =
         </Link>
       </div>
       <div className="calendar-bar-right">
-        <ShareDialog id="share-link-1" />
+        <div className="share-colors">
+          <ShareDialog id="share-link-1" />
+          <div onClick={() => setShowCalendarColors(true)} className="fake-link">Colors</div>
+        </div>
       </div>
+      <Modal
+        className="modal-wrapper"
+        isOpen={showCalendarColors}
+        onRequestClose={() => setShowCalendarColors(false)}>
+        <div className="standard-modal-inner">
+          <CalendarColor/>
+        </div>
+      </Modal>
     </div>
   );
 });
