@@ -33,9 +33,15 @@ const MonthView = observer((props: { monthNumber: number, year: number }) => {
     });
     return states;
   }
+  function getBackgroundColor(){
+    if (hasEvents){
+      return CalendarState.calendar.colorOptions.defaultMonthColor;
+    }
+    return CalendarState.calendar.colorOptions.noEventMonthColor;
+  }
   return (
     <div 
-      style={{backgroundColor: CalendarState.calendar.colorOptions.defaultMonthColor}} 
+      style={{backgroundColor: getBackgroundColor()}} 
       className={"month" + (hasEvents ? "" : " no-events")}>
       <div className="month-name">{month.name + (hasEvents ? " " : " (no events) ") + props.year}</div>
       <div>

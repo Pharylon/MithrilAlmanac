@@ -209,12 +209,17 @@
   margin-bottom: 10px;
 }
 
-.blue-button.bg{
+.orange-button{
   border: 1px solid black;
-  background-color: rgb(87, 188, 255);
+  background-color: rgb(255, 202, 87);
   margin-top: 10px;
   margin-bottom: 10px;
-  font-weight: bold;
+}
+
+.bg{
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-size: 1.2em;
 }
 

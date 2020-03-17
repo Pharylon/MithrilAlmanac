@@ -66,6 +66,7 @@ const FantasyDateSelector = (props: IFantasyDateSelector) => {
     if (!month) {
       return <option value={1}>1</option>;
     }
+    console.log(month.days);
     const dayArray = Array.from(Array(month.days).keys()).map(x => x + 1);
     return dayArray.map(x => (<option key={x} value={x}>{x}</option>));
   }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SketchPicker } from "react-color";
+import { SketchPicker, RGBColor } from "react-color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,7 +24,11 @@ const CalendarColorPicker = (props: ICalendarColorPicker) => {
     return () => {
       document.removeEventListener("mousedown", handleClick);
     };
-  }, []);
+  }, [handleClick]);
+  function onPick(rgb: RGBColor){
+    const myString = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a})`;
+    props.onChange(myString);
+  }
   return (
     <div ref={node} className="input-combo">
       <div className="calendar-color-title">
@@ -37,7 +41,10 @@ const CalendarColorPicker = (props: ICalendarColorPicker) => {
       {
         showColorPicker && (
           <div className="color-picker-wrapper">
-            <div><SketchPicker color={props.color} onChange={(e) => props.onChange(e.hex)} /></div>
+            <div><SketchPicker 
+              presetColors={["TRANSPARENT"]} 
+              color={props.color} 
+              onChange={(e) => onPick(e.rgb)} /></div>
           </div>
         )
       }
