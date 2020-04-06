@@ -28,3 +28,22 @@
 .condensed-bottom > div{
   align-self: center;
 }
+
+.moon-key{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.moon-key-item{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.moon-key-item > div {
+  align-self: center;
+  margin-right: 5px;
+}
+

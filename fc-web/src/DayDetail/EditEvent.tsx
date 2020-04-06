@@ -6,6 +6,9 @@ import { format, parseISO } from "date-fns";
 import { DeleteEvent } from "../DataClients/CalendarEventDataClient";
 import UserState from "../State/UserState";
 import FantasyDateSelector from "./FantasyDateSelector";
+import FantasyDate from "../Models/FantasyDate";
+import { MoonState, GetMoonState, MoonPhase } from "../Models/Moon";
+import { GetOffSetInfo } from "../Models/Month";
 
 const EditEvent: React.FC = observer(() => {
   if (!CalendarState.calendarEditEvent) {
@@ -16,6 +19,27 @@ const EditEvent: React.FC = observer(() => {
   const [realDate, setRealDate] = useState<Date | undefined>(CalendarState.calendarEditEvent.realDate);
   const [fantasyDate, setFantasyDate] = useState(CalendarState.calendarEditEvent.fantasyDate);
   const [hidden, setHidden] = useState(CalendarState.calendarEditEvent.hidden);
+  // const moonStates: MoonState[] = CalendarState.calendar.moons.reduce((arr, moon) => {
+  //   if (CalendarState.calendarEditEvent && CalendarState.calendarEditEvent.fantasyDate){
+  //     const month = CalendarState.calendarEditEvent.fantasyDate.month;
+  //     const year = CalendarState.calendarEditEvent.fantasyDate.year;
+  //     const dayOfMonth = CalendarState.calendarEditEvent.fantasyDate.dayOfMonth;
+  //     const { offSetDays, previousDays } = GetOffSetInfo(CalendarState.calendar, month, year);
+  //     const previousToDate = previousDays + (dayOfMonth - 1) - moon.cycleOffset;
+  //     const state = GetMoonState(moon, previousToDate);
+  //     return [...arr, state];
+  //   }
+  //   else{
+  //     return arr;
+  //   }
+  // }, [] as MoonState[]);
+  // const fullMoons = moonStates.filter(x => x.phase === MoonPhase.Full);
+  // if (fullMoons.length > 0){
+  //   console.log(fullMoons);
+  // }
+  // else{
+  //   console.log(moonStates);
+  // }
   async function saveEvent() {
     if (CalendarState.calendarEditEvent) {
       const updateEvent: CalendarEvent = {

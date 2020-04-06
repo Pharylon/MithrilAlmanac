@@ -33,6 +33,20 @@ const CalendarView = observer((props: { viewType: ViewType }) => {
       <CalendarToolbar year={currentYear} viewType={props.viewType} />
       <div className="calendar-body">
         {
+          CalendarState.calendar.moons.length > 1 && (
+            <div className="moon-key">
+              {
+                CalendarState.calendar.moons.map((moon, i) => (
+                  <div className="moon-key-item">
+                    <div style={{ backgroundColor: moon.color }} className="full-moon" ></div>
+                    <div>{moon.name}</div>
+                  </div>
+                  ))
+              }
+            </div>
+          )
+        }
+        {
           (() => {
             switch (props.viewType) {
               case ViewType.Timeline: return (<TimeLineView />);
