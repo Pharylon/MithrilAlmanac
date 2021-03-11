@@ -148,7 +148,7 @@ function getUnknownErrorMsg(status: number) {
 function getBaseAddress() {
   let baseAddress = process.env.REACT_APP_API_ADDRESS;
   if (!baseAddress) {
-    console.log("YOU MUST ADD THE FUNCTION BASE ADDRESS TO THE ENV FILE!");
+    console.error("YOU MUST ADD THE FUNCTION BASE ADDRESS TO THE ENV FILE!");
   }
   else if (!baseAddress.endsWith("/")) {
     baseAddress += "/";

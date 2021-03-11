@@ -7,16 +7,17 @@ import uuid from "uuid";
 import ErrorState from "./ErrorState";
 import { post, ErrorObject } from "../DataClients/fetchHelper";
 import UserState from "./UserState";
+import CalendarEventEditModel from "../Models/CalendarEventEditModel";
 
 interface ICalendarState {
   calendar: CalendarModel;
   selectedDay: FantasyDate | undefined;
   events: CalendarEvent[];
-  calendarEditEvent: CalendarEvent | undefined;
+  calendarEditEvent: CalendarEventEditModel | undefined;
   loadCalendar: (id: string) => void;
   calendarLoadState: "Blank" | "Loaded" | "Loading" | "Error";
   addNewEvent: (props: FantasyDate) => void;
-  updateEvent: (props: CalendarEvent) => Promise<void>;
+  updateEvent: (props: CalendarEventEditModel) => Promise<void>;
   updateMonthName: (position: number, newName: string) => void;
   reset: () => void;
   setSelectedDay: (date: FantasyDate) => void;
@@ -29,7 +30,7 @@ export class CalendarStore implements ICalendarState {
   @observable calendar = blankModel;
   @observable selectedDay: undefined | FantasyDate;
   @observable events: CalendarEvent[] = [];
-  @observable calendarEditEvent: CalendarEvent | undefined;
+  @observable calendarEditEvent: CalendarEventEditModel | undefined;
   @observable createCalendarIsOpen = false;
 
   @action.bound
@@ -68,34 +69,37 @@ export class CalendarStore implements ICalendarState {
     }
     if (!this.canEditCalendar){
       this.selectedDay = undefined;
-      ErrorState.errorMessage = "You do not have permission to add events to this to this calendar.";
+      ErrorState.errorMessage = "You do not have permission to add events to this calendar.";
       return;
     }
-    const newEvent: CalendarEvent = {
-      calendarId: this.calendar.id,
-      fantasyDate: date,
-      name: "Title",
-      description: "",
-      realDate: undefined,
-      id: uuid(),
-      createUser: UserState.userModel.id,
-      hidden: false,
+    const newEvent: CalendarEventEditModel = {
+      calendarEvent: {
+        calendarId: this.calendar.id,
+        fantasyDate: date,
+        name: "Title",
+        description: "",
+        realDate: undefined,
+        id: uuid(),
+        createUser: UserState.userModel.id,
+        hidden: false,
+      },
+      makeCurrentDate: false,
     };
     this.calendarEditEvent = newEvent;
   }
 
   @action.bound
-  public async updateEvent(myEvent: CalendarEvent){
+  public async updateEvent(updateModel: CalendarEventEditModel){
     const oldEvents = this.events;
     try {
-      const stillGoodEvents = this.events.filter(x => x.id !== myEvent.id);
-      this.events = [...stillGoodEvents, myEvent];
-      const response = await post("UpdateEvent", myEvent);
+      const stillGoodEvents = this.events.filter(x => x.id !== updateModel.calendarEvent.id);
+      this.events = [...stillGoodEvents, updateModel.calendarEvent];
+      const response = await post("UpdateEvent", updateModel);
       if (response.success) {
         const newEvent = response.value as CalendarEvent;
         if (newEvent.id){
           this.events = [...stillGoodEvents, newEvent];
-        }        
+        }
       }
       else{
         console.log("FAIL");
@@ -121,6 +125,8 @@ export class CalendarStore implements ICalendarState {
       month.name = newName;
     }
   }
+
+  
 
   @action.bound
   public async setSelectedDay(date: FantasyDate) {

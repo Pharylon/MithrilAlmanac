@@ -9,7 +9,10 @@ import { format } from "date-fns";
 
 const EventDetail = observer((props: { event: CalendarEvent }) => {
   function startEdit() {
-    CalendarState.calendarEditEvent = props.event;
+    CalendarState.calendarEditEvent = {
+      calendarEvent: props.event,
+      makeCurrentDate: false
+    }
   }
   let realDate = "Error";
   try {
