@@ -15,10 +15,7 @@ These instructions are for Windows, because that's what I develop on.
 3. You need to create a symbolic link so the fc-functions  and fc-web projects can share models. If you're on Windows, that looks something like this if you've cloned it into the repos folder `mklink /D Models "C:\Users\<username>\source\repos\MithrilAlmanac\fc-web\src\Models"`
 
 4. Set up your settings in fc-functions you'll need to add a `local.settings.json` file. It should look like this:
-<<<<<<< HEAD
-=======
 
->>>>>>> development
 ```json
 {
   "IsEncrypted": false,
