@@ -25,10 +25,17 @@ const MoonModal = (props: IMoonModal) => {
       <div>they're not quite exact over hundreds of years.</div>
     </div>
   );
+  function getOffset(offsetText: string){
+    let offset = parseInt(offsetText, 10);
+    if (offset <= 1){
+      offset = 1;
+    }
+    return offset;
+  }
   function save(){
     const daysToCycle = parseFloat(days);
-    const cycleOffset = parseInt(offSet, 10) || 1;
-    if (daysToCycle && cycleOffset){
+    const cycleOffset = getOffset(offSet);
+    if (daysToCycle && cycleOffset >= 0){
       const newModel: Moon = {
         ...props.moon,
         name,
@@ -57,7 +64,7 @@ const MoonModal = (props: IMoonModal) => {
       </div>
       <div className="input-combo">
         <label htmlFor="moon-offset">
-          <span>Offset Days&nbsp;</span>
+          <span>First Full Moon&nbsp;</span>
           <Tooltip placement="left" trigger={"click"} overlay={toolTip}>
             <span><FontAwesomeIcon style={{fontSize: "0.8em"}} icon={faInfoCircle} /></span>
           </Tooltip>

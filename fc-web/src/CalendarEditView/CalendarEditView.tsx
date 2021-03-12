@@ -22,8 +22,8 @@ const CalendarEditView: React.FC = observer(() => {
   if (redirect) {
     return (<Redirect to={`/calendar/${calendarId}`} />);
   }
-  if (calendarId) {
-    EditCalendarState.setCalendar(calendarId);
+  if (calendarId && EditCalendarState.calendar.id !== calendarId) {
+    EditCalendarState.loadCalendar(calendarId);
   }
   function setCalendarName(newValue: string) {
     EditCalendarState.calendar.name = newValue;

@@ -29,20 +29,24 @@ function getMoonStateInternal(moon: Moon, previousDays: number): MoonState {
   const sliceSize = 1 / moon.daysToCycle;
   const fullThreshold = 1 - (sliceSize / 2);
   let phase = MoonPhase.None;
-  // if (date.month < 3){
-  //   console.log(date.month, date.dayOfMonth, moonFullPercentage);
-  // }
 
-  if (moonFullPercentage > fullThreshold) {
+  if (previousDays < 0){
+    phase = MoonPhase.None;
+  }
+  else if (previousDays === moon.cycleOffset){
+    phase = MoonPhase.Full;
+  }
+  else if (moonFullPercentage > fullThreshold) {
     phase = MoonPhase.Full;
   }
   else if (Math.abs(.50001 - moonFullPercentage) <= sliceSize / 2) {
     phase = MoonPhase.New;
   }
-  return {
+  const newMoonModal = {
     ...moon,
     phase,
   };
+  return newMoonModal;
 }
 
 export function GetMoonState(moon: Moon, previousDays: number): MoonState {

@@ -21,8 +21,8 @@ const CalendarDay = observer((props: { date: FantasyDate, moonStates: MoonState[
     }
   }
   const holiday = getHoliday();
-  const fullMoons = props.moonStates.filter(x => x.phase === MoonPhase.Full);
-  const newMoons = props.moonStates.filter(x => x.phase === MoonPhase.New);
+  const fullMoons = props.date.year > 0 ? props.moonStates.filter(x => x.phase === MoonPhase.Full) : [];
+  const newMoons = props.date.year > 0 ? props.moonStates.filter(x => x.phase === MoonPhase.New) : [];
   function getClass(){
     let myClass = "day day-width " + getCalendarNumber(CalendarState.calendar.daysOfWeek.length);
     if (datesAreEqual(CalendarState.calendar.currentDate, props.date)){

@@ -54,28 +54,6 @@ const EditMisc: React.FC = observer(() => {
             <option value={ViewType.Condensed}>Condensed View</option>
           </select>
         </div>
-        {/* {
-          editMode ? (
-            <div className="input-combo">
-              <label htmlFor="offset">
-                <span>Offset Days</span>
-                <Tooltip placement="left" trigger={"click"} overlay={toolTip}>
-                  <FontAwesomeIcon style={{ fontSize: "0.8em", marginLeft: 10 }} icon={faInfoCircle} />
-                </Tooltip>
-              </label>
-              <input
-                type="number"
-                value={EditCalendarState.calendar.offSetDays}
-                onChange={(e) => updateOffset(e.target.value)} />
-            </div>
-          ) :
-            (
-              <div>                
-                <span >First week offset by {offSet} days</span>
-                <FontAwesomeIcon style={{marginLeft: 10}} icon={faEdit} onClick={() => setEditMode(true)} />
-              </div>
-            )
-        } */}
       </div>
     </div>
   );

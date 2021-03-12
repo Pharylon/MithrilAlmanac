@@ -13,6 +13,7 @@ export interface OffSetInfo{
 }
 
 export function GetOffSetInfo(calendar: CalendarModel, monthNumber: number, year: number): OffSetInfo {
+  
   const daysBeforeYear = GetDaysBeforeYear(calendar, year);
   const yearOffSetDays = daysBeforeYear % calendar.daysOfWeek.length;
 

@@ -11,7 +11,6 @@ const CalendarEditDay = observer((props: { dayIndex: number }) => {
   function updateDayOfTheWeek() {
     const duplicates = EditCalendarState.calendar.daysOfWeek.some((x, i) => x === dayName && i !== props.dayIndex);
     if (duplicates) {
-      console.log("DUP!");
       ErrorState.errorMessage = "A day with that name already exists";
     }
     else {

@@ -15,7 +15,7 @@ import CondensedView from "./CondensedView/CondensedView";
 
 
 const CalendarView = observer((props: { viewType: ViewType }) => {
-  const { year } = useParams();
+  const { year } = useParams<{year: string}>();
   function getYear(): number {
     if (!year) {
       return CalendarState.calendar.currentDate.year;
