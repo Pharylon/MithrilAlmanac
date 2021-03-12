@@ -2,7 +2,7 @@
 
 ## Demo
 
-The site is here: https://www.mithrilalmana.com
+The site is here: https://www.mithrilalmanac.com
 
 ## Setup
 
