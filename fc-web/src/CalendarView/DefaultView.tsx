@@ -8,7 +8,8 @@ import LoadingSpinner from "../LoadingSpinner";
 
 const DefaultView: React.FC = observer(() => {
   if (CalendarState.calendarLoadState === "Error") {
-    console.log("Redirecting due to error");
+    console.log("Redirecting due to error and clearing last calendar");
+    localStorage.removeItem("LastCalendar");
     return <Redirect to={"/"} />;
   }
   if (CalendarState.calendarLoadState === "Loading") {

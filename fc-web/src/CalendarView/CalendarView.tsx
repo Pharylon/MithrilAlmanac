@@ -37,7 +37,7 @@ const CalendarView = observer((props: { viewType: ViewType }) => {
             <div className="moon-key">
               {
                 CalendarState.calendar.moons.map((moon, i) => (
-                  <div className="moon-key-item">
+                  <div key={i} className="moon-key-item">
                     <div style={{ backgroundColor: moon.color }} className="full-moon" ></div>
                     <div>{moon.name}</div>
                   </div>

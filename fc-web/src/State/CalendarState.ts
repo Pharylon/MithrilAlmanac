@@ -35,17 +35,26 @@ export class CalendarStore implements ICalendarState {
 
   @action.bound
   public async loadCalendar(id: string){
+    console.log("LoadCalendar", id);
     if (id !== this.calendar.id) {
       this.events = [];
+      const oldCalendarState = this.calendarLoadState;
       this.calendarLoadState = "Loading";
       const calendar = await GetCalendar(id);
       if (!calendar) {
+        if (oldCalendarState === "Error"){
+          //this means it's failed twice in a row, and something is wrong.
+          //We might be in a loop trying to load the same bad calendar over and over.
+          localStorage.removeItem("LastCalendar");
+          window.location.assign("/"); //force the page to hard reload!!!
+        }
         this.calendar = {
           ...blankModel,
           id: "__ERROR__",
         };
         this.events = [];
         this.calendarLoadState = "Error";
+        localStorage.removeItem("LastCalendar");
         return;
       }
       this.calendar = calendar;
