@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const UpdateBanner = () => {
-  const [updateInfo, setUpdateInfo] = useState<Release>({ version: 0, items: [] });
+  const [updateInfo, setUpdateInfo] = useState<Release>({ version: "", items: [] });
 
   const currentVersion = ReleaseNotes.map(x => x.version).reduce((p, c) => (c > p ? c : p));
 
   function closeBanner(){
     localStorage.setItem("lastVersion", currentVersion.toString());
-    setUpdateInfo({version: 0, items: []});
+    setUpdateInfo({version: "", items: []});
   }
 
   useEffect(() => {
@@ -27,14 +27,15 @@ const UpdateBanner = () => {
       if (!lastSeen) {
         return ReleaseNotes[ReleaseNotes.length - 1];
       }
-      if (currentVersion <= lastSeen) {
+      const currentVersionParsed = parseInt(currentVersion, 10);
+      if (currentVersionParsed <= lastSeen) {
         return {
-          version: 0,
+          version: "",
           items: [],
         };
       }
       const items = ReleaseNotes
-        .filter(x => x.version > lastSeen)
+        .filter(x => parseInt(x.version, 10) > lastSeen)
         .map(x => x.items)
         .reduce((prev, curr) => ([...prev, ...curr]));
       if (items.length > 10){
@@ -51,7 +52,7 @@ const UpdateBanner = () => {
     }
   }, [currentVersion]);
 
-  if ( updateInfo.version === 0) {
+  if (!updateInfo.version) {
     return <React.Fragment></React.Fragment>;
   }
   return (

@@ -13,7 +13,7 @@ const CalendarViewWrapper = observer((props: {viewType: ViewType}) => {
     return <Redirect to={"/"} />;
   }
   if (CalendarState.calendarLoadState === "Loading") {
-    return (<div><LoadingSpinner /></div>);
+    return (<div className="calendar"><LoadingSpinner /></div>);
   }
   const { calendarId } = useParams<{calendarId: string}>();
   if (calendarId) {
@@ -24,7 +24,7 @@ const CalendarViewWrapper = observer((props: {viewType: ViewType}) => {
       <CalendarView viewType={props.viewType}/>
     ) :
     (
-      <div>
+      <div className="calendar">
         <LoadingSpinner />
       </div>
     )

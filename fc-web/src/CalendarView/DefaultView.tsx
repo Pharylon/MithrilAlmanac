@@ -12,7 +12,7 @@ const DefaultView: React.FC = observer(() => {
     return <Redirect to={"/"} />;
   }
   if (CalendarState.calendarLoadState === "Loading") {
-    return (<div><LoadingSpinner /></div>);
+    return (<div className="calendar"><LoadingSpinner /></div>);
   }
   const { calendarId } = useParams<{calendarId: string}>();
   if (calendarId) {
@@ -23,7 +23,7 @@ const DefaultView: React.FC = observer(() => {
       <CalendarViewWrapper viewType={CalendarState.calendar.defaultView || ViewType.Calendar}/>
     ) :
     (
-      <div>
+      <div className="calendar">
         <LoadingSpinner />
       </div>
     )
