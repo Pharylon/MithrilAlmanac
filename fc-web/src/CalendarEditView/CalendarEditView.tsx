@@ -17,7 +17,7 @@ import FantasyDate from "../Models/FantasyDate";
 import FantasyDateSelector from "../DayDetail/FantasyDateSelector";
 
 const CalendarEditView: React.FC = observer(() => {
-  const { calendarId } = useParams();
+  const { calendarId } = useParams<{calendarId: string}>();
   const [redirect, setRedirect] = useState(false);
   if (redirect) {
     return (<Redirect to={`/calendar/${calendarId}`} />);

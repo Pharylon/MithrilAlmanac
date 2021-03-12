@@ -21,7 +21,10 @@ const TimeLineEvent = observer((props: { event: CalendarEvent }) => {
   function editEvent(e: React.MouseEvent<HTMLDivElement, MouseEvent>){
     e.stopPropagation();
     e.preventDefault();
-    CalendarState.calendarEditEvent = props.event;
+    CalendarState.calendarEditEvent = {
+      calendarEvent: props.event,
+      makeCurrentDate: false
+    };
   }
   return (
     <div className="timeline-event" onClick={() => setShowDesc(!showDesc)}>

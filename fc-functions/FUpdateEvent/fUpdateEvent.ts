@@ -1,8 +1,10 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import CalendarEvent from "../Models/CalendarEvent";
-import { UpdateEvent, GetCalendarEvent} from "../DataAccess/CalendarDb";
+import CalendarEventEditModel from "../Models/CalendarEventEditModel";
+import { UpdateEvent, GetCalendarEvent, GetCalendar, SaveCalendar} from "../DataAccess/CalendarDb";
 import * as uuid from "uuid/v1";
 import { GetUser } from "../Security/GetUser";
+import { CalendarModel } from "../Models/CalendarModel";
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
     const user = await GetUser(req.headers.authorization);
@@ -15,17 +17,17 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
     }
     const calendars = [...user.ownedCalendars, ...user.memberCalendars];
     const newEvent: CalendarEvent = {
-        id: req.body.id ? req.body.id : uuid(),
-        calendarId: req.body.calendarId,
-        name: req.body.name,
-        description: req.body.description,
-        realDate: req.body.realDate,
-        fantasyDate: req.body.fantasyDate,
-        hidden: req.body.hidden,
-        createUser: req.body.createUser,
+        id: req.body.id ? req.body.calendarEvent.id : uuid(),
+        calendarId: req.body.calendarEvent.calendarId,
+        name: req.body.calendarEvent.name,
+        description: req.body.calendarEvent.description,
+        realDate: req.body.calendarEvent.realDate,
+        fantasyDate: req.body.calendarEvent.fantasyDate,
+        hidden: req.body.calendarEvent.hidden,
+        createUser: req.body.calendarEvent.createUser,
     };
-    if (req.body.id){
-        const existing = await GetCalendarEvent(req.body.id);
+    if (req.body.calendarEvent.id){
+        const existing = await GetCalendarEvent(req.body.calendarEvent.id);
         if (existing){
             if (existing.createUser && existing.createUser !== newEvent.createUser){
                 context.res = {
@@ -46,7 +48,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
     if (!calendars.includes(newEvent.calendarId)){
         context.res = {
             status: 401, /* Defaults to 200 */
-            body: JSON.stringify({message: "You do not have permission to add vents to this calendar."}),
+            body: JSON.stringify({message: "You do not have permission to add events to this calendar."}),
             headers: {
                 "content-type": "application/json; charset=utf-16le",
             },
@@ -62,6 +64,14 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
     }
     try {
         const addedEvent = await UpdateEvent(newEvent);
+        if (req.body.makeCurrentDate) {
+            const existingCalendar = await GetCalendar(newEvent.calendarId);
+            const updateCalendarModel: CalendarModel = {
+                ...existingCalendar,
+                currentDate: newEvent.fantasyDate,                
+            }
+            await SaveCalendar(updateCalendarModel);
+        }
         context.res = {
             body: JSON.stringify(addedEvent),
             headers: {

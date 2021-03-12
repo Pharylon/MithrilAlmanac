@@ -16,13 +16,13 @@
     "@types/node": "^12.12.14",
     "@types/uuid": "^3.4.6",
     "date-fns": "^2.8.1",
-    "google-auth-library": "^5.7.0",
-    "googleapis": "^46.0.0",
+    "google-auth-library": "^7.0.2",
+    "googleapis": "^67.1.1",
     "node-cache": "^5.1.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@azure/functions": "^1.0.3",
-    "typescript": "^3.3.3"
+    "typescript": "^3.9.9"
   }
 }

@@ -1,6 +1,7 @@
 import {observable} from "mobx";
 import { GetCalendar } from "../DataClients/CalendarEventDataClient";
 import { CalendarModel, blankModel } from "../Models/CalendarModel";
+import FantasyDate from "../Models/FantasyDate";
 
 interface IEditCalendarState {
   calendar: CalendarModel;
@@ -19,9 +20,7 @@ const EditCalendarState = observable<IEditCalendarState>({
   calendar: blankModel,
   calendarEventEditId: undefined,
   setCalendar: (id: string) => {
-    if (id !== EditCalendarState.calendar.id){
-      LoadCalendar(id);
-    }    
+    LoadCalendar(id);    
   },
   updateMonthName: (position: number, newName: string) => {
     const month = EditCalendarState.calendar.months.find(x => x.position === position);
@@ -33,8 +32,6 @@ const EditCalendarState = observable<IEditCalendarState>({
   dayEditPosition: undefined,
   showDayTooltip: true,
 });
-
-
 
 async function LoadCalendar(id: string) {
   try{

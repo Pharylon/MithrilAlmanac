@@ -10,11 +10,15 @@ These instructions are for Windows, because that's what I develop on.
 
 1. Install Node and all that Jazz.
 
-2. You need to create a symbolic link so the fc-functions  and fc-web projects can share models. If you're on Windows, that looks something like this if you've cloned it into the repos folder `mklink /D Models "C:\Users\<username>\source\repos\MithrilAlmanac\fc-web\src\Models"`
+2. Install Azure Functions Core Tools. You'll also need an Azure account. I did this using CosmosDB because it seemed like it might be fun to try something different and I have a bunch of credit from having a MSDN account. You'll either need to install the local emulator or just have a MSDN account. 
 
-3. Install Azure Functions Core Tools. You'll also need an Azure account. I did this using CosmosDB because it seemed like it might be fun to try something different. You'll either need to install the local emulator or just have a MSDN account. Sorry about that!
+3. You need to create a symbolic link so the fc-functions  and fc-web projects can share models. If you're on Windows, that looks something like this if you've cloned it into the repos folder `mklink /D Models "C:\Users\<username>\source\repos\MithrilAlmanac\fc-web\src\Models"`
 
 4. Set up your settings in fc-functions you'll need to add a `local.settings.json` file. It should look like this:
+<<<<<<< HEAD
+=======
+
+>>>>>>> development
 ```json
 {
   "IsEncrypted": false,

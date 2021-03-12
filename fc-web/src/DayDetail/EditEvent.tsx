@@ -6,19 +6,19 @@ import { format, parseISO } from "date-fns";
 import { DeleteEvent } from "../DataClients/CalendarEventDataClient";
 import UserState from "../State/UserState";
 import FantasyDateSelector from "./FantasyDateSelector";
-import FantasyDate from "../Models/FantasyDate";
-import { MoonState, GetMoonState, MoonPhase } from "../Models/Moon";
-import { GetOffSetInfo } from "../Models/Month";
+import CalendarEventEditModel from "../Models/CalendarEventEditModel";
+import EditCalendarState from "../State/EditCalendarState";
 
 const EditEvent: React.FC = observer(() => {
   if (!CalendarState.calendarEditEvent) {
     return <div>No Event to edit</div>;
   }
-  const [name, setName] = useState(CalendarState.calendarEditEvent.name);
-  const [description, setDescription] = useState(CalendarState.calendarEditEvent.description);
-  const [realDate, setRealDate] = useState<Date | undefined>(CalendarState.calendarEditEvent.realDate);
-  const [fantasyDate, setFantasyDate] = useState(CalendarState.calendarEditEvent.fantasyDate);
-  const [hidden, setHidden] = useState(CalendarState.calendarEditEvent.hidden);
+  const [name, setName] = useState(CalendarState.calendarEditEvent.calendarEvent.name);
+  const [description, setDescription] = useState(CalendarState.calendarEditEvent.calendarEvent.description);
+  const [realDate, setRealDate] = useState<Date | undefined>(CalendarState.calendarEditEvent.calendarEvent.realDate);
+  const [fantasyDate, setFantasyDate] = useState(CalendarState.calendarEditEvent.calendarEvent.fantasyDate);
+  const [hidden, setHidden] = useState(CalendarState.calendarEditEvent.calendarEvent.hidden);
+  const [makeCurrentDate, setMakeCurrentDate] = useState(false);
   // const moonStates: MoonState[] = CalendarState.calendar.moons.reduce((arr, moon) => {
   //   if (CalendarState.calendarEditEvent && CalendarState.calendarEditEvent.fantasyDate){
   //     const month = CalendarState.calendarEditEvent.fantasyDate.month;
@@ -43,33 +43,40 @@ const EditEvent: React.FC = observer(() => {
   async function saveEvent() {
     if (CalendarState.calendarEditEvent) {
       const updateEvent: CalendarEvent = {
-        ...CalendarState.calendarEditEvent,
+        ...CalendarState.calendarEditEvent.calendarEvent,
         name,
         description,
         realDate,
         fantasyDate,
         hidden,
       };
-      await CalendarState.updateEvent(updateEvent);
+      const updateModel: CalendarEventEditModel = {
+        calendarEvent: updateEvent,
+        makeCurrentDate
+      }
+      await CalendarState.updateEvent(updateModel);
       CalendarState.calendarEditEvent = undefined;
       if (CalendarState.selectedDay && CalendarState.selectedDay !== fantasyDate) {
         CalendarState.selectedDay = fantasyDate;
+      }
+      if (makeCurrentDate){
+        CalendarState.calendar.currentDate = fantasyDate;
       }
     }
   }
   async function deleteEvent() {
     if (CalendarState.calendarEditEvent) {
       const myEvent = CalendarState.calendarEditEvent;
-      const myIndex = CalendarState.events.findIndex(x => x.id === myEvent.id);
+      const myIndex = CalendarState.events.findIndex(x => x.id === myEvent.calendarEvent.id);
       CalendarState.events.splice(myIndex, 1);
       CalendarState.calendarEditEvent = undefined;
       CalendarState.selectedDay = undefined;
       try {
-        await DeleteEvent(myEvent.id);
+        await DeleteEvent(myEvent.calendarEvent.id);
       }
       catch (e) {
-        console.log("Something went wrong when trying to delete an event", e);
-        CalendarState.events.push(myEvent);
+        console.error("Something went wrong when trying to delete an event", e);
+        CalendarState.events.push(myEvent.calendarEvent);
       }
     }
   }
@@ -117,12 +124,14 @@ const EditEvent: React.FC = observer(() => {
             onChange={(e) => onRealDateChange(e.target.value)} />
         </div>
         {
-          (!CalendarState.calendarEditEvent.createUser ||
+          (!CalendarState.calendarEditEvent.calendarEvent.createUser ||
             (UserState.userModel &&
-              CalendarState.calendarEditEvent.createUser === UserState.userModel.id)) &&
+              CalendarState.calendarEditEvent.calendarEvent.createUser === UserState.userModel.id)) &&
           (<div className="hidden-line">
             <div><input id="hidden" type="checkbox" checked={hidden} onChange={() => setHidden(!hidden)} /></div>
             <label htmlFor="hidden">Hidden</label>
+            <div><input id="currentDate" type="checkbox" checked={makeCurrentDate} onChange={() => setMakeCurrentDate(!makeCurrentDate)} /></div>
+            <label htmlFor="currentDate">&nbsp;Current Date</label>
           </div>)
         }
 

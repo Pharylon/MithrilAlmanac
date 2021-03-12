@@ -32,6 +32,12 @@ const ReleaseNotes: Release[] = [
       "Set your calendar's default view type in the Calendar Edit screen!",
     ],
   },
+  {
+    version: 0.8,
+    items: [
+      "When creating a new event, check \"Current Date\" to make that event the current day for the calendar without having to go into the Calendar settings.",
+    ],
+  },
 ];
 
 export default ReleaseNotes;
