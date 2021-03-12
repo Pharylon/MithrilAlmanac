@@ -65,8 +65,8 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
     try {
         const addedEvent = await UpdateEvent(newEvent);
         if (req.body.makeCurrentDate) {
-            var existingCalendar = await GetCalendar(newEvent.calendarId);
-            var updateCalendarModel: CalendarModel = {
+            const existingCalendar = await GetCalendar(newEvent.calendarId);
+            const updateCalendarModel: CalendarModel = {
                 ...existingCalendar,
                 currentDate: newEvent.fantasyDate,                
             }

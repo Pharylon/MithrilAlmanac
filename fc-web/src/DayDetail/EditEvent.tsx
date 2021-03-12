@@ -7,6 +7,7 @@ import { DeleteEvent } from "../DataClients/CalendarEventDataClient";
 import UserState from "../State/UserState";
 import FantasyDateSelector from "./FantasyDateSelector";
 import CalendarEventEditModel from "../Models/CalendarEventEditModel";
+import EditCalendarState from "../State/EditCalendarState";
 
 const EditEvent: React.FC = observer(() => {
   if (!CalendarState.calendarEditEvent) {
@@ -58,7 +59,9 @@ const EditEvent: React.FC = observer(() => {
       if (CalendarState.selectedDay && CalendarState.selectedDay !== fantasyDate) {
         CalendarState.selectedDay = fantasyDate;
       }
-      if (makeCurrentDate){}
+      if (makeCurrentDate){
+        CalendarState.calendar.currentDate = fantasyDate;
+      }
     }
   }
   async function deleteEvent() {
@@ -128,7 +131,7 @@ const EditEvent: React.FC = observer(() => {
             <div><input id="hidden" type="checkbox" checked={hidden} onChange={() => setHidden(!hidden)} /></div>
             <label htmlFor="hidden">Hidden</label>
             <div><input id="currentDate" type="checkbox" checked={makeCurrentDate} onChange={() => setMakeCurrentDate(!makeCurrentDate)} /></div>
-            <label htmlFor="currentDate">Current Date</label>
+            <label htmlFor="currentDate">&nbsp;Current Date</label>
           </div>)
         }
 
