@@ -4,6 +4,7 @@ import CalendarState from "../State/CalendarState";
 import { useParams, Redirect } from "react-router-dom";
 import CalendarViewWrapper from "./CalendarViewWrapper";
 import { ViewType } from "../Models/CalendarViewType";
+import LoadingSpinner from "../LoadingSpinner";
 
 const DefaultView: React.FC = observer(() => {
   if (CalendarState.calendarLoadState === "Error") {
@@ -11,9 +12,9 @@ const DefaultView: React.FC = observer(() => {
     return <Redirect to={"/"} />;
   }
   if (CalendarState.calendarLoadState === "Loading") {
-    return (<div>Loading...</div>);
+    return (<div><LoadingSpinner /></div>);
   }
-  const { calendarId } = useParams();
+  const { calendarId } = useParams<{calendarId: string}>();
   if (calendarId) {
     CalendarState.loadCalendar(calendarId);
   }
@@ -22,7 +23,9 @@ const DefaultView: React.FC = observer(() => {
       <CalendarViewWrapper viewType={CalendarState.calendar.defaultView || ViewType.Calendar}/>
     ) :
     (
-      <div>Hang on while we load your calendar...</div>
+      <div>
+        <LoadingSpinner />
+      </div>
     )
   );
 });
