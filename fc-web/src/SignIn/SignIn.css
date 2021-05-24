@@ -51,3 +51,8 @@
 .p-loader-wrap:hover{
   background-color: #255fbb;
 }
+
+.p-loader-gear{
+  vertical-align: middle;
+  align-self: center;
+}

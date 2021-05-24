@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
 import GoogleLogo from "../Images/GoogleG.png";
-import BounceLoader from "react-spinners/BounceLoader";
 import "./SignIn.css";
 import { GetConsentPage } from "../DataClients/AuthenticationDataClient";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 const GoogleButton: React.FC = observer(() => {
   const [loading, setLoading] = useState(false);
@@ -25,7 +26,7 @@ const GoogleButton: React.FC = observer(() => {
           loading ?
             (
               <div className="p-loader-wrap">
-                <div><BounceLoader size={40} /></div>
+                <div className="p-loader-gear"><FontAwesomeIcon icon={faCog} spin={true} size="lg" /></div>
                 <div>Fetching your Login Info...</div>
               </div>
             ) :

@@ -98,6 +98,9 @@ const App: React.FC = observer(() => {
           <Route path="/home">
             <Landing/>
           </Route>
+          <Route path="/test">
+            <Authenticate/>
+          </Route>
           <Route path="/">
             {getDefaultReturn()}
           </Route>

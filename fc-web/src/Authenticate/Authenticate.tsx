@@ -3,6 +3,8 @@ import { GetToken } from "../DataClients/AuthenticationDataClient";
 import UserState from "../State/UserState";
 import { observer } from "mobx-react";
 import { Redirect } from "react-router-dom";
+import LoadingSpinner from "../LoadingSpinner";
+import "./Authenticate.css"
 
 const Authenticate = observer(() => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -20,8 +22,9 @@ const Authenticate = observer(() => {
     }
   }
   return (
-    <div style={{ fontSize: 20, marginTop: 20 }}>
-      Please wait while we log you in...
+    <div>
+      <div><LoadingSpinner /></div>
+      <div className="authenticate">Please wait while we log you in</div>
     </div>
   );
 });
